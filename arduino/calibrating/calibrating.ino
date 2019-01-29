@@ -12,6 +12,7 @@
 */
 
 #include <Servo.h>
+#include <string.h>
 
 const int n = 6;
 const int srvPins[n] = {8, 9, 10, 11, 12};  // servo pins
@@ -27,18 +28,34 @@ void setup() {
     srv[i].detach();
   }
   Serial.begin(9600);
+  Serial.println("Arduino is ready to work.");
 }
 
 void loop() {
-  char c = Serial.read();
-  if (c == 'a') {
-    srv[0].attach(srvPins[0]);
-    srv[0].write(90);
-    Serial.write(c);
-  }
-  if (c == 'b') {
-    srv[0].attach(srvPins[0]);
-    srv[0].write(0);
-    Serial.write(c);
+  if (Serial.available()) {
+    String request = Serial.readString();
+
+    /*
+     * a function that divides a request string into parts
+     */
+    
+    
+    if (request.substring(0, 1) == "p") {
+      String pos = "";
+      String stp = "";
+      
+      for (int i = 0; i < n; i++) {
+        pos += posInside[i];
+        pos += ".";
+      }
+      
+      for (int i = 0; i < n; i++) {
+        stp += steps[i];
+        stp += ".";
+      }
+      
+      Serial.println(pos);
+      Serial.println(stp);
+    }    
   }
 }
