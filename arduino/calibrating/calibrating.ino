@@ -12,7 +12,6 @@
 */
 
 #include <Servo.h>
-#include <string.h>
 
 const int n = 6;
 const int srvPins[n] = {8, 9, 10, 11, 12};  // servo pins
