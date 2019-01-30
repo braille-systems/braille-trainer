@@ -83,16 +83,20 @@ void loop() {
           int num = strNum.toInt();
           steps[i] += num;
           Serial.println(s + " in steps (outside pos) array has been increased by " + strNum);
+          setOutside(i);
+          Serial.println("s" + s + " is on.");
         }
         else if (request.substring(5, 6) == "-") {
           String strNum = request.substring(6, 7);
           int num = strNum.toInt();
           steps[i] -= num;
           Serial.println(s + " in steps (outside pos) array has been decreased by " + strNum);
+          setOutside(i);
+          Serial.println("s" + s + " is on.");
         }
         else {
           setOutside(i);
-          Serial.println(s + " servo is on.");
+          Serial.println("s" + s + " is on.");
         }
       }
       else if (request.substring(3, 6) == "off") {
@@ -101,16 +105,20 @@ void loop() {
           int num = strNum.toInt();
           posInside[i] += num;
           Serial.println(s + " in posInside (inside pos) array has been increased by " + strNum);
+          setInside(i);
+          Serial.println("s" + s + " is off.");
         }
         else if (request.substring(6, 7) == "-") {
           String strNum = request.substring(7, 8);
           int num = strNum.toInt();
           posInside[i] -= num;
           Serial.println(s + " in posInside (inside pos) array has been decreased by " + strNum);
+          setInside(i);
+          Serial.println("s" + s + " is off.");
         }
         else {
-          setOutside(i);
-          Serial.println(s + " servo is off.");
+          setInside(i);
+          Serial.println("s" + s + " is off.");
         }
       }
     }
