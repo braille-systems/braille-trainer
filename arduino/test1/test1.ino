@@ -1,12 +1,9 @@
 #include<Servo.h>
 const int num = 6;
-const int srvPins [num] = {4/*1*/, 5/*2*/, 6/*3*/, 
-3/*4*/,$
-const int stp = 50;
-const int startPos [num] = {52, stp-27, 2*stp-5, 0, 
-stp, 2$
-const int srvSteps [num] = {stp, -stp, -2*stp, stp, 
--stp, $
+const int srvPins[num] = {3/*1*/, 10/*2*/, 7/*3*/, 12/*4*/, 5/*5*/, 8/*6*/};  // servo pins
+const int stp = 30;
+int startPos[num] = {85, 100, 116, 82, 112, 98};  // "inside" positions
+int srvSteps[num] = {stp, 2*stp, -stp, -stp, -2*stp, stp};  // movement from "inside" positions
 Servo srv [num];
 void setup() {
   for (int i=0; i<num; i++){
@@ -24,13 +21,11 @@ void loop() {
   char c = Serial.read();
   if(c=='a'){
       Serial.write(c);
-      digitalWrite(LED_BUILTIN, HIGH);   // turn 
-the LED o$
-      delay(1000);                       // wait 
-for a sec$
+      digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
+      delay(1000);                       // wait for a second
       digitalWrite(LED_BUILTIN, LOW);
     }
-
+    
   /*motors test*/
   for(int i=0; i<num; i++){
     srv[i].attach(srvPins[i]);
@@ -38,4 +33,6 @@ for a sec$
     delay (500);
     srv[i].write(startPos[i]+srvSteps[i]);
     delay (250);
-
+    srv[i].detach();
+  }
+}
