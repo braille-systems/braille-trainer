@@ -14,14 +14,15 @@
 #include <Servo.h>
 
 const int n = 6;
-const int srvPins[n] = {8, 9, 10, 11, 12};  // servo pins
-int posInside[n] = {45, 40, 60, 10, 20, 30};  // "inside" positions
-int steps[n] = {90, 80, 70, 60, 50, 40};  // movement from "inside" positions
+const int srvPins[n] = {4/*1*/, 5/*2*/, 6/*3*/, 3/*4*/, 8/*5*/, 10/*6*/};  // servo pins
+const int stp = 50;
+int posInside[n] = {52, stp-27, 2*stp-5, 0, stp, 2*stp};  // "inside" positions
+int steps[n] = {stp, -stp, -2*stp, stp, -stp, -2*stp};  // movement from "inside" positions
 Servo srv[n];
 
 void setInside(int srvNum) {
   srv[srvNum].attach(srvPins[srvNum]);
-  srv[srvNum].write(posInside[srvNum] + steps[srvNum]);
+  srv[srvNum].write(posInside[srvNum]);
   delay(250);
   srv[srvNum].detach();
 }
