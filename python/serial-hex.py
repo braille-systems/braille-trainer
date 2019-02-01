@@ -1,5 +1,6 @@
 import serial
 import time
+from audio import pronounce
 def charToBraille (char):
     print(char)
     #russian letters: first dot
@@ -57,8 +58,9 @@ def charToBraille (char):
 def printLine (line, ser):
     for i in range(len(line)):
         data = charToBraille(line[i])
-        print(data);
+        print(data)
         ser.write(bytes(data, 'UTF-8'))
+        pronounce(line[i])
         time.sleep(4)
 
 def serTest ():
