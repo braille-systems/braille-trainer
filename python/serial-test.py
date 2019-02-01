@@ -36,3 +36,10 @@ def serial_close():
    if _ser != 0 and _ser.is_open:
       _ser.close()
    _ser = 0
+
+if __name__ == "__main__":
+   #demo
+   serial_begin('COM9', 9600)
+   ans=serial_write('w')
+   print(ans)
+   #serial_close()
