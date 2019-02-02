@@ -34,7 +34,7 @@ void setup() {
   setAllInside();
   Serial.begin(9600);
 }
-/*
+
 void printString(){
   int i; 
   if (Serial.available()) {
@@ -53,21 +53,7 @@ void printString(){
   }
 
 }
-*/
+
 void loop() {
-  int i; 
-  if (Serial.available()) {
-    String request = Serial.readString();
-    for(i=0; i<6; i++){
-      if(request.substring(i, i+1) == "1"){
-        setOutside(i);
-      }
-    }
-    delay(1000);
-    for(i=0; i<6; i++){
-      if(request.substring(i, i+1) == "1"){
-        setInside(i);
-      }
-    }
-  }
+  printString();
 }
