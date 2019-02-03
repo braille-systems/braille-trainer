@@ -2,3 +2,8 @@
 *.pyc
 
 *.synctex.gz
+
+#solidworks user-defined parameters
+*.prtdot
+*.drwdot
+*.asmdot
