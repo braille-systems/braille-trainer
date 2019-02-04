@@ -1,4 +1,7 @@
 import winsound
+def playSoundByFilename(filename):
+    winsound.PlaySound(filename, winsound.SND_FILENAME)
+
 def pronounce(letter):
     n = ord(letter)-ord('б')+2
     if n == 34:
