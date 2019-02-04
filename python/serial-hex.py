@@ -64,9 +64,9 @@ def printLine (line, ser):
         time.sleep(4)
 
 def serTest ():
-    ser = serial.Serial('COM9', '9600')
+    ser = serial.Serial('COM7', '9600')
     time.sleep(5) # если мало "поспать", не работает
     printLine('абвгдеёжзийклмнопрстуфхцчшщъыьюя', ser)
     ser.close()
     
-    
+serTest()
