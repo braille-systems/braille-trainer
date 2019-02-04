@@ -35,10 +35,10 @@ void setup() {
   Serial.begin(9600);
 }
 
-void printString(){
-  int i; 
-  if (Serial.available()) {
-    String request = Serial.readString();
+void printString(){                           //Принимает двоичное шестиразрядное число, выводит на ячейку Брайля соотв. букву
+  int i;                                       // |5 разряд|2 разряд|
+  if (Serial.available()) {                    // |4 разряд|1 разряд|
+    String request = Serial.readString();      // |3 разряд|0 разряд|
     for(i=0; i<6; i++){
       if(request.substring(i, i+1) == "1"){
         setOutside(i);
