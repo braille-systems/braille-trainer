@@ -2,11 +2,10 @@
 
 const int n = 6;
 const int srvPins[n] = {3/*1*/, 10/*2*/, 7/*3*/, 12/*4*/, 5/*5*/, 8/*6*/};  // servo pins
-const int stp = 30;
-int posInside[n] = {85, 100, 116, 82, 112, 98};  // "inside" positions
-int steps[n] = {stp, 2*stp, -stp, -stp, -2*stp, stp};  // movement from "inside" positions
+int posInside[n] = {85, 81, 138, 81, 126, 72};  // "inside" positions
+int steps[n] = {33, 60, -39, -28, -55, 48};  // movement from "inside" positions
 String lastBuf = "000000";
-//numver of dot = index in array + 1
+//number of dot = index in array + 1
 
 const int xIn = A1; //порт к которому подключен VRx
 const int yIn = A0; //порт к которому подключен VRy
@@ -18,18 +17,23 @@ const int critD = 750; //от 0 до 400
 Servo srv[n];
 
 int prev = '0'; //предыдущее состояние джойстика
+unsigned long timing;
 
 void setInside(int srvNum) {
   srv[srvNum].attach(srvPins[srvNum]);
   srv[srvNum].write(posInside[srvNum]);
-  delay(250);
+  timing = millis();
+  while(millis() - timing < 250)
+    joystick();
   srv[srvNum].detach();
 }
 
 void setOutside(int srvNum) {
   srv[srvNum].attach(srvPins[srvNum]);
   srv[srvNum].write(posInside[srvNum] + steps[srvNum]);
-  delay(250);
+  timing = millis();
+  while(millis() - timing < 250)
+    joystick();
   srv[srvNum].detach();
 }
 
@@ -39,18 +43,18 @@ void setAllInside() {
   }
 }
 
-void printString(String buf)
-{                     
+void printString(String buf){                     
   int i;
-  for(i=0; i<6; i++)
-  {
+  for(i=0; i<6; i++){
       if(buf.substring(i, i+1) == "1" && lastBuf.substring(i, i+1) == "0")
         setOutside(i);
       if(buf.substring(i, i+1) == "0" && lastBuf.substring(i, i+1) == "1")
         setInside(i);
   }
   lastBuf = buf;
-  delay(1000);
+  timing = millis();
+  while(millis() - timing < 250)
+    joystick();
 }
 
 void printText()
@@ -58,8 +62,7 @@ void printText()
   int i = 0;
   String buf;
   String request = Serial.readString();
-  while(request.substring(i, i + 1) != '\0')
-  {
+  while(request.substring(i, i + 1) != '\0'){
     buf = request.substring(i,i+7);
     printString(buf);
     i = i + 6;
@@ -67,8 +70,7 @@ void printText()
   Serial.println('+');
 }
 
-void joystick()
-{
+void joystick(){
   int xVal, yVal;
   xVal = analogRead(xIn); //считывается x
   yVal = analogRead(yIn); //считывается y
@@ -76,53 +78,44 @@ void joystick()
   
   if (test >= 2) //если больше или равно 2, то это диагональ - не обрабатываем
     return;
-  else if (test == 0) //если 0, то джойстик в исходном положении
-  {
+  else if (test == 0){ //если 0, то джойстик в исходном положении
     prev = '0';
     return;
   }
   
   //блок проверок на соответствие критическому состоянию и отсутствия данного критического состояния до этого: чтобы выводить в Serial только при принципиальном изменении
-  if (xVal >= critR && prev != 'r') 
-  {
+  if (xVal >= critR && prev != 'r') {
     prev = 'r';
     Serial.println('r');
     return;
   }
   
-  if (xVal <= critL && prev != 'l')
-  {
+  if (xVal <= critL && prev != 'l'){
     prev = 'l';
     Serial.println('l');
     return;
   }
   
-  if (yVal >= critD && prev != 'd')
-  {
+  if (yVal >= critD && prev != 'd'){
     prev = 'd';
     Serial.println('d');
     return;
   }
   
-  if (yVal <= critU && prev != 'u')
-  {
+  if (yVal <= critU && prev != 'u'){
     prev = 'u';
     Serial.println('u');
     return;
   }
 }
 
-void setup() 
-{
+void setup() {
   setAllInside();
   Serial.begin(9600);  
 }
 
-void loop() 
-{
+void loop() {
   joystick();
   if(Serial.available())
-  {
     printText();
-  }
 }
