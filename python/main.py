@@ -7,17 +7,22 @@ from joystick import listen_joystick
 #from recognize import listen_symbol
 
 def process_unit(unit):
-    ser = serial.Serial('COM7', '9600')
+    ser = serial.Serial('COM9', '9600')
     time.sleep(5) # если мало "поспать", не работает
     playSoundByFilename(unit.title)
     print(unit.title)
     joystick_ans = listen_joystick(ser)
     while (joystick_ans != 'r'): #пока не велено зайти в юнит
+        print(joystick_ans)
         joystick_ans = listen_joystick(ser)
     for stp in unit: #для каждого шага юнита
         printLine(stp.bLine, ser)
         playSoundByFilename(stp.audio)
         print(stp.audio)
+        joystick_ans = listen_joystick(ser)
+        while (joystick_ans != 'r'): #пока не велено зайти в юнит
+            print(joystick_ans)
+            joystick_ans = listen_joystick(ser)
         if (unit.isTest()):
             while(stp.isRight()==false):
                 s = 'п'
