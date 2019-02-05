@@ -16,7 +16,7 @@
 const int n = 6;
 const int srvPins[n] = {3/*1*/, 10/*2*/, 7/*3*/, 12/*4*/, 5/*5*/, 8/*6*/};  // servo pins
 const int stp = 30;
-int posInside[n] = {85, 100, 116, 82, 112, 98};  // "inside" positions
+int posInside[n] = {85, 91, 143, 82, 112, 98};  // "inside" positions
 int steps[n] = {stp, 2*stp, -stp, -stp, -2*stp, stp};  // movement from "inside" positions
 
 Servo srv[n];

@@ -120,9 +120,9 @@ void setup()
 
 void loop() 
 {
+  joystick();
   if(Serial.available())
   {
     printText();
-    joystick(); 
   }
 }

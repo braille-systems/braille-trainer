@@ -12,7 +12,7 @@ def process_unit(unit):
     #joystick_ans = listen_joystick()
     #while (joystick_ans != 'r'): #пока не велено зайти в юнит
         #joystick_ans = listen_joystick()
-    ser = serial.Serial('COM9', '9600')
+    ser = serial.Serial('COM7', '9600')
     time.sleep(5) # если мало "поспать", не работает
     for stp in unit: #для каждого шага юнита
         printLine(stp.bLine, ser)
@@ -32,7 +32,7 @@ def process_unit(unit):
     ser.close()
         
 
-U1 = Unit(utype = 'test')
+U1 = Unit(utype = 'lesson')
 U1.title='audio/lesson1/0.wav'
 less1 = LessonStep('audio/lesson1/1.wav', '', comment = 'Урок 1: а, б, о, п')
 less2 = LessonStep('audio/lesson1/2.wav', 'а', comment = 'Потрогайте точку на поверхности тренажёра')
