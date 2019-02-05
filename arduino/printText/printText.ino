@@ -9,8 +9,8 @@ String lastBuf = "000000";
 
 const int xIn = A1; //порт к которому подключен VRx
 const int yIn = A0; //порт к которому подключен VRy
-const int critL = 300; //от 0 до 400
-const int critR = 700; //от 600 до 1000
+const int critL = 700; //от 0 до 400
+const int critR = 300; //от 600 до 1000
 const int critU = 250; //от 600 до 1000
 const int critD = 750; //от 0 до 400
 
@@ -74,7 +74,7 @@ void joystick(){
   int xVal, yVal;
   xVal = analogRead(xIn); //считывается x
   yVal = analogRead(yIn); //считывается y
-  int test = (xVal >= critR) + (xVal <= critL) + (yVal <= critU) + (yVal >= critD); //количество критических состояний, которому удовлетворяет джойстик
+  int test = (xVal >= critL) + (xVal <= critR) + (yVal <= critU) + (yVal >= critD); //количество критических состояний, которому удовлетворяет джойстик
   
   if (test >= 2) //если больше или равно 2, то это диагональ - не обрабатываем
     return;
@@ -84,15 +84,15 @@ void joystick(){
   }
   
   //блок проверок на соответствие критическому состоянию и отсутствия данного критического состояния до этого: чтобы выводить в Serial только при принципиальном изменении
-  if (xVal >= critR && prev != 'r') {
-    prev = 'r';
-    Serial.println('r');
+  if (xVal >= critL && prev != 'l') {
+    prev = 'l';
+    Serial.println('l');
     return;
   }
   
-  if (xVal <= critL && prev != 'l'){
-    prev = 'l';
-    Serial.println('l');
+  if (xVal <= critR && prev != 'r'){
+    prev = 'r';
+    Serial.println('r');
     return;
   }
   

@@ -3,17 +3,17 @@ import time
 from edu import TestStep, LessonStep, Unit
 from audio import playSoundByFilename
 from serial_hex import printLine
-#from joystick import listen_joystick
+from joystick import listen_joystick
 #from recognize import listen_symbol
 
 def process_unit(unit):
-    playSoundByFilename(unit.title)
-    print(unit.title)
-    #joystick_ans = listen_joystick()
-    #while (joystick_ans != 'r'): #пока не велено зайти в юнит
-        #joystick_ans = listen_joystick()
     ser = serial.Serial('COM7', '9600')
     time.sleep(5) # если мало "поспать", не работает
+    playSoundByFilename(unit.title)
+    print(unit.title)
+    joystick_ans = listen_joystick(ser)
+    while (joystick_ans != 'r'): #пока не велено зайти в юнит
+        joystick_ans = listen_joystick(ser)
     for stp in unit: #для каждого шага юнита
         printLine(stp.bLine, ser)
         playSoundByFilename(stp.audio)
