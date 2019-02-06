@@ -1,0 +1,576 @@
+[33mcommit 4cc63f6ec861634581416c58a0ace9dd10a26c16[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Paul Lapotnikov <lapotnikov.pv@edu.spbstu.ru>
+Date:   Wed Feb 6 13:55:21 2019 +0300
+
+    Add arduino serial port detection function
+
+[33mcommit 92fc75aaac608f5587dc097682d03a6496569a9f[m[33m ([m[1;31morigin/menu[m[33m, [m[1;32mmenu[m[33m)[m
+Author: Alexey Klopov <klw.alexey@yandex.ru>
+Date:   Wed Feb 6 13:42:57 2019 +0300
+
+    Changes in python/main (right structure)
+
+[33mcommit 5c8fa6650a2619aab7766fa9b2c54e4dee018692[m
+Author: Alexey Klopov <klw.alexey@yandex.ru>
+Date:   Wed Feb 6 13:27:53 2019 +0300
+
+    Delete /app
+
+[33mcommit f630c7450d1f26168d364bd71fc761a4f03ecf3e[m
+Merge: 903f605 35457cb
+Author: Paul Lapotnikov <lapotnikov.pv@edu.spbstu.ru>
+Date:   Wed Feb 6 13:02:49 2019 +0300
+
+    Merge branch 'master' of https://github.com/zuevval/braille
+
+[33mcommit 903f6056e68027332f74c2a64285b7010d5be73e[m
+Author: Paul Lapotnikov <lapotnikov.pv@edu.spbstu.ru>
+Date:   Wed Feb 6 12:28:06 2019 +0300
+
+    Add class structure and multithreading with python
+
+[33mcommit 35457cb9e786ccc659c5d0efbe5864d4fa7dcc6b[m
+Author: Valerii Zuev <valera.zuev.zva@gmail.com>
+Date:   Wed Feb 6 11:49:12 2019 +0300
+
+    add contacts to readme
+
+[33mcommit ad4343f5d51b41c64d1c43a549abd8126b5770be[m
+Author: Paul Lapotnikov <lapotnikov.pv@edu.spbstu.ru>
+Date:   Wed Feb 6 11:45:05 2019 +0300
+
+    Changes application structure
+
+[33mcommit f6033670e992f8fbb37bdb40767acbd1a580fd41[m
+Author: Valerii Zuev <valera.zuev.zva@gmail.com>
+Date:   Wed Feb 6 11:42:40 2019 +0300
+
+    Update readme.md
+
+[33mcommit 41c2b9cc644a7aee990482855b6340647b829070[m
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Wed Feb 6 08:54:16 2019 +0300
+
+    change std_msg audios location and filenames
+
+[33mcommit 3f49de73dadfb865c2f31f7bbc29787ebb35a8e9[m
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Tue Feb 5 19:12:35 2019 +0300
+
+    improve supports
+
+[33mcommit 527ebe22b171219ac06588cbed4a7a3ba4b610d8[m
+Author: Paul Lapotnikov <lapotnikov.pv@edu.spbstu.ru>
+Date:   Tue Feb 5 17:16:35 2019 +0300
+
+    add window class
+
+[33mcommit a3d547a0aba39e1e85ea4c5dddcc6452059ffa63[m
+Author: Vanek741 <44308306+Vanek741@users.noreply.github.com>
+Date:   Tue Feb 5 15:27:00 2019 +0300
+
+    add three audio for std_msg
+
+[33mcommit e445445ee99fb9de378567426e6a9c300d73450c[m
+Author: Alexey Klopov <klw.alexey@yandex.ru>
+Date:   Tue Feb 5 14:10:57 2019 +0300
+
+    Change audio 3 in lesson1. All work
+
+[33mcommit 94ba42df7d2e38a1f3a63e96251c35c93609b6ed[m
+Author: Alexey Klopov <klw.alexey@yandex.ru>
+Date:   Tue Feb 5 13:51:27 2019 +0300
+
+    Add correct async in printText
+
+[33mcommit ebeeb2e0a802fb0a531e60a3bc37cf2dd42b1a64[m
+Author: Alexey Klopov <klw.alexey@yandex.ru>
+Date:   Tue Feb 5 12:38:56 2019 +0300
+
+    Add listen_joystick func
+
+[33mcommit e635e3c6df18c390db244871de258782b2f460e1[m
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Tue Feb 5 10:09:02 2019 +0300
+
+    add/modify supports for joystick and shield
+
+[33mcommit e972f442c56c28238a8cd820e64c558f87507206[m
+Author: zhenyatos <zhenyatos999@gmail.com>
+Date:   Tue Feb 5 01:29:27 2019 +0300
+
+    Add joystick-base SW-model (ver. 1)
+
+[33mcommit 266d92c1ccaf3b2d57935302f85e54793c23f004[m
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Mon Feb 4 22:32:31 2019 +0300
+
+    widen shaft (still narrow), add logic to educational app
+
+[33mcommit f86d81525819e8f99ac96e69ef29e703485ba77e[m
+Author: Alexey Klopov <klw.alexey@yandex.ru>
+Date:   Mon Feb 4 20:21:57 2019 +0300
+
+    Add lesson1 audio files
+
+[33mcommit 61da63899e3179478b078f7639da164ed856c8a2[m
+Author: Vanek741 <44308306+Vanek741@users.noreply.github.com>
+Date:   Mon Feb 4 17:01:07 2019 +0300
+
+    fix visual part
+
+[33mcommit b95638ccda5114e18f8bfab7a0e4832128dcd3ab[m
+Author: Paul Lapotnikov <lapotnikov.pv@edu.spbstu.ru>
+Date:   Mon Feb 4 16:10:13 2019 +0300
+
+    Add class collection
+
+[33mcommit 9d525bdfd2039cb7773e115d9a86e2d399722d50[m
+Author: zhenyatos <zhenyatos999@gmail.com>
+Date:   Mon Feb 4 14:55:44 2019 +0300
+
+    Sketch-upgrade for print string in braille.
+
+[33mcommit a649908fdb30a7574c254a84ea28ac4602947480[m
+Author: Alexey Klopov <klw.alexey@yandex.ru>
+Date:   Mon Feb 4 14:21:56 2019 +0300
+
+    Remove _windows from master
+
+[33mcommit 7b0f44d25b3ba324da4787e9305c8b19872ba2c3[m
+Author: Alexey Klopov <klw.alexey@yandex.ru>
+Date:   Mon Feb 4 14:06:35 2019 +0300
+
+    Change printString to remain in correct positions after job
+
+[33mcommit f29c37c6d837e6f15ea47f236bb230a25f74a205[m
+Merge: 7431093 ed253f6
+Author: Alexey Klopov <klw.alexey@yandex.ru>
+Date:   Mon Feb 4 13:19:32 2019 +0300
+
+    Merge branch 'master' of https://github.com/zuevval/braille
+
+[33mcommit ed253f6ae20881a5f3fed3bd5479d265610b4765[m
+Author: zhenyatos <zhenyatos999@gmail.com>
+Date:   Mon Feb 4 13:13:55 2019 +0300
+
+    Documentation for printString function.
+
+[33mcommit 74310939834d982d2cb63b260baffbedd2f53ea6[m
+Merge: 25f1daa cdadf73
+Author: Alexey Klopov <klw.alexey@yandex.ru>
+Date:   Mon Feb 4 12:48:07 2019 +0300
+
+    Merge branch 'master' of https://github.com/zuevval/braille
+
+[33mcommit cdadf73a26afe915764b4122a43a491f09a3149d[m
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Mon Feb 4 09:32:23 2019 +0300
+
+    delete old code
+
+[33mcommit d7dfdf6c19744161c81ba7048ad3ad74c1c14230[m
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Mon Feb 4 09:12:20 2019 +0300
+
+    modify sides, make dxf
+
+[33mcommit 4f3df26d3bb4a71baabbe4a3caf2396d15d733fb[m
+Author: zhenyatos <zhenyatos999@gmail.com>
+Date:   Sun Feb 3 22:11:58 2019 +0300
+
+    Add long panel SW-model.
+
+[33mcommit a42e064afc1475469ff7af54d5731611f4b93142[m
+Author: zhenyatos <zhenyatos999@gmail.com>
+Date:   Sun Feb 3 22:06:41 2019 +0300
+
+    Add side panels SW-model.
+
+[33mcommit 060d5d2d7591898509a6fb6fca27b6c772041378[m
+Merge: dba1bea 21d8d90
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Sun Feb 3 20:59:13 2019 +0300
+
+    Merge branch 'parts'
+    
+    Most parts (excluding side decks) are ready so i merge it to avoid mess during the fab school
+
+[33mcommit 21d8d90bf5c770e808399ff2b8b95ef03a4decbb[m
+Merge: 7a1dd1c 42ece71
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Sun Feb 3 20:57:23 2019 +0300
+
+    Merge branch 'parts' of https://github.com/zuevval/braille into parts
+    
+    make trunk (Valera - corners, Evgenii - sides)
+
+[33mcommit 7a1dd1c4182ec7f8a53da9267356c48365a9b6fd[m
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Sun Feb 3 20:57:17 2019 +0300
+
+    add screws and modify corners
+
+[33mcommit 42ece71e48da16dae429f0b0fdcde5f2aef92803[m
+Author: zhenyatos <zhenyatos999@gmail.com>
+Date:   Sun Feb 3 20:40:31 2019 +0300
+
+    Add speaker SW-model.
+
+[33mcommit dba1bea7ebc56fd4e0baaa8dcc519872f0dd0d3c[m
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Sun Feb 3 13:50:45 2019 +0300
+
+    complete presentation for introduction
+
+[33mcommit ad780de34342e7d4ec462632a571bf4f342b2eeb[m
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Sun Feb 3 13:42:07 2019 +0300
+
+    minor changes
+
+[33mcommit d66959cc39b1f8c570f01e8c298ae7ed6d1a45ad[m
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Sun Feb 3 12:11:10 2019 +0300
+
+    expand introduction, add presentation
+
+[33mcommit ecc9e3bddb1d25686d3b8d0d8a2c455755fc1058[m
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Sun Feb 3 09:35:10 2019 +0300
+
+    add leverSrort mirrored to parts to print (stl)
+
+[33mcommit bffa169f62e955c3c9e44ce629692228fcd3788c[m
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Sat Feb 2 21:23:54 2019 +0300
+
+    modified trunk and other parts to fit the trunk
+
+[33mcommit c2cfc027ef789aecf2c538616a3cc141b357b45b[m
+Merge: 4a01b07 46f78d7
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Sat Feb 2 20:07:12 2019 +0300
+
+    Merge branch 'parts' of https://github.com/zuevval/braille into parts
+    
+    gather Valera's and Evgenii S. work on the trunk
+
+[33mcommit 46f78d7917482e22d4757855811146d780e033ec[m
+Author: zhenyatos <zhenyatos999@gmail.com>
+Date:   Sat Feb 2 20:01:34 2019 +0300
+
+    Add joystick SW-model.
+
+[33mcommit 4a01b0726c5cee994cfa49b8c3f7ae203cb28d0a[m
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Sat Feb 2 18:12:32 2019 +0300
+
+    corner (draft)
+
+[33mcommit e162acd7c1fb638ebff02f94af17f46b074fea0d[m
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Sat Feb 2 12:39:08 2019 +0300
+
+    decks added
+
+[33mcommit 51ac9b98951ae00f0c5d3897f957a28bfd7dbc92[m
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Sat Feb 2 11:13:49 2019 +0300
+
+    modelled details of Arduino Nano
+
+[33mcommit 204b7895cc9a1600fa590c31f007546844625298[m
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Sat Feb 2 10:40:02 2019 +0300
+
+    add plywood to estimate
+
+[33mcommit f40316edde09f188b42cd9575e35d8d1a5fbfcec[m
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Sat Feb 2 09:15:03 2019 +0300
+
+    made separate function out of loop()
+
+[33mcommit 6b81ad9f809c94c0e640969b9cf809931234b30b[m
+Merge: 09a06a2 fe8dd2f
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Sat Feb 2 09:11:13 2019 +0300
+
+    Merge branch 'joystick'
+    
+    Add Evginii S joystick code to our project for further use
+
+[33mcommit 09a06a29e62bb3a8aee9f18da046df3c19f76d35[m
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Fri Feb 1 20:41:43 2019 +0300
+
+    add draft of printString function
+
+[33mcommit 94ae74db0a33c9650414297933faa9beddbad243[m
+Author: Valerii Zuev <valera.zuev.zva@gmail.com>
+Date:   Fri Feb 1 12:37:38 2019 +0300
+
+    Update readme.md
+
+[33mcommit 992d96e10255dc7897842f6e1f5c5b677f375c85[m
+Merge: 0db81b8 e880404
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Fri Feb 1 12:33:33 2019 +0300
+
+    Merge branch 'py_serial'
+
+[33mcommit 0db81b85dbb76ac01127d6e3cbf9fc010a96a7c3[m
+Merge: 65200f5 519caf4
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Fri Feb 1 12:30:19 2019 +0300
+
+    Merge branch 'alphabet_beta'
+    
+    Now alphabet is printed correctly with correct sounds so it may be shown to public
+
+[33mcommit 519caf4f1c49a93bbf151f6d3e2bf3fc3299ac8c[m
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Fri Feb 1 12:29:18 2019 +0300
+
+    print a big letter in html (later on may be used in python gui)
+
+[33mcommit 2798f6ca63a68029c81c6e48021c66d323159bdf[m
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Fri Feb 1 11:13:21 2019 +0300
+
+    pronounce audio
+
+[33mcommit 198e50c341f612ec1b2bc0819a58ccb2e2509a19[m
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Thu Jan 31 20:49:16 2019 +0300
+
+    print alphabet
+
+[33mcommit 5db6e6b9eee7e0522465658a1730730dc9e4a6cc[m
+Merge: 52db711 b0a8eb0
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Thu Jan 31 17:28:38 2019 +0300
+
+    Merge branch 'master' into doc_add1
+    
+    Emergency code to show to experts on Friday, 01-feb-19 (going to make out of Alexey's and Michael's code)
+
+[33mcommit 52db711d1481c28d2f703896663ca39ce3146c9f[m
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Thu Jan 31 17:17:42 2019 +0300
+
+    add code of previous versions
+
+[33mcommit 33fdc974853523098c5b56b24779681001198754[m
+Merge: 7a7c337 7822854
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Thu Jan 31 16:53:09 2019 +0300
+
+    Merge branch 'parts' of https://github.com/zuevval/braille into parts
+    
+    changes made by Evgenii S. and Valera to model all small parts and develop a trunk
+
+[33mcommit 7a7c337f74062267c05f789f63707160ec7547be[m
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Thu Jan 31 16:52:59 2019 +0300
+
+    update shield, create nano board (draft)
+
+[33mcommit 782285432cbc67f39fcbab027436fcb40b664735[m
+Author: zhenyatos <zhenyatos999@gmail.com>
+Date:   Thu Jan 31 16:45:54 2019 +0300
+
+    Updated servo model properties.
+
+[33mcommit db5ce316a1239ffbbe427c3a3fa21513ffc3474d[m
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Thu Jan 31 14:34:43 2019 +0300
+
+    add new part; modified gitignore not to track sld-15 aux files
+
+[33mcommit fe8dd2fc09351e4e44a09ceb487225ff5b25b117[m
+Author: zhenyatos <zhenyatos999@gmail.com>
+Date:   Wed Jan 30 21:08:10 2019 +0300
+
+    Add arduino sketch to use joystick with Serial.
+
+[33mcommit fded9ca3c6e31d18669db498c39d326f49767e7a[m
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Wed Jan 30 20:22:40 2019 +0300
+
+    parts rearranged
+
+[33mcommit e880404f9e64da307cafccd93d4de94d1267a055[m
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Wed Jan 30 19:44:23 2019 +0300
+
+    add .ino script for test; some bugs present
+
+[33mcommit 65200f58fe565adf3279f31f0c0a46d5d042c695[m
+Author: Valerii Zuev <valera.zuev.zva@gmail.com>
+Date:   Wed Jan 30 18:23:42 2019 +0300
+
+    Update readme.md
+
+[33mcommit 7797eed88fcbdfd30506c53ebca571d474439e08[m
+Author: Valerii Zuev <valera.zuev.zva@gmail.com>
+Date:   Wed Jan 30 18:23:00 2019 +0300
+
+    Update readme.md
+
+[33mcommit a70514fbfa04ff8ab336a04e01cfe2fa327759e0[m
+Author: Valerii Zuev <valera.zuev.zva@gmail.com>
+Date:   Wed Jan 30 18:22:41 2019 +0300
+
+    Update readme.md
+
+[33mcommit b0a8eb087033eb64715fe0b9e4cfb63be15f8cd1[m
+Merge: 55f756b e82d132
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Wed Jan 30 17:28:08 2019 +0300
+
+    Merge branch 'calibrate'
+    
+    add calibrating .ino sketch and calibrate cell
+
+[33mcommit e82d1327d08941a1075e54031a1d5465b9b789af[m
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Wed Jan 30 17:27:16 2019 +0300
+
+    finally fixed arduino test+calibrate
+
+[33mcommit d03158ffee23fbb9b6f8d6744cb72664a277f45f[m
+Author: Alexey Klopov <klw.alexey@yandex.ru>
+Date:   Wed Jan 30 14:41:01 2019 +0300
+
+    Changes in outputs. Add movement after +/- commands.
+
+[33mcommit d732f91e34cdf71a433634fb90477fc48d26f667[m
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Wed Jan 30 12:55:10 2019 +0300
+
+    change setInside (some bugs still present)
+
+[33mcommit 0f07b74479cc218a9fb63fdbfe773e866dc4ecb7[m
+Author: Valerii Zuev <valera.zuev.zva@gmail.com>
+Date:   Wed Jan 30 11:00:18 2019 +0300
+
+    Add images of stuff rendered by Gleb
+
+[33mcommit 55f756bc7932ae2b5b44ea4e749fb738a30f4e20[m
+Author: Paul Lapotnikov <lapotnikov.pv@edu.spbstu.ru>
+Date:   Wed Jan 30 02:57:00 2019 +0300
+
+    First commit of serial_write function without tests.
+
+[33mcommit b9c2f2e351e58151617f00265825cbf8f6b802eb[m
+Author: Alexey Klopov <klw.alexey@yandex.ru>
+Date:   Tue Jan 29 23:55:41 2019 +0300
+
+    Delete unnecessary library
+
+[33mcommit 0e23a81d94be05f08903371a154dc3ccf2c8d24b[m
+Author: Alexey Klopov <klw.alexey@yandex.ru>
+Date:   Tue Jan 29 23:49:29 2019 +0300
+
+    Add s commands. Changes in p (print) command. Complete task.
+
+[33mcommit ffd03237b98b28d0dbd0e4788c1faa4c811fa03f[m
+Author: Alexey Klopov <klw.alexey@yandex.ru>
+Date:   Tue Jan 29 21:21:37 2019 +0300
+
+    Add a p command (allows you to print arrays of positions)
+
+[33mcommit 67fd3cf5cf1756ae5846355c66e50f6cac6fe94b[m
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Tue Jan 29 20:44:14 2019 +0300
+
+    add estimate for 2019 winter school
+
+[33mcommit 5d63716ee51d38681408effc0e93fd327c99c2fc[m
+Author: Alexey Klopov <klw.alexey@yandex.ru>
+Date:   Tue Jan 29 15:37:29 2019 +0300
+
+    serial and servos test
+
+[33mcommit 434330180b9f4053da0b093bfe86ff1edd38de94[m
+Author: Valerii Zuev <valera.zuev.zva@gmail.com>
+Date:   Mon Jan 28 20:50:50 2019 +0300
+
+    parts to 3dprint and assembly added (SW 2014)
+
+[33mcommit c2a139447d16dfba2c30e7e6e28b5dfade023a52[m
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Mon Jan 28 19:23:25 2019 +0300
+
+    add edecational literature
+
+[33mcommit 339a6863af4b780448245bea1d8e6609e977b74d[m
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Mon Jan 28 18:50:23 2019 +0300
+
+    linked pictures in tex
+
+[33mcommit 03da6c389ea23882542a19730c87d520ff6c8c6a[m
+Merge: 8236856 219b0af
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Mon Jan 28 18:32:30 2019 +0300
+
+    Merge branch 'master' of https://github.com/zuevval/braille
+    
+    add files explaining Alexey's arduino task
+
+[33mcommit 8236856ab8b54349fa4540db16df7341b01bf85a[m
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Mon Jan 28 18:22:13 2019 +0300
+
+    add first arduino task for Alexey
+
+[33mcommit 25f1daa523886790e3d3b053ecb7cdf70bcaf3e5[m
+Author: Alexey Klopov <klw.alexey@yandex.ru>
+Date:   Mon Jan 28 15:38:38 2019 +0300
+
+    PY-2018.2.5 <Алексей@DESKTOP-19BD2NA Create git.xml
+
+[33mcommit 219b0af91d4e808ce12d48e00dbb59cd29e4f34c[m
+Author: Valerii Zuev <valera.zuev.zva@gmail.com>
+Date:   Sun Jan 27 10:27:47 2019 +0300
+
+    add one more link
+
+[33mcommit 7244e4e1b0da70f7f02f8a285013ea80708dcf1c[m
+Author: Valerii Zuev <valera.zuev.zva@gmail.com>
+Date:   Sun Jan 27 10:24:29 2019 +0300
+
+    add info links to readme
+
+[33mcommit 8afd08619298b2a4ad271433d04a00c46be7c485[m
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Sat Jan 26 11:25:27 2019 +0300
+
+    removed videos to reduce disk space
+
+[33mcommit 1ad8f9421a4b9dec446e115030a8871f63b941ee[m
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Sat Jan 26 11:13:54 2019 +0300
+
+    add info about some previous studies
+
+[33mcommit 1c956950a1be4f3f33c0d0c0f201f059f66bf7ed[m
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Fri Jan 25 10:16:54 2019 +0300
+
+    add doc for FaLab school + gitignore for TeX
+
+[33mcommit f0629ae309416780b42b7134e6e93b777f03b0a3[m
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Fri Jan 25 10:09:25 2019 +0300
+
+    add readme
+
+[33mcommit d1b5857e696065bdc27a7f1d43e683a0fb41a867[m
+Author: Valerii <valera.zuev.zva@gmail.com>
+Date:   Fri Jan 25 09:56:04 2019 +0300
+
+    add arduino test

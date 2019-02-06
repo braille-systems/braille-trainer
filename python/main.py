@@ -7,6 +7,7 @@ from edu import TestStep, LessonStep, Unit
 from audio import playSoundByFilename
 from serial_hex import printLine
 from joystick import listen_joystick
+from serial_get_name import get_port_arduino
 
 
 class UnitProcessor(QThread):
@@ -24,7 +25,7 @@ class UnitProcessor(QThread):
 
     def run(self):
         unit = self.unit
-        ser = serial.Serial('COM7', '9600')
+        ser = serial.Serial(get_port_arduino(), '9600')
         self.sleep(5)  # если мало "поспать", не работает
         playSoundByFilename(unit.title)
         print(unit.title)
@@ -57,19 +58,14 @@ class UnitProcessor(QThread):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
+
     U1 = Unit(utype='lesson')
-    U1.title = 'audio/lesson1/0.wav'
-    less1 = LessonStep('audio/lesson1/1.wav', '', comment='Урок 1: а, б, о, п')
-    less2 = LessonStep('audio/lesson1/2.wav', 'а', comment='Потрогайте точку на поверхности тренажёра')
-    less3 = LessonStep('audio/lesson1/3.wav', 'б', comment='')
+    U1.title = 'audio/lesson1/1.wav'
+    less1 = LessonStep('audio/lesson1/1.wav', 'а', comment='Потрогайте точку на поверхности тренажёра')
+    less2 = LessonStep('audio/lesson1/2.wav', 'б', comment='Буква б, две точки')
     U1.append(less1)
     U1.append(less2)
-    U1.append(less3)
 
-    U2 = Unit(utype='test')
-    U2.title = 'audio/lesson1/0.wav'
-    test1 = LessonStep('lesson1.wav', 'A', comment='lesson1')
-    U2.append(test1)
     thread1 = UnitProcessor(U1)
     thread1.start()
     sys.exit(app.exec_())
