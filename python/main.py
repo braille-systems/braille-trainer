@@ -26,56 +26,80 @@ class UnitProcessor(QThread):
     def run(self):
         ser = serial.Serial(get_port_arduino(), '9600')
         self.sleep(5)  # если мало "поспать", не работает
+        self._open_unit_menu(ser)
+        print('closing')
+        ser.close()
 
+    def _unit_menu(self, ser):
+        """Units menu"""
         i = 0
-        unit = self.units[0]
+        units = self.units
+        unit = units[0]
         playSoundByFilename(unit.title)
         print(unit.title)
-        # joystick_ans = listen_joystick(ser)
+
         joystick_ans = listen_joystick(ser)
-        while joystick_ans:  # меню выбора Юнита
+
+        print(joystick_ans, i)
+
+        while joystick_ans:
             print(joystick_ans)
             if joystick_ans == 'd':
-                if i == len(self.units) - 1:
+                if i == len(units) - 1:
                     i = 0
                 else:
                     i = i + 1
-                unit = self.units[i]
+                unit = units[i]
+                playSoundByFilename(unit.title)
                 print(i)
             if joystick_ans == 'u':
                 if i == 0:
-                    i = len(self.units) - 1
+                    i = len(units) - 1
                 else:
                     i = i - 1
-                unit = self.units[i]
+                unit = units[i]
+                playSoundByFilename(unit.title)
                 print(i)
             joystick_ans = listen_joystick(ser)
             if joystick_ans == 'r':
                 break
-        print(joystick_ans, i)
+        return unit
 
-        for stp in unit:  # для каждого шага юнита
+    def _open_unit_menu(self, ser):
+        """Opens unit menu and gives a possibility to choose a lesson"""
+        unit = self._unit_menu(ser)
+        j = 0
+        while j < len(unit):  # для каждого шага юнита
+            stp = unit[j]
             self.lu.setLetter(stp.bLine)
             printLine(stp.bLine, ser)
             playSoundByFilename(stp.audio)
             print(stp.audio)
             joystick_ans = listen_joystick(ser)
-            while joystick_ans != 'r':  # пока не велено зайти в юнит
-                print(joystick_ans)
+            while joystick_ans:
+                if joystick_ans == 'r':
+                    j = j + 1
+                    break
+                if joystick_ans == 'l':
+                    j = j - 1
+                    break
                 joystick_ans = listen_joystick(ser)
-            if unit.isTest():
-                while not stp.isRight():
-                    s = 'п'
-                    # s=listen_symbol()
-                    if s == stp.bLine:  # если угадано
-                        stp.setRight()
-                        # надо произнести: Вы ответили верно
-                    else:
-                        # надо произнести: Вы ответили неверно
-                        pass
-                # надо произнести: Вы ответили верно
+                if joystick_ans == 'u':
+                    break
+                if joystick_ans == 'd':
+                    self._unit_menu(ser)
 
-        ser.close()
+            # if unit.isTest():
+            #     while not stp.isRight():
+            #         s = 'п'
+            #         # s=listen_symbol()
+            #         if s == stp.bLine:  # если угадано
+            #             stp.setRight()
+            #             # надо произнести: Вы ответили верно
+            #         else:
+            #             # надо произнести: Вы ответили неверно
+            #             pass
+            #     # надо произнести: Вы ответили верно
 
 
 if __name__ == "__main__":
@@ -89,14 +113,14 @@ if __name__ == "__main__":
     U1.append(less2)
 
     U2 = Unit(utype='lesson')
-    U2.title = 'audio/lesson1/1.wav'
+    U2.title = 'audio/lesson1/2.wav'
     less12 = LessonStep('audio/lesson1/2.wav', 'а', comment='Потрогайте точку на поверхности тренажёра')
     less22 = LessonStep('audio/lesson1/1.wav', 'б', comment='Буква б, две точки')
     U2.append(less12)
     U2.append(less22)
 
     U3 = Unit(utype='lesson')
-    U3.title = 'audio/lesson1/1.wav'
+    U3.title = 'audio/lesson1/3.wav'
     less13 = LessonStep('audio/lesson1/1.wav', 'а', comment='Потрогайте точку на поверхности тренажёра')
     less23 = LessonStep('audio/lesson1/2.wav', 'б', comment='Буква б, две точки')
     U3.append(less13)
