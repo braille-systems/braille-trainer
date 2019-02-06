@@ -66,7 +66,7 @@ def printLine (line, ser):
         print(data)
         ser.write(bytes(data, 'UTF-8'))
         #pronounce(line[i])
-        time.sleep(4)
+        time.sleep(2)
 
 def serTest ():
     ser = serial.Serial('COM9', '9600')

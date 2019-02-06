@@ -69,7 +69,7 @@ class UnitProcessor(QThread):
         """Opens unit menu and gives a possibility to choose a lesson"""
         unit = self._unit_menu(ser)
         j = 0
-        while j < len(unit):  # для каждого шага юнита
+        while 0 <= j < len(unit):  # для каждого шага юнита
             stp = unit[j]
             self.lu.setLetter(stp.bLine)
             printLine(stp.bLine, ser)
@@ -83,49 +83,59 @@ class UnitProcessor(QThread):
                 if joystick_ans == 'l':
                     j = j - 1
                     break
-                joystick_ans = listen_joystick(ser)
                 if joystick_ans == 'u':
                     break
                 if joystick_ans == 'd':
                     self._unit_menu(ser)
+                joystick_ans = listen_joystick(ser)
+        self._open_unit_menu(ser)
 
-            # if unit.isTest():
-            #     while not stp.isRight():
-            #         s = 'п'
-            #         # s=listen_symbol()
-            #         if s == stp.bLine:  # если угадано
-            #             stp.setRight()
-            #             # надо произнести: Вы ответили верно
-            #         else:
-            #             # надо произнести: Вы ответили неверно
-            #             pass
-            #     # надо произнести: Вы ответили верно
+        # if unit.isTest():
+        #     while not stp.isRight():
+        #         s = 'п'
+        #         # s=listen_symbol()
+        #         if s == stp.bLine:  # если угадано
+        #             stp.setRight()
+        #             # надо произнести: Вы ответили верно
+        #         else:
+        #             # надо произнести: Вы ответили неверно
+        #             pass
+        #     # надо произнести: Вы ответили верно
 
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
 
     U1 = Unit(utype='lesson')
-    U1.title = 'audio/lesson1/1.wav'
-    less1 = LessonStep('audio/lesson1/1.wav', 'а', comment='Потрогайте точку на поверхности тренажёра')
-    less2 = LessonStep('audio/lesson1/2.wav', 'б', comment='Буква б, две точки')
+    U1.title = 'audio/lesson1v2/title.wav'
+    less1 = LessonStep('audio/lesson1v2/l1s1.wav', 'а', comment='Потрогайте точку на поверхности тренажёра')
+    less2 = LessonStep('audio/lesson1v2/l1s2.wav', 'б', comment='Буква б, две точки')
+    less3 = LessonStep('audio/lesson1v2/l1s3.wav', ' ', comment='Прочитайте про себя слоги.')
+    less4 = LessonStep('audio/lesson1v2/l1s4.wav', 'аб', comment='АБ')
+    less5 = LessonStep('', ' ', comment='')
+    less6 = LessonStep('audio/lesson1v2/l1s5.wav', 'ба', comment='БА')
+    less7 = LessonStep('audio/lesson1v2/l1s6.wav', '', comment='Буква О - три точки: номер 1, 3, 5')
+    less8 = LessonStep('audio/lesson1v2/l1s7.wav', '', comment='Прочитайте про себя слоги и слова.')
+    less9 = LessonStep('audio/lesson1v2/l1s8.wav', '', comment='БО')
+    less10 = LessonStep('audio/lesson1v2/l1s9.wav', '', comment='ОБ')
+    less11 = LessonStep('audio/lesson1v2/l1s10.wav', '', comment='БОБ')
     U1.append(less1)
     U1.append(less2)
+    U1.append(less3)
+    U1.append(less4)
+    U1.append(less5)
+    U1.append(less6)
+    U1.append(less7)
+    U1.append(less8)
+    U1.append(less9)
+    U1.append(less10)
+    U1.append(less11)
 
-    U2 = Unit(utype='lesson')
-    U2.title = 'audio/lesson1/2.wav'
-    less12 = LessonStep('audio/lesson1/2.wav', 'а', comment='Потрогайте точку на поверхности тренажёра')
-    less22 = LessonStep('audio/lesson1/1.wav', 'б', comment='Буква б, две точки')
-    U2.append(less12)
-    U2.append(less22)
+    Test1 = Unit(utype='test')
+    Test1.title = 'audio/test1/title.wav'
+    less1 = LessonStep('audio/test1/1.wav', 'е', comment='Потрогайте букву на поверхности тренажёра. После сигнала произнесите её вслух')
+    Test1.append(less1)
 
-    U3 = Unit(utype='lesson')
-    U3.title = 'audio/lesson1/3.wav'
-    less13 = LessonStep('audio/lesson1/1.wav', 'а', comment='Потрогайте точку на поверхности тренажёра')
-    less23 = LessonStep('audio/lesson1/2.wav', 'б', comment='Буква б, две точки')
-    U3.append(less13)
-    U3.append(less23)
-
-    thread1 = UnitProcessor([U1, U2, U3])
+    thread1 = UnitProcessor([U1, Test1])
     thread1.start()
     sys.exit(app.exec_())
