@@ -3,4 +3,4 @@ def listen_joystick(ser):
     while 1:
         line = ser.readline()
         letter = str(line)[2]
-        return letter if letter in ['l', 'r', 'd', 'u'] else False
+        return letter if letter in ['l', 'r', 'd', 'u'] else True
