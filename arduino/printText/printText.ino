@@ -25,6 +25,7 @@ Servo srv[n];
 int prevJoy = '0'; //предыдущее состояние джойстика
 int prevBut = '0'; //предыдущее состояние кнопки джойстика
 int buttonState;
+int reqState = 0; //хранит информацию о том поступил ли запрос
 unsigned long timingSer; //тайминг сервоприводов
 unsigned long timingSpeak; //тайминг динамика
 
@@ -66,10 +67,9 @@ void printString(String buf) {
     joystick();
 }
 
-void printText() {
+void printText(String request) {
   int i = 0;
   String buf;
-  String request = Serial.readString();
   while(request.substring(i, i + 1) != '\0') {
     buf = request.substring(i,i+7);
     printString(buf);
@@ -96,8 +96,7 @@ void alert(int type) {      //сигнал
   }
   tone(speaker, note, 100);
   timingSpeak = millis();
-  //while(millis() - timingSpeak < 100);
-  delay(100);
+  // while(millis() - timingSpeak < 100);
   noTone(speaker);
 }
 
@@ -130,7 +129,10 @@ void joystick() {
     prevJoy = 'l';
     if (prevBut == 's')
       alert('l');
-    Serial.println('l');
+    if (reqState) {
+      Serial.println('l');
+      reqState = 0;
+    }
     return;
   }
   
@@ -138,7 +140,10 @@ void joystick() {
     prevJoy = 'r';
     if (prevBut == 's')
       alert('r');
-    Serial.println('r');
+    if (reqState) {
+      Serial.println('r');
+      reqState = 0;
+    }
     return;
   }
   
@@ -146,7 +151,10 @@ void joystick() {
     prevJoy = 'u';
     if (prevBut == 's')
       alert('u');
-    Serial.println('u');
+    if (reqState) {
+      Serial.println('u');
+      reqState = 0;
+    }
     return;
   }
   
@@ -154,7 +162,10 @@ void joystick() {
     prevJoy = 'd';
     if (prevBut == 's')
       alert('d');
-    Serial.println('d');
+    if (reqState) {
+      Serial.println('d');
+      reqState = 0;
+    }
     return;
   }
 }
@@ -172,6 +183,11 @@ void setup() {
 
 void loop() {
   joystick();
-  if(Serial.available())
-    printText();
+  if(Serial.available()) {
+    String request = Serial.readString();
+    if(request[0] != '?')
+      printText(request);
+    else
+      reqState = 1;
+  }
 }
