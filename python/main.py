@@ -117,8 +117,10 @@ if __name__ == "__main__":
     less7 = LessonStep('audio/lesson1v2/l1s6.wav', 'о', comment='Буква О - три точки: номер 1, 3, 5')
     less8 = LessonStep('audio/lesson1v2/l1s7.wav', ' ', comment='Прочитайте про себя слоги и слова.')
     less9 = LessonStep('audio/lesson1v2/l1s8.wav', 'бо', comment='БО')
-    less10 = LessonStep('audio/lesson1v2/l1s9.wav', 'об', comment='ОБ')
-    less11 = LessonStep('audio/lesson1v2/l1s10.wav', 'боб', comment='БОБ')
+    less10 = LessonStep('', ' ', comment='')
+    less11 = LessonStep('audio/lesson1v2/l1s9.wav', 'об', comment='ОБ')
+    less12 = LessonStep('', ' ', comment='')
+    less13 = LessonStep('audio/lesson1v2/l1s10.wav', 'боб', comment='БОБ')
     U1.append(less1)
     U1.append(less2)
     U1.append(less3)
@@ -130,10 +132,12 @@ if __name__ == "__main__":
     U1.append(less9)
     U1.append(less10)
     U1.append(less11)
+    U1.append(less12)
+    U1.append(less13)
 
     Test1 = Unit(utype='test')
     Test1.title = 'audio/test1/title.wav'
-    less1 = LessonStep('audio/test1/1.wav', 'е', comment='Потрогайте букву на поверхности тренажёра. После сигнала произнесите её вслух')
+    less1 = LessonStep('audio/test1/1.wav', 'е', comment='Потрогайте букву, произнесите её вслух')
     Test1.append(less1)
 
     thread1 = UnitProcessor([U1, Test1])
