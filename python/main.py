@@ -1,5 +1,6 @@
 import sys
 import serial
+import listen
 from letter import LetterWidget
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtCore import QThread
@@ -8,7 +9,6 @@ from audio import playSoundByFilename
 from serial_hex import printLine
 from joystick import listen_joystick
 from serial_get_name import get_port_arduino
-
 
 class UnitProcessor(QThread):
 
@@ -37,11 +37,8 @@ class UnitProcessor(QThread):
         unit = units[0]
         playSoundByFilename(unit.title)
         print(unit.title)
-
         joystick_ans = listen_joystick(ser)
-
         print(joystick_ans, i)
-
         while joystick_ans:
             print(joystick_ans)
             if joystick_ans == 'd':
@@ -71,10 +68,33 @@ class UnitProcessor(QThread):
         j = 0
         while 0 <= j < len(unit):  # для каждого шага юнита
             stp = unit[j]
-            self.lu.setLetter(stp.bLine)
-            printLine(stp.bLine, ser)
-            playSoundByFilename(stp.audio)
-            print(stp.audio)
+            if isinstance(stp, LessonStep):
+                self.lu.setLetter(stp.bLine)
+                printLine(stp.bLine, ser)
+                playSoundByFilename(stp.audio)
+                print(stp.audio)
+            elif isinstance(stp, TestStep):
+                playSoundByFilename(stp.audio)
+                print(stp.audio)
+                self.lu.setLetter(stp.bLine)
+                playSoundByFilename('audio/std_msg/signal.wav')
+                answ = listen_answer()
+                i = 0
+                while answ != stp.bLine and i<3:
+                    if answ == '':
+                        playSoundByFilename('audio/std_msg/err_recognize.wav')
+                    else:
+                        playSoundByFilename('audio/std_msg/ans_incorrect.wav')
+                    self.sleep(1)
+                    playSoundByFilename('audio/std_msg/signal.wav')
+                    answ = listen_answer()
+                    i = i + 1
+                if answ == stp.bLine:
+                    stp.setRight()
+                    playSoundByFilename('audio/std_msg/ans_correct.wav')
+                else:
+                    playSoundByFilename('audio/std_msg/try_next_time.wav')
+                playSoundByFilename('audio/'+str(ord(stp.bLine)-ord('а')+1)+'.wav')
             joystick_ans = listen_joystick(ser)
             while joystick_ans:
                 if joystick_ans == 'r':
@@ -133,7 +153,7 @@ if __name__ == "__main__":
 
     Test1 = Unit(utype='test')
     Test1.title = 'audio/test1/title.wav'
-    less1 = LessonStep('audio/test1/1.wav', 'е', comment='Потрогайте букву на поверхности тренажёра. После сигнала произнесите её вслух')
+    less1 = TestStep('audio/test1/1.wav', 'е', comment='Потрогайте букву на поверхности тренажёра. После сигнала произнесите её вслух')
     Test1.append(less1)
 
     thread1 = UnitProcessor([U1, Test1])
