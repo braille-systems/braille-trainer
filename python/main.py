@@ -27,7 +27,7 @@ class UnitProcessor(QThread):
         ser = serial.Serial(get_port_arduino(), '9600')
         self.sleep(5)  # если мало "поспать", не работает
         self._open_unit_menu(ser)
-        print('closing')
+        print('close')
         ser.close()
 
     def _unit_menu(self, ser):
@@ -44,6 +44,7 @@ class UnitProcessor(QThread):
 
         while joystick_ans:
             print(joystick_ans)
+
             if joystick_ans == 'd':
                 if i == len(units) - 1:
                     i = 0
@@ -51,7 +52,6 @@ class UnitProcessor(QThread):
                     i = i + 1
                 unit = units[i]
                 playSoundByFilename(unit.title)
-                print(i)
             if joystick_ans == 'u':
                 if i == 0:
                     i = len(units) - 1
@@ -59,7 +59,6 @@ class UnitProcessor(QThread):
                     i = i - 1
                 unit = units[i]
                 playSoundByFilename(unit.title)
-                print(i)
             joystick_ans = listen_joystick(ser)
             if joystick_ans == 'r':
                 break
@@ -74,7 +73,7 @@ class UnitProcessor(QThread):
             self.lu.setLetter(stp.bLine)
             printLine(stp.bLine, ser)
             playSoundByFilename(stp.audio)
-            print(stp.audio)
+            # print(stp.audio)
             joystick_ans = listen_joystick(ser)
             while joystick_ans:
                 if joystick_ans == 'r':
