@@ -70,8 +70,9 @@ class UnitProcessor(QThread):
             while 0 <= j < len(unit):  # для каждого шага юнита
                 stp = unit[j]
                 if isinstance(stp, LessonStep):
-                    self.lu.setLetter(stp.bLine)
-                    printLine(stp.bLine, ser)
+                    for chr in stp.bLine:
+                        self.lu.setLetter(chr)
+                        printLine(chr, ser)
                     playSoundByFilename(stp.audio)
                     print(stp.audio)
                 elif isinstance(stp, TestStep):
@@ -103,6 +104,7 @@ class UnitProcessor(QThread):
                         playSoundByFilename('audio/std_msg/try_next_time.wav')
                     playSoundByFilename('audio/'+str(ord(stp.bLine)-ord('а')+1)+'.wav')
                     self.lu.setLetter(stp.bLine)
+
                 joystick_ans = listen_joystick(ser)
                 print(joystick_ans)
                 while joystick_ans:
@@ -119,6 +121,8 @@ class UnitProcessor(QThread):
                          j = 0
                     joystick_ans = listen_joystick(ser)
                     print(joystick_ans)
+                printLine(' ', ser)
+                self.lu.setLetter(' ')
             print('End lesson')
             print(j)
             if(j == len(unit)):
@@ -147,13 +151,12 @@ if __name__ == "__main__":
     less2 = LessonStep('audio/lesson1v2/l1s2.wav', 'б', comment='Буква б, две точки')
     less3 = LessonStep('audio/lesson1v2/l1s3.wav', ' ', comment='Прочитайте про себя слоги.')
     less4 = LessonStep('audio/lesson1v2/l1s4.wav', 'аб', comment='АБ')
-    less5 = LessonStep('', ' ', comment='')
-    less6 = LessonStep('audio/lesson1v2/l1s5.wav', 'ба', comment='БА')
-    less7 = LessonStep('audio/lesson1v2/l1s6.wav', 'о', comment='Буква О - три точки: номер 1, 3, 5')
-    less8 = LessonStep('audio/lesson1v2/l1s7.wav', '', comment='Прочитайте про себя слоги и слова.')
-    less9 = LessonStep('audio/lesson1v2/l1s8.wav', 'бо', comment='БО')
-    less10 = LessonStep('audio/lesson1v2/l1s9.wav', 'об', comment='ОБ')
-    less11 = LessonStep('audio/lesson1v2/l1s10.wav', 'боб', comment='БОБ')
+    less5 = LessonStep('audio/lesson1v2/l1s5.wav', 'ба', comment='БА')
+    less6 = LessonStep('audio/lesson1v2/l1s6.wav', 'о', comment='Буква О - три точки: номер 1, 3, 5')
+    less7 = LessonStep('audio/lesson1v2/l1s7.wav', '', comment='Прочитайте про себя слоги и слова.')
+    less8 = LessonStep('audio/lesson1v2/l1s8.wav', 'бо', comment='БО')
+    less9 = LessonStep('audio/lesson1v2/l1s9.wav', 'об', comment='ОБ')
+    less10 = LessonStep('audio/lesson1v2/l1s10.wav', 'боб', comment='БОБ')
     U1.append(less1)
     U1.append(less2)
     U1.append(less3)
@@ -164,7 +167,6 @@ if __name__ == "__main__":
     U1.append(less8)
     U1.append(less9)
     U1.append(less10)
-    U1.append(less11)
     Test1 = Unit(utype='test')
     Test1.title = 'audio/test1/title.wav'
     less1 = TestStep('audio/test1/1.wav', 'е', comment='Потрогайте букву на поверхности тренажёра. После сигнала произнесите её вслух')
