@@ -66,10 +66,9 @@ void printString(String buf) {
     joystick();
 }
 
-void printText() {
+void printText(String request) {
   int i = 0;
   String buf;
-  String request = Serial.readString();
   while(request.substring(i, i + 1) != '\0') {
     buf = request.substring(i,i+7);
     printString(buf);
@@ -172,6 +171,11 @@ void setup() {
 
 void loop() {
   joystick();
-  if(Serial.available())
-    printText();
+  if(Serial.available()) {
+    String request = Serial.readString();
+    if(request[0] != '?')
+      printText(request);
+    else
+      Serial.println("ok");
+  }
 }
