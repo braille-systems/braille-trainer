@@ -96,8 +96,7 @@ void alert(int type) {      //сигнал
   }
   tone(speaker, note, 100);
   timingSpeak = millis();
-  //while(millis() - timingSpeak < 100);
-  delay(100);
+  // while(millis() - timingSpeak < 100);
   noTone(speaker);
 }
 
@@ -156,7 +155,6 @@ void joystick() {
       Serial.println('u');
       reqState = 0;
     }
-    Serial.println('u');
     return;
   }
   
