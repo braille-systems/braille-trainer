@@ -214,3 +214,25 @@ correctPrediction = tf. equal (tf. argmax (yConv, 1), tf. argmax (y, 1));
 accuracy = tf. reduce_mean (tf. cast (correctPrediction, tf. float32));
 
 
+predict = tf. argmax (yConv, 1);
+
+
+sess = tf. Session ();
+sess. run (tf. global_variables_initializer ());
+
+
+steps = 100;
+
+
+for i in range (steps):
+
+  sess. run (trainStep, feed_dict={x: commonX, y: dataY});
+
+
+  if i % 10 == 0:
+
+    validAccuracy, answer = sess. run ([accuracy, predict], feed_dict={x: commonX, y: dataY});
+
+
+    print ("step {}, точность {}". format (i, validAccuracy));
+    print ("Ответы {} ". format (answer));
