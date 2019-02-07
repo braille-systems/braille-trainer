@@ -25,6 +25,7 @@ Servo srv[n];
 int prevJoy = '0'; //предыдущее состояние джойстика
 int prevBut = '0'; //предыдущее состояние кнопки джойстика
 int buttonState;
+int reqState = 0; //хранит информацию о том поступил ли запрос
 unsigned long timingSer; //тайминг сервоприводов
 unsigned long timingSpeak; //тайминг динамика
 
@@ -129,7 +130,10 @@ void joystick() {
     prevJoy = 'l';
     if (prevBut == 's')
       alert('l');
-    Serial.println('l');
+    if (reqState) {
+      Serial.println('l');
+      reqState = 0;
+    }
     return;
   }
   
@@ -137,7 +141,10 @@ void joystick() {
     prevJoy = 'r';
     if (prevBut == 's')
       alert('r');
-    Serial.println('r');
+    if (reqState) {
+      Serial.println('r');
+      reqState = 0;
+    }
     return;
   }
   
@@ -145,6 +152,10 @@ void joystick() {
     prevJoy = 'u';
     if (prevBut == 's')
       alert('u');
+    if (reqState) {
+      Serial.println('u');
+      reqState = 0;
+    }
     Serial.println('u');
     return;
   }
@@ -153,7 +164,10 @@ void joystick() {
     prevJoy = 'd';
     if (prevBut == 's')
       alert('d');
-    Serial.println('d');
+    if (reqState) {
+      Serial.println('d');
+      reqState = 0;
+    }
     return;
   }
 }
@@ -176,6 +190,6 @@ void loop() {
     if(request[0] != '?')
       printText(request);
     else
-      Serial.println("ok");
+      reqState = 1;
   }
 }
