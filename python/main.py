@@ -11,6 +11,7 @@ from serial_hex import printLine
 from joystick import listen_joystick
 from serial_get_name import get_port_arduino
 
+
 class UnitProcessor(QThread):
 
     def __init__(self, units, ser):
@@ -23,7 +24,6 @@ class UnitProcessor(QThread):
 
     def __del__(self):
         self.wait()
-      
 
     def run(self):
         self._open_unit_menu(self.ser)
@@ -88,7 +88,7 @@ class UnitProcessor(QThread):
                         print('ERROR!!!')
                     i = 0
                     print('answ')
-                    while answ != stp.bLine and i<3:
+                    while answ != stp.bLine and i < 3:
                         print('err')
                         if answ == '':
                             playSoundByFilename('audio/std_msg/err_recognize.wav')
@@ -126,8 +126,8 @@ class UnitProcessor(QThread):
                 self.lu.setLetter(' ')
             print('End lesson')
             print(j)
-            if(j == len(unit)):
-                if(unit.utype == 'lesson'):
+            if j == len(unit):
+                if unit.utype == 'lesson':
                     playSoundByFilename('audio/std_msg/lesson_end.wav')
                 else:
                     playSoundByFilename('audio/std_msg/test_end.wav')
@@ -145,6 +145,7 @@ class UnitProcessor(QThread):
         #             pass
         #     # надо произнести: Вы ответили верно
 
+
 def initMenu():
     U1 = Unit(utype='lesson')
     U1.title = 'audio/lesson1v2/title.wav'
@@ -154,7 +155,7 @@ def initMenu():
     less4 = LessonStep('audio/lesson1v2/l1s4.wav', 'аб', comment='АБ')
     less5 = LessonStep('audio/lesson1v2/l1s5.wav', 'ба', comment='БА')
     less6 = LessonStep('audio/lesson1v2/l1s6.wav', 'о', comment='Буква О - три точки: номер 1, 3, 5')
-    less7 = LessonStep('audio/lesson1v2/l1s7.wav', '', comment='Прочитайте про себя слоги и слова.')
+    less7 = LessonStep('audio/lesson1v2/l1s7.wav', ' ', comment='Прочитайте про себя слоги и слова.')
     less8 = LessonStep('audio/lesson1v2/l1s8.wav', 'бо', comment='БО')
     less9 = LessonStep('audio/lesson1v2/l1s9.wav', 'об', comment='ОБ')
     less10 = LessonStep('audio/lesson1v2/l1s10.wav', 'боб', comment='БОБ')
@@ -168,17 +169,31 @@ def initMenu():
     U1.append(less8)
     U1.append(less9)
     U1.append(less10)
+
     Test1 = Unit(utype='test')
     Test1.title = 'audio/test1/title.wav'
-    less1 = TestStep('audio/test1/1.wav', 'е', comment='Потрогайте букву на поверхности тренажёра. После сигнала произнесите её вслух')
+    less1 = TestStep('audio/test1/1.wav', 'а',
+                     comment='Потрогайте букву на поверхности тренажёра. После сигнала произнесите её вслух')
+    less2 = TestStep('audio/test1/1.wav', 'б',
+                     comment='Потрогайте букву на поверхности тренажёра. После сигнала произнесите её вслух')
+    less3 = TestStep('audio/test1/1.wav', 'о',
+                     comment='Потрогайте букву на поверхности тренажёра. После сигнала произнесите её вслух')
+    less4 = TestStep('audio/test1/1.wav', 'п',
+                     comment='Потрогайте букву на поверхности тренажёра. После сигнала произнесите её вслух')
     Test1.append(less1)
+    Test1.append(less2)
+    Test1.append(less3)
+    Test1.append(less4)
+
     return [U1, Test1]
+
 
 def startApp(ser):
     app = QApplication(sys.argv)
-    thread1 = UnitProcessor(initMenu(),ser)
+    thread1 = UnitProcessor(initMenu(), ser)
     thread1.start()
     return app.exec_()
+
 
 if __name__ == "__main__":
     ser = serial.Serial(get_port_arduino(), '9600')
