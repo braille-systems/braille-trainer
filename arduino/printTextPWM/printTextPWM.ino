@@ -32,6 +32,10 @@ int reqState = 0; //хранит информацию о том поступил
 unsigned long timingSer; //тайминг сервоприводов
 unsigned long timingSpeak; //тайминг динамика
 
+const int M = 8; 
+const int btns[M] = {3, 4, 5, 6, 7, 8, 9, 10};
+boolean btnsStates[M];
+
 void setOutside(int srvNum) {
   pwm.setPWM(srvPin[srvNum], 0, posInside[srvNum] + steps[srvNum]);
 }
@@ -97,17 +101,6 @@ void joystick() {
   xVal = analogRead(xIn); //считывается x
   yVal = analogRead(yIn); //считывается y
   int test = (xVal >= critL) + (xVal <= critR) + (yVal <= critD) + (yVal >= critU); //количество критических состояний, которому удовлетворяет джойстик
-
-  //сообщение о изменении состояния кнопки, если была отжата, то s - sound, если нажата, то m - mute
-  buttonState = digitalRead(button);
-  if(buttonState == HIGH && prevBut != 'm') {
-    Serial.println('m');
-    prevBut = 'm';
-  }
-  else if (buttonState == LOW && prevBut != 's') {
-    Serial.println('s');
-    prevBut = 's';
-  }
   
   if (test >= 2) //если больше или равно 2, то это диагональ - не обрабатываем
     return;
@@ -162,6 +155,32 @@ void joystick() {
   }
 }
 
+void buttons() {
+  // MUTE BUTTON
+  //сообщение о изменении состояния кнопки, если была отжата, то s - sound, если нажата, то m - mute
+  buttonState = digitalRead(button);
+  if(buttonState == HIGH && prevBut != 'm') {
+    Serial.println('m');
+    prevBut = 'm';
+  }
+  else if (buttonState == LOW && prevBut != 's') {
+    Serial.println('s');
+    prevBut = 's';
+  }
+
+  //BUTTONS
+  for (int i = 0; i < M; i++) {
+    if (digitalRead(btns[i]) == HIGH && btnsStates[i] == false) {
+      btnsStates[i] = true;
+      Serial.println(String(i) + "-");
+    }
+    else if (digitalRead(btns[i]) == LOW && btnsStates[i] == true) {
+      btnsStates[i] = false;
+      Serial.println(String(i) + "+");
+    }
+  }
+}
+
 void setup() {
   pwm.begin();
   pwm.setPWMFreq(60);  // Частота работы
@@ -174,9 +193,14 @@ void setup() {
   else
     prevBut = 's';
   pinMode(speaker, OUTPUT); 
+  for (int i = 0; i < M; i++) {
+    pinMode(btns[i], INPUT);
+    btnsStates[i] = false;
+  }
 }
 
 void loop() {
+  buttons();
   joystick();
   if(Serial.available()) {
     String request = Serial.readString();
