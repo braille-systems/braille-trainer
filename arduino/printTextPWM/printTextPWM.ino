@@ -1,60 +1,52 @@
-#include <Servo.h>
+#include <Wire.h>
+#include <Adafruit_PWMServoDriver.h>
+
+Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
+
 #define NOTE_B4  494
 #define NOTE_C4  262
 #define NOTE_A4  440
 #define NOTE_E4  330
 
-const int n = 6; // servos
-const int m = 4; // buttons
-const int srvPins[n] = {3/*1*/, 10/*2*/, 7/*3*/, 12/*4*/, 5/*5*/, 8/*6*/};  // servo pins
-int posInside[n] = {85, 81, 138, 81, 126, 72};  // "inside" positions
-int steps[n] = {33, 60, -39, -28, -55, 48};  // movement from "inside" positions
+const int N = 6;
+int srvPin[N] = {0/*1*/, 1/*2*/, 2/*3*/, 3/*4*/, 4/*5*/, 5/*6*/};
+int posInside[N] = {100, 100, 100, 100, 100, 100};  // исходное положение, 100 <= posInside[i] <= 600
+int steps[N] = {50, 50, 50, 50, 50, 50};  // смещение от исходного, в суммe 100 <= posInside[i] + steps[i] <= 600
 String lastBuf = "000000";
 //number of dot = index in array + 1
 
 const int xIn = A1; //порт к которому подключен VRx
 const int yIn = A0; //порт к которому подключен VR
+const int button = 2; //порт к которому подключена кнопка джойстика
 const int speaker = 4; //порт к которому подключен динамик
 const int critL = 700; //от 600 до 1000
 const int critR = 300; //от 0 до 400
 const int critD = 250; //от 0 до 400
 const int critU = 750; //от 600 до 1000
-
-const int muteButton = 2; //порт к которому подключена кнопка джойстика (выведена отдельно)
-const int btns[m] = {4, 6, 9, 11}; //нужно инициализировать кнопки
-boolean btns_states[m];
-
-Servo srv[n];
+const int myDelay = 1000; //задержка перед выводом следующего символа
 
 int prevJoy = '0'; //предыдущее состояние джойстика
 int prevBut = '0'; //предыдущее состояние кнопки джойстика
-int muteButtonState;
+int buttonState;
 int reqState = 0; //хранит информацию о том поступил ли запрос
 unsigned long timingSer; //тайминг сервоприводов
 unsigned long timingSpeak; //тайминг динамика
 
-void setInside(int srvNum) {
-  srv[srvNum].attach(srvPins[srvNum]);
-  srv[srvNum].write(posInside[srvNum]);
-  timingSer = millis();
-  while(millis() - timingSer < 250)
-    joystick();
-  srv[srvNum].detach();
-}
+const int M = 8; 
+const int btns[M] = {3, 4, 5, 6, 7, 8, 9, 10};
+boolean btnsStates[M];
 
 void setOutside(int srvNum) {
-  srv[srvNum].attach(srvPins[srvNum]);
-  srv[srvNum].write(posInside[srvNum] + steps[srvNum]);
-  timingSer = millis();
-  while(millis() - timingSer < 250)
-    joystick();
-  srv[srvNum].detach();
+  pwm.setPWM(srvPin[srvNum], 0, posInside[srvNum] + steps[srvNum]);
+}
+
+void setInside(int srvNum) {
+  pwm.setPWM(srvPin[srvNum], 0, posInside[srvNum]);
 }
 
 void setAllInside() {
-  for (int i = 0; i < n; i++) {
+  for(int i = 0; i < N; i++)
     setInside(i);
-  }
 }
 
 void printString(String buf) {                     
@@ -67,7 +59,7 @@ void printString(String buf) {
   }
   lastBuf = buf;
   timingSer = millis();
-  while(millis() - timingSer < 250)
+  while(millis() - timingSer < myDelay)
     joystick();
 }
 
@@ -164,43 +156,46 @@ void joystick() {
 }
 
 void buttons() {
-  //MUTE BUTTON
+  // MUTE BUTTON
   //сообщение о изменении состояния кнопки, если была отжата, то s - sound, если нажата, то m - mute
-  muteButtonState = digitalRead(muteButton);
-  if(muteButtonState == HIGH && prevBut != 'm') {
+  buttonState = digitalRead(button);
+  if(buttonState == HIGH && prevBut != 'm') {
     Serial.println('m');
     prevBut = 'm';
   }
-  else if (muteButtonState == LOW && prevBut != 's') {
+  else if (buttonState == LOW && prevBut != 's') {
     Serial.println('s');
     prevBut = 's';
   }
 
   //BUTTONS
-  for (int i = 0; i < m; i++) {
-    if (digitalRead(btns[i]) == HIGH && btns_states[i] == false) {
-      btns_states[i] = true;
-      Serial.print(btns_states[i]);
+  for (int i = 0; i < M; i++) {
+    if (digitalRead(btns[i]) == HIGH && btnsStates[i] == false) {
+      btnsStates[i] = true;
+      Serial.println(String(i) + "-");
     }
-    else if (digitalRead(btns[i]) == LOW && btns_states[i] == true) {
-      btns_states[i] = false;
-      Serial.print(btns_states[i]);
+    else if (digitalRead(btns[i]) == LOW && btnsStates[i] == true) {
+      btnsStates[i] = false;
+      Serial.println(String(i) + "+");
     }
   }
 }
 
 void setup() {
+  pwm.begin();
+  pwm.setPWMFreq(60);  // Частота работы
+  delay(10);
   setAllInside();
   Serial.begin(9600); 
-  pinMode(muteButton, INPUT);
-  if(digitalRead(muteButton) == HIGH)
+  pinMode(button, INPUT);
+  if(digitalRead(button) == HIGH)
     prevBut = 'm';
   else
     prevBut = 's';
   pinMode(speaker, OUTPUT); 
-  for (int i = 0; i < m; i++) {
+  for (int i = 0; i < M; i++) {
     pinMode(btns[i], INPUT);
-    btns_states[i] = false;
+    btnsStates[i] = false;
   }
 }
 

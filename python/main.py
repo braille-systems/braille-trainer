@@ -1,5 +1,6 @@
 import sys
 import serial
+import time
 from listen import listen_symbol
 from letter import LetterWidget
 from PyQt5.QtWidgets import QApplication
@@ -12,23 +13,22 @@ from serial_get_name import get_port_arduino
 
 class UnitProcessor(QThread):
 
-    def __init__(self, units):
+    def __init__(self, units, ser):
         QThread.__init__(self)
         self.lu = LetterWidget()
         self.lu.setLetter('')
         self.lu.show()
         self.units = units
+        self.ser = ser
 
     def __del__(self):
         self.wait()
-        self.lu.close()
+      
 
     def run(self):
-        ser = serial.Serial(get_port_arduino(), '9600')
-        self.sleep(5)  # если мало "поспать", не работает
-        self._open_unit_menu(ser)
+        self._open_unit_menu(self.ser)
         print('closing')
-        ser.close()
+        self.lu.close()
 
     def _unit_menu(self, ser):
         """Units menu"""
@@ -60,13 +60,15 @@ class UnitProcessor(QThread):
             joystick_ans = listen_joystick(ser)
             if joystick_ans == 'r':
                 break
+            if joystick_ans == 'l':
+                return None
         return unit
 
     def _open_unit_menu(self, ser):
         """Opens unit menu and gives a possibility to choose a lesson"""
-        while True:
-            unit = self._unit_menu(ser)
-            j = 0
+        unit = self._unit_menu(ser)
+        j = 0
+        while unit != None:
             while 0 <= j < len(unit):  # для каждого шага юнита
                 stp = unit[j]
                 if isinstance(stp, LessonStep):
@@ -102,7 +104,7 @@ class UnitProcessor(QThread):
                         playSoundByFilename('audio/std_msg/ans_correct.wav')
                     else:
                         playSoundByFilename('audio/std_msg/try_next_time.wav')
-                    playSoundByFilename('audio/'+str(ord(stp.bLine)-ord('а')+1)+'.wav')
+                    pronounce(stp.bLine)
                     self.lu.setLetter(stp.bLine)
 
                 joystick_ans = listen_joystick(ser)
@@ -117,8 +119,7 @@ class UnitProcessor(QThread):
                     if joystick_ans == 'u':
                         break
                     if joystick_ans == 'd':
-                         unit = self._unit_menu(ser)
-                         j = 0
+                        j = -1
                     joystick_ans = listen_joystick(ser)
                     print(joystick_ans)
                 printLine(' ', ser)
@@ -130,6 +131,8 @@ class UnitProcessor(QThread):
                     playSoundByFilename('audio/std_msg/lesson_end.wav')
                 else:
                     playSoundByFilename('audio/std_msg/test_end.wav')
+            j = 0
+            unit = self._unit_menu(ser)
         # if unit.isTest():
         #     while not stp.isRight():
         #         s = 'п'
@@ -142,9 +145,7 @@ class UnitProcessor(QThread):
         #             pass
         #     # надо произнести: Вы ответили верно
 
-
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
+def initMenu():
     U1 = Unit(utype='lesson')
     U1.title = 'audio/lesson1v2/title.wav'
     less1 = LessonStep('audio/lesson1v2/l1s1.wav', 'а', comment='Потрогайте точку на поверхности тренажёра')
@@ -171,6 +172,17 @@ if __name__ == "__main__":
     Test1.title = 'audio/test1/title.wav'
     less1 = TestStep('audio/test1/1.wav', 'е', comment='Потрогайте букву на поверхности тренажёра. После сигнала произнесите её вслух')
     Test1.append(less1)
-    thread1 = UnitProcessor([U1, Test1])
-    thread1.start()         
-    sys.exit(app.exec_())
+    return [U1, Test1]
+
+def startApp(ser):
+    app = QApplication(sys.argv)
+    thread1 = UnitProcessor(initMenu(),ser)
+    thread1.start()
+    return app.exec_()
+
+if __name__ == "__main__":
+    ser = serial.Serial(get_port_arduino(), '9600')
+    time.sleep(3)  # если мало "поспать", не работает
+    res = startApp(ser)
+    ser.close()
+    sys.exit(res)

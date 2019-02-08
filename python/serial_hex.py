@@ -5,7 +5,8 @@
 """
 import serial
 import time
-from audio import pronounce
+from serial_get_name import get_port_arduino
+# from audio import pronounce
 
 
 def charToBraille(char):
@@ -107,6 +108,9 @@ def charToBraille(char):
 
 def printLine(line, ser):
     for i in range(len(line)):
+        if i > 0 and line[i] == line[i - 1]:
+            ser.write(bytes('000000', 'UTF-8'))
+            time.sleep(2)
         data = charToBraille(line[i])
         print(data)
         ser.write(bytes(data, 'UTF-8'))
@@ -115,9 +119,9 @@ def printLine(line, ser):
 
 
 def serTest():
-    ser = serial.Serial('COM7', '9600')
+    ser = serial.Serial(get_port_arduino(), '9600')
     time.sleep(5)  # если мало "поспать", не работает
-    printLine('#1234567890', ser)
+    printLine('ввод', ser)
     ser.close()
 
 # serTest()
