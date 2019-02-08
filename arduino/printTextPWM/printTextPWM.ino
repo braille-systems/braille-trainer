@@ -23,6 +23,7 @@ const int critL = 700; //от 600 до 1000
 const int critR = 300; //от 0 до 400
 const int critD = 250; //от 0 до 400
 const int critU = 750; //от 600 до 1000
+const int myDelay = 1000; //задержка перед выводом следующего символа
 
 int prevJoy = '0'; //предыдущее состояние джойстика
 int prevBut = '0'; //предыдущее состояние кнопки джойстика
@@ -33,12 +34,10 @@ unsigned long timingSpeak; //тайминг динамика
 
 void setOutside(int srvNum) {
   pwm.setPWM(srvPin[srvNum], 0, posInside[srvNum] + steps[srvNum]);
-  delay(1);
 }
 
 void setInside(int srvNum) {
   pwm.setPWM(srvPin[srvNum], 0, posInside[srvNum]);
-  delay(1);
 }
 
 void setAllInside() {
@@ -56,7 +55,7 @@ void printString(String buf) {
   }
   lastBuf = buf;
   timingSer = millis();
-  while(millis() - timingSer < 250)
+  while(millis() - timingSer < myDelay)
     joystick();
 }
 
