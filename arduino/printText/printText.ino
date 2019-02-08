@@ -4,7 +4,8 @@
 #define NOTE_A4  440
 #define NOTE_E4  330
 
-const int n = 6;
+const int n = 6; // servos
+const int m = 4; // buttons
 const int srvPins[n] = {3/*1*/, 10/*2*/, 7/*3*/, 12/*4*/, 5/*5*/, 8/*6*/};  // servo pins
 int posInside[n] = {85, 81, 138, 81, 126, 72};  // "inside" positions
 int steps[n] = {33, 60, -39, -28, -55, 48};  // movement from "inside" positions
@@ -13,18 +14,21 @@ String lastBuf = "000000";
 
 const int xIn = A1; //порт к которому подключен VRx
 const int yIn = A0; //порт к которому подключен VR
-const int button = 2; //порт к которому подключена кнопка джойстика
 const int speaker = 4; //порт к которому подключен динамик
 const int critL = 700; //от 600 до 1000
 const int critR = 300; //от 0 до 400
 const int critD = 250; //от 0 до 400
 const int critU = 750; //от 600 до 1000
 
+const int muteButton = 2; //порт к которому подключена кнопка джойстика (выведена отдельно)
+const int btns[m] = {4, 6, 9, 11}; //нужно инициализировать кнопки
+boolean btns_states[m];
+
 Servo srv[n];
 
 int prevJoy = '0'; //предыдущее состояние джойстика
 int prevBut = '0'; //предыдущее состояние кнопки джойстика
-int buttonState;
+int muteButtonState;
 int reqState = 0; //хранит информацию о том поступил ли запрос
 unsigned long timingSer; //тайминг сервоприводов
 unsigned long timingSpeak; //тайминг динамика
@@ -105,17 +109,6 @@ void joystick() {
   xVal = analogRead(xIn); //считывается x
   yVal = analogRead(yIn); //считывается y
   int test = (xVal >= critL) + (xVal <= critR) + (yVal <= critD) + (yVal >= critU); //количество критических состояний, которому удовлетворяет джойстик
-
-  //сообщение о изменении состояния кнопки, если была отжата, то s - sound, если нажата, то m - mute
-  buttonState = digitalRead(button);
-  if(buttonState == HIGH && prevBut != 'm') {
-    Serial.println('m');
-    prevBut = 'm';
-  }
-  else if (buttonState == LOW && prevBut != 's') {
-    Serial.println('s');
-    prevBut = 's';
-  }
   
   if (test >= 2) //если больше или равно 2, то это диагональ - не обрабатываем
     return;
@@ -170,18 +163,49 @@ void joystick() {
   }
 }
 
+void buttons() {
+  //MUTE BUTTON
+  //сообщение о изменении состояния кнопки, если была отжата, то s - sound, если нажата, то m - mute
+  muteButtonState = digitalRead(muteButton);
+  if(muteButtonState == HIGH && prevBut != 'm') {
+    Serial.println('m');
+    prevBut = 'm';
+  }
+  else if (muteButtonState == LOW && prevBut != 's') {
+    Serial.println('s');
+    prevBut = 's';
+  }
+
+  //BUTTONS
+  for (int i = 0; i < m; i++) {
+    if (digitalRead(btns[i]) == HIGH && btns_states[i] == false) {
+      btns_states[i] = true;
+      Serial.print(btns_states[i]);
+    }
+    else if (digitalRead(btns[i]) == LOW && btns_states[i] == true) {
+      btns_states[i] = false;
+      Serial.print(btns_states[i]);
+    }
+  }
+}
+
 void setup() {
   setAllInside();
   Serial.begin(9600); 
-  pinMode(button, INPUT);
-  if(digitalRead(button) == HIGH)
+  pinMode(muteButton, INPUT);
+  if(digitalRead(muteButton) == HIGH)
     prevBut = 'm';
   else
     prevBut = 's';
   pinMode(speaker, OUTPUT); 
+  for (int i = 0; i < m; i++) {
+    pinMode(btns[i], INPUT);
+    btns_states[i] = false;
+  }
 }
 
 void loop() {
+  buttons();
   joystick();
   if(Serial.available()) {
     String request = Serial.readString();
