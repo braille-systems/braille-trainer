@@ -1,13 +1,23 @@
-import serial_hex
-from PyQt5 import (QtCore, QtGui, QtWidgets)
-from ui_letter import Ui_LetterWidget
-class LetterWidget(QtWidgets.QWidget, Ui_LetterWidget):
-    def __init__(self):
-        super().__init__()
-        self.setupUi(self)
-    def setLetter(self,letter):
-        self.letter.setText(letter.upper())
-        data = serial_hex.charToBraille(letter).replace('0','.').replace('1','O')
-        data = data[0]+data[3]+'\n'+data[1]+data[4]+'\n'+data[2]+data[5]
-        self.braille.setText(data)
+import speech_recognition as sr
 
+def listen_symbol():
+    rec = sr.Recognizer()
+    microphone = sr.Microphone()
+    with microphone as sourse:
+        rec.adjust_for_ambient_noise(sourse)
+        print('Say something')
+        audio = rec.listen(sourse, timeout = 3, phrase_time_limit=2)
+        print('Recognizing')
+        try: #res = rec.recognize_sphinx(audio, language = ('model/zero_ru.cd_cont_4000','model/ru.lm','model/alf.dic') )
+            res = rec.recognize_google(audio, language = "ru_RU")
+            res = res.lower()
+        except sr.UnknownValueError:
+            return ''
+        if res == '':
+            return res
+        else:
+            return res[0]
+
+if __name__=='__main__':
+    while True:
+        print(listen_symbol())

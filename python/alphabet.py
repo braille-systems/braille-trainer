@@ -9,8 +9,9 @@ from serial_get_name import get_port_arduino
 def startApp(ser):
     ALF = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя'
     i = 0
-    printLine(ALF[i], ser)
     pronounce(ALF[i])
+    printLine(ALF[i], ser)
+ 
     #joystick_ans = (str(input())+' ')[0]
     joystick_ans = listen_joystick(ser)
     while joystick_ans != 'l':
@@ -25,8 +26,10 @@ def startApp(ser):
                 i = len(ALF) - 1
             else:
                 i = i - 1
+        
+        pronounce(ALF[i])        
         printLine(ALF[i],ser)
-        pronounce(ALF[i])
+        print('JOYSTICK ANS:')
         joystick_ans = listen_joystick(ser)
         #joystick_ans = (str(input())+' ')[0]
 if __name__ == "__main__":

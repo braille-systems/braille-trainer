@@ -124,4 +124,4 @@ def serTest():
     printLine('ввод', ser)
     ser.close()
 
-# serTest()
+#serTest()

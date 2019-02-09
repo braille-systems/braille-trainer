@@ -6,10 +6,11 @@ from letter import LetterWidget
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtCore import QThread
 from edu import TestStep, LessonStep, Unit
-from audio import playSoundByFilename
+from audio import playSoundByFilename, pronounce
 from serial_hex import printLine
 from joystick import listen_joystick
 from serial_get_name import get_port_arduino
+import speech_recognition as sr
 
 
 class UnitProcessor(QThread):
@@ -21,7 +22,7 @@ class UnitProcessor(QThread):
         self.lu.show()
         self.units = units
         self.ser = ser
-
+        
     def __del__(self):
         self.wait()
 
@@ -32,6 +33,7 @@ class UnitProcessor(QThread):
 
     def _unit_menu(self, ser):
         """Units menu"""
+        
         i = 0
         units = self.units
         unit = units[0]
@@ -81,6 +83,7 @@ class UnitProcessor(QThread):
                     playSoundByFilename(stp.audio)
                     print(stp.audio)
                     printLine(stp.bLine, ser)
+                    self.sleep(3)
                     playSoundByFilename('audio/std_msg/signal.wav')
                     try:
                         answ = listen_symbol()
@@ -95,7 +98,7 @@ class UnitProcessor(QThread):
                         else:
                             playSoundByFilename('audio/std_msg/ans_incorrect.wav')
                         playSoundByFilename('audio/std_msg/signal.wav')
-                        answ = listen_symbol()
+                        answ = listen_symbol(rec,mic)
                         print(answ)
                         i = i + 1
                     if answ == stp.bLine:
@@ -104,9 +107,11 @@ class UnitProcessor(QThread):
                         playSoundByFilename('audio/std_msg/ans_correct.wav')
                     else:
                         playSoundByFilename('audio/std_msg/try_next_time.wav')
+                    print(stp.bLine)
                     pronounce(stp.bLine)
+                    print(stp.bLine)
                     self.lu.setLetter(stp.bLine)
-
+                print('joystick')
                 joystick_ans = listen_joystick(ser)
                 print(joystick_ans)
                 while joystick_ans:

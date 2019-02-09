@@ -4,11 +4,9 @@ import alphabet
 import clocks
 import serial
 from audio import playSoundByFilename
-
 from joystick import listen_joystick
 import time
 from serial_get_name import get_port_arduino
-
 
 def _app_menu(ser, apps):
     """apps menu"""
@@ -46,7 +44,7 @@ if __name__ == "__main__":
     apps = [
         ['audio/apps/eduApp.wav', main.startApp],
         ['audio/apps/notesApp.wav', notes.startApp],
-        ['audio/apps/alphabetApp.wav', aphabet.startApp],
+        ['audio/apps/alphabetApp.wav', alphabet.startApp],
         ['audio/apps/clocksApp.wav', clocks.startApp]
     ]
     i = 0

@@ -4,8 +4,7 @@ import threading
 def playSoundByFilename(filename):
     if filename == '':
         return
-    thread = threading.Thread(target = winsound.PlaySound, args = (filename, winsound.SND_FILENAME))
-    thread.start()
+    winsound.PlaySound(filename, winsound.SND_FILENAME)
 
 def pronounce(letter):
     n = ord(letter) - ord('б') + 2
@@ -14,8 +13,7 @@ def pronounce(letter):
     elif n > 6:
         n += 1
     no = str(n)
-    thread = threading.Thread(target = winsound.PlaySound, args = ('audio/{}.wav'.format(no), winsound.SND_FILENAME))
-    thread.start()
+    winsound.PlaySound('audio/{}.wav'.format(no), winsound.SND_FILENAME)
 #pronounce('а')
 #pronounce('ё')
 #playSoundByFilename('audio/lesson1v2/title.wav')
