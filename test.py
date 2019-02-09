@@ -8,7 +8,7 @@ from scipy.io import wavfile;
 
 
 staticPath = str ("./data");
-staticMaxSizeFile = 16000;
+staticMaxSizeFile = 100000;
 
 
 
@@ -31,24 +31,24 @@ def readFiles (typePath, equ):
 
 
 
-def elignmentSizeFile (data):
+def maxSizeFile (data):
 
-  newData = [];
+  tmpMaxSizeFile = 0;
 
 
   for namePaths in data:
 
-    newNamePaths = [];
-
-
     for nameFile in namePaths:
 
-      tmpSizeFile = wavfile. read (nameFile) [1];
+      tmpFile = wavfile. read (nameFile) [1];
 
 
-      if (len (tmpSizeFile) > staticMaxSizeFile):
+      if (len (tmpFile) > tmpMaxSizeFile):
 
-        staticMaxSizeFile = len (tmpSizeFile);
+        tmpMaxSizeFile = len (tmpFile);
+
+
+  return tmpMaxSizeFile;
 
 
 
@@ -101,6 +101,7 @@ def expandXY (data, x, y):
 
       count, dataSet = wavfile. read (nameFile);
       sizeDataSet = len (dataSet);
+      dataSet = np. array (dataSet, dtype="float32");
 
 
       x [j] [i, 0: sizeDataSet] = dataSet;
@@ -165,9 +166,14 @@ def fullLayer (input, size):
 dbEqu = ["а", "б", "в", "г"];
 
 
-
 trains = readFiles ("trains", dbEqu);
 tests = readFiles ("tests", dbEqu);
+
+
+print (staticMaxSizeFile);
+
+
+
 
 
 
@@ -235,4 +241,4 @@ for i in range (steps):
 
 
     print ("step {}, точность {}". format (i, validAccuracy));
-print ("Ответы {} ". format (answer));
+    print ("Ответы {} ". format (answer));
