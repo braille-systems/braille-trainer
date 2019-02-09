@@ -1,3 +1,13 @@
+ВАЖНО!!! Для работы распознования аудио вам понадобится:
+1. ``pip install pyaudio``
+2. ``pip install pocketsphinx``
+3. ``pip install speechrecognition``
+4. Скачать архив и распаковать в папку ``python/`` с проектом
+https://goo-gl.ru/4P3j
+ПРИМЕЧАНИЕ НЕ РАБОТАЕТ ДЛЯ PYTHON 3.7!!
+Не стоит добавлять model в git (Содержит файлы слишком большого размера)
+
+
 **serial-test (by lpvmak)** <br>
 Для работы с Serial используется библиотека pySerial<br>
 https://github.com/pyserial/pyserial
