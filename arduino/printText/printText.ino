@@ -100,7 +100,7 @@ void alert(int type) {      //сигнал
   }
   tone(speaker, note, 100);
   timingSpeak = millis();
-  // while(millis() - timingSpeak < 100);
+  while(millis() - timingSpeak < 100);
   noTone(speaker);
 }
 

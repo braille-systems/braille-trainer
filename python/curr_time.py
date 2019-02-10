@@ -3,7 +3,7 @@ import time
 import serial
 
 
-def curr_time(ser):
+def curr_time():
     dt = datetime.now()
     hour = dt.hour
     minute = dt.minute
