@@ -8,7 +8,7 @@ from scipy.io import wavfile;
 
 
 staticPath = str ("./data");
-staticMaxSizeFile = 100000;
+staticMaxSizeFile = 1000000;
 
 
 
@@ -100,6 +100,10 @@ def expandXY (data, x, y):
     for i, nameFile in enumerate (namePaths):
 
       count, dataSet = wavfile. read (nameFile);
+      print(count)
+      print(dataSet)
+      dataSet = np.hsplit(dataSet, 2)[0].flatten(); 
+      #stereo to mono
       sizeDataSet = len (dataSet);
       dataSet = np. array (dataSet, dtype="float32");
 
@@ -191,7 +195,7 @@ x = tf. placeholder (tf. float32, shape=[None, staticMaxSizeFile]);
 y = tf. placeholder (tf. float32, shape=[None, 4]);
 
 
-assert (500 *32 == staticMaxSizeFile);
+#assert (500 *32 == staticMaxSizeFile);
 
 
 xImage = tf. reshape (x, [-1, 32, 500, 1]);

@@ -1,0 +1,82 @@
+ Error when executing:
+
+Traceback (most recent call last):
+  File 
+"/usr/local/lib/python3.6/dist-packages/tensorflow/python/client/session.py", 
+line 1334, in _do_call
+    return fn(*args)
+  File 
+"/usr/local/lib/python3.6/dist-packages/tensorflow/python/client/session.py", 
+line 1319, in _run_fn
+    options, feed_dict, fetch_list, target_list, run_metadata)
+  File 
+"/usr/local/lib/python3.6/dist-packages/tensorflow/python/client/session.py", 
+line 1407, in _call_tf_sessionrun
+    run_metadata)
+tensorflow.python.framework.errors_impl.InvalidArgumentError: Input to 
+reshape is a tensor with 81000000 values, but the requested shape 
+requires a multiple of 16000
+ [[{{node Reshape}} = Reshape[T=DT_FLOAT, Tshape=DT_INT32, 
+_device="/job:localhost/replica:0/task:0/device:CPU:0"](_arg_Placeholder_0_0, 
+Reshape/shape)]]
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "test.py", line 239, in <module>
+    sess. run (trainStep, feed_dict={x: commonX, y: dataY});
+  File 
+"/usr/local/lib/python3.6/dist-packages/tensorflow/python/client/session.py", 
+line 929, in run
+    run_metadata_ptr)
+  File 
+"/usr/local/lib/python3.6/dist-packages/tensorflow/python/client/session.py", 
+line 1152, in _run
+    feed_dict_tensor, options, run_metadata)
+  File 
+"/usr/local/lib/python3.6/dist-packages/tensorflow/python/client/session.py", 
+line 1328, in _do_run
+    run_metadata)
+  File 
+"/usr/local/lib/python3.6/dist-packages/tensorflow/python/client/session.py", 
+line 1348, in _do_call
+    raise type(e)(node_def, op, message)
+tensorflow.python.framework.errors_impl.InvalidArgumentError: Input to 
+reshape is a tensor with 81000000 values, but the requested shape 
+requires a multiple of 16000
+ [[node Reshape (defined at test.py:201)  = Reshape[T=DT_FLOAT, 
+Tshape=DT_INT32, 
+_device="/job:localhost/replica:0/task:0/device:CPU:0"](_arg_Placeholder_0_0, 
+Reshape/shape)]]
+
+Caused by op 'Reshape', defined at:
+  File "test.py", line 201, in <module>
+    xImage = tf. reshape (x, [-1, 32, 500, 1]);
+  File 
+"/usr/local/lib/python3.6/dist-packages/tensorflow/python/ops/gen_array_ops.py", 
+line 6482, in reshape
+    "Reshape", tensor=tensor, shape=shape, name=name)
+  File 
+"/usr/local/lib/python3.6/dist-packages/tensorflow/python/framework/op_def_library.py", 
+line 787, in _apply_op_helper
+    op_def=op_def)
+  File 
+"/usr/local/lib/python3.6/dist-packages/tensorflow/python/util/deprecation.py", 
+line 488, in new_func
+    return func(*args, **kwargs)
+  File 
+"/usr/local/lib/python3.6/dist-packages/tensorflow/python/framework/ops.py", 
+line 3274, in create_op
+    op_def=op_def)
+  File 
+"/usr/local/lib/python3.6/dist-packages/tensorflow/python/framework/ops.py", 
+line 1770, in __init__
+    self._traceback = tf_stack.extract_stack()
+
+InvalidArgumentError (see above for traceback): Input to reshape is a 
+tensor with 81000000 values, but the requested shape requires a multiple 
+of 16000
+ [[node Reshape (defined at test.py:201)  = Reshape[T=DT_FLOAT, 
+Tshape=DT_INT32, 
+_device="/job:localhost/replica:0/task:0/device:CPU:0"](_arg_Placeholder_0_0, 
+Reshape/shape)]]
