@@ -5,3 +5,5 @@ Braille Trainer: a braille trainer for visually impared <br>
 **Материалы, доставшиеся от Глеба Мирошника:** [Dropbox](https://www.dropbox.com/sh/m1fgdtpio7jf0r5/AADZN6ftSRqo8V_MonHDIt2Xa?dl=0) <br>
 **Контакты:** valera.zuev.zva@gmail.com - Валерий Зуев <br>
 **YouTube:** [https://www.youtube.com/channel/UC_SwOSaCvuRJdq-IEFu5GWw](https://www.youtube.com/channel/UC_SwOSaCvuRJdq-IEFu5GWw)
+<br>
+**Заявка на конкурс "Реактор 2019:"** [reactor.su/project/12096](https://reactor.su/project/12096)

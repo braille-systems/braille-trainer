@@ -4,6 +4,16 @@ from serial_hex import printLine
 import serial
 import time
 from serial_get_name import *
+
+def curr_time():
+    dt = datetime.now()
+    hour = dt.hour
+    minute = dt.minute
+    hm = str(hour) + ' ' + str(minute)
+    # print(hm)
+    # ser.write(bytes(hm, 'UTF-8'))
+    return hm
+
 def startApp(ser):
     playSoundByFilename('audio/std_msg/cur_time.wav')
     printLine(curr_time(),ser)
