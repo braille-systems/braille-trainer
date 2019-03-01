@@ -1,4 +1,3 @@
-from curr_time import curr_time
 from audio import playSoundByFilename
 from serial_hex import printLine
 import serial

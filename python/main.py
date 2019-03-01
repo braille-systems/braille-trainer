@@ -1,7 +1,7 @@
 import edu_app
 import notes
 import alphabet
-import clocks
+import clock
 import serial
 from audio import playSoundByFilename
 from joystick import listen_joystick
@@ -57,7 +57,7 @@ if __name__ == "__main__":
         ['audio/apps/eduApp.wav', edu_app.startApp],
         ['audio/apps/notesApp.wav', notes.startApp],
         ['audio/apps/alphabetApp.wav', alphabet.startApp],
-        ['audio/apps/clocksApp.wav', clocks.startApp]
+        ['audio/apps/clocksApp.wav', clock.startApp]
     ]
     i = 0
     ser = serial.Serial(get_port_arduino(), '9600')
