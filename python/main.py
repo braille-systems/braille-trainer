@@ -4,7 +4,7 @@ import alphabet
 import clocks
 import serial
 from audio import playSoundByFilename
-from joystick import listen_joystick
+from listen_serial import listen_serial
 import time
 from serial_get_name import get_port_arduino
 
@@ -26,7 +26,7 @@ def _app_menu(ser, apps):
     app = apps[0]
     playSoundByFilename(app[0])
     print(app[0])
-    joystick_ans = listen_joystick(ser)
+    joystick_ans = listen_serial(ser)
     print(joystick_ans, i)
     while joystick_ans:
         print(joystick_ans)
@@ -46,7 +46,7 @@ def _app_menu(ser, apps):
             app = apps[i]
             playSoundByFilename(app[0])
             print(i)
-        joystick_ans = listen_joystick(ser)
+        joystick_ans = listen_serial(ser)
         if joystick_ans == 'r':
             break
     return app
