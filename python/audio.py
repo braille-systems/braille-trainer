@@ -1,6 +1,7 @@
 import winsound
 import threading
 
+
 def playSoundByFilename(filename):
     """
     plays .wav file on Windows
@@ -8,6 +9,7 @@ def playSoundByFilename(filename):
     if filename == '':
         return
     winsound.PlaySound(filename, winsound.SND_FILENAME)
+
 
 def pronounce(letter):
     """

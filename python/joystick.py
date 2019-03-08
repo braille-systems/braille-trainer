@@ -1,7 +1,12 @@
 import serial
 import time
 import serial_get_name as sg
+
+
 def listen_joystick(ser):
+    """
+    Returns the joystick answer as a letter (l, r, d or u)
+    """
     print('listen: ')
     ser.flushInput()
     ser.write(bytes('?', 'UTF-8'))
@@ -9,6 +14,8 @@ def listen_joystick(ser):
     letter = str(line)[2]
     print(line)
     return letter if letter in ['l', 'r', 'd', 'u'] else True
+
+
 if __name__ == "__main__":
     ser = serial.Serial(sg.get_port_arduino(), '9600')
     time.sleep(5)

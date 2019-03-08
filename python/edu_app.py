@@ -227,7 +227,6 @@ def startApp(ser):
     return app.exec_()
 
 
-
 if __name__ == "__main__":
     ser = serial.Serial(get_port_arduino(), '9600')
     time.sleep(3)  # если мало "поспать", не работает

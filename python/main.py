@@ -8,6 +8,7 @@ from joystick import listen_joystick
 import time
 from serial_get_name import get_port_arduino
 
+
 def _app_menu(ser, apps):
     """
     Applications menu for Braille trainer

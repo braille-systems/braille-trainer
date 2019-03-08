@@ -5,6 +5,9 @@ import time
 from serial_get_name import *
 
 def curr_time():
+    """
+    Returns the current time string.
+    """
     dt = datetime.now()
     hour = dt.hour
     minute = dt.minute
@@ -14,8 +17,12 @@ def curr_time():
     return hm
 
 def startApp(ser):
+    """
+    This is the Clock app for braille trainer.
+    Designed to display current time.
+    """
     playSoundByFilename('audio/std_msg/cur_time.wav')
-    printLine(curr_time(),ser)
+    printLine(curr_time(), ser)
     print(curr_time())
     
 if __name__ == "__main__":

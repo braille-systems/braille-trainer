@@ -6,6 +6,7 @@ from serial_hex import printLine
 from joystick import listen_joystick
 from serial_get_name import get_port_arduino
 
+
 def startApp(ser):
     """
     This is the Alphabet app for braille trainer.
@@ -48,6 +49,8 @@ def startApp(ser):
         print('JOYSTICK ANS:')
         joystick_ans = listen_joystick(ser)
         #joystick_ans = (str(input())+' ')[0]
+
+
 if __name__ == "__main__":
     ser = serial.Serial(get_port_arduino(), '9600')
     time.sleep(5)  # если мало "поспать", не работает
