@@ -11,7 +11,12 @@ from serial_get_name import get_port_arduino
 
 def _app_menu(ser, apps):
     """
-    Applications menu for Braille trainer
+    Applications menu for Braille trainer.
+
+    "ser" is an open Serial connection with Braille trainer
+    (with Arduino board having '../arduino/printText/printText.ino' sketch loaded).
+
+    "apps" is a list of apps (such as alphabet app) for braille trainer.
 
     First, sets the app to the first in the 'apps' list.
     Plays its title aloud.

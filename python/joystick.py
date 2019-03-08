@@ -5,7 +5,10 @@ import serial_get_name as sg
 
 def listen_joystick(ser):
     """
-    Returns the joystick answer as a letter (l, r, d or u)
+    "ser" is an open Serial connection with Braille trainer
+    (with Arduino board having '../arduino/printText/printText.ino' sketch loaded).
+
+    Returns the joystick answer as a letter (l, r, d or u).
     """
     print('listen: ')
     ser.flushInput()

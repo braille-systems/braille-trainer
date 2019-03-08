@@ -1,19 +1,25 @@
 # -*- coding: cp1251 -*-
 class Menu(list):
     """
-    Main menu class
+    Defines main menu class.
     """
     pass
 
 
 class TestStep(object):
     """
-    Test step class
+    Defines test step class.
     """
 
     def __init__(self, audio, bLine, comment=' '):
         """
-        Constructor
+        Constructor.
+
+        "audio" is a string - path to audio file.
+
+        "bLine" is a string for braille trainer.
+
+        "comment" is a comment to a test.
         """
         self.audio = audio
         self.bLine = bLine
@@ -38,10 +44,20 @@ class TestStep(object):
 
 
 class LessonStep(object):
-    """Lesson step class"""
+    """
+    Defines lesson step class.
+    """
 
     def __init__(self, audio, bLine, comment=' '):
-        """Constructor"""
+        """
+        Constructor.
+
+        "audio" is a string - path to audio file.
+
+        "bLine" is a string for braille trainer.
+
+        "comment" is a comment to a lesson.
+        """
         self.comment = comment
         self.audio = audio
         self.bLine = bLine
@@ -54,7 +70,9 @@ class LessonStep(object):
 
 
 class Unit(list):
-    """Unit class"""
+    """
+    Defines unit class.
+    """
 
     def __init__(self, name="Unknown", utype='unit', title=''):
         self.utype = utype
@@ -62,7 +80,9 @@ class Unit(list):
         self.name = name
 
     def parseFrom(filename):
-        """Parse Unit from file"""
+        """
+        Parse Unit from file.
+        """
         return
 
     def getResult(self):
