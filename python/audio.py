@@ -7,7 +7,7 @@ def playSoundByFilename(filename):
     """
     if filename == '':
         return
-    winsound.PlaySound(filename, winsound.SND_FILENAME)
+    winsound.PlaySound(filename, winsound.SND_ASYNC)
 
 def pronounce(letter):
     """
