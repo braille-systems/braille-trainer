@@ -3,6 +3,8 @@ from serial_hex import printLine
 import serial
 import time
 from serial_get_name import *
+from datetime import datetime
+
 
 
 def curr_time():

@@ -3,7 +3,7 @@ import time
 from letter import LetterWidget
 from audio import pronounce
 from serial_hex import printLine
-from joystick import listen_joystick
+from listen_serial import listen_serial
 from serial_get_name import get_port_arduino
 
 
@@ -28,9 +28,9 @@ def startApp(ser):
     i = 0
     pronounce(ALF[i])
     printLine(ALF[i], ser)
- 
-    #joystick_ans = (str(input())+' ')[0] #technical substitution for testing
-    joystick_ans = listen_joystick(ser)
+    
+    # joystick_ans = (str(input())+' ')[0] #technical substitution for testing
+    joystick_ans = listen_serial(ser)
     while joystick_ans != 'l':
         print(joystick_ans)
         if joystick_ans == 'd':
@@ -44,11 +44,11 @@ def startApp(ser):
             else:
                 i = i - 1
         
-        pronounce(ALF[i])        
-        printLine(ALF[i],ser)
+        pronounce(ALF[i])
+        printLine(ALF[i], ser)
         print('JOYSTICK ANS:')
-        joystick_ans = listen_joystick(ser)
-        #joystick_ans = (str(input())+' ')[0]
+        joystick_ans = listen_serial(ser)
+        # joystick_ans = (str(input())+' ')[0]
 
 
 if __name__ == "__main__":

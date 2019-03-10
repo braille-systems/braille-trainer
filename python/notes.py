@@ -15,13 +15,13 @@ def startApp2():
     btn_command = listen_button(ser)
     char = btn_to_char(btn_command)
     print(char)
-
+    
     # while btn_command:
     #     char = btn_to_char(btn_command)
     #     # printLine(char)
     #     print(char)
     #     text = text + char
-
+    
     ser.close()
 
 
