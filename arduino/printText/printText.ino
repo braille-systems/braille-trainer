@@ -43,6 +43,8 @@ boolean btns_states[m]; //структура данных, описывающа�
 boolean inputStates[m]; //структура данных, описывающая состояние клавиш клавиатуры.
 //Интерпретация: символ, введенный с клавиатуры и предназначенный для отправки в сериал.
 
+boolean isConnected = 0;
+
 Servo srv[n];
 
 int prevJoy = '0'; //предыдущее состояние джойстика
@@ -257,6 +259,7 @@ void keyboard(int i, boolean b) {
     Serial.println(s);
     reqState = 0;
   }
+  if (!isConnected) printText(s);
   
   for (int k = 0; k < m; k++) {
     inputStates[k] = false;
@@ -289,11 +292,22 @@ void setup() {
 void loop() {
   buttons();
   joystick();
-  if(Serial.available()) {
+  if (Serial.available()) {
     String request = Serial.readString();
-    if(request[0] != '?')
+  
+    if (request[0] != '?' && request[0] != '!')
       printText(request);
+    else if(request[0] != '!'){
+       isConnected = 1;
+       reqState = 1;
+    }
     else
       reqState = 1;
+
+//    if (request[0] != '!') printText(request);
+      
+    /*else
+      isConnected = 1;*/
+      
   }
 }
