@@ -51,10 +51,9 @@ class UnitProcessor(QThread):
         - Pronounces the app's title aloud
         
         "ser" is an open Serial connection with Braille trainer
-        (with Arduino board having '../arduino/printText/printText.ino' sketch loaded)
+        (with Arduino board having '../arduino/printText/printText.ino' sketch loaded).
 
-        Every unit is either lesson or test (see app.py for more information)
-        
+        Every unit is either lesson or test (see edu.py for more information).
 
         """
         
@@ -91,7 +90,9 @@ class UnitProcessor(QThread):
         return unit
     
     def _open_unit_menu(self, ser):
-        """Opens unit menu and gives an opportunity to choose a lesson"""
+        """
+        Opens unit menu and gives an opportunity to choose a lesson.
+        """
         unit = self._unit_menu(ser)
         j = 0
         while unit != None:
@@ -177,7 +178,7 @@ class UnitProcessor(QThread):
 
 def initMenu():
     """
-    Creating lessons, tests; filling them with proper steps
+    Creating lessons, tests; filling them with proper steps.
     """
     U1 = Unit(utype='lesson')
     U1.title = 'audio/lesson1v2/title.wav'

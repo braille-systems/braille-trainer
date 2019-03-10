@@ -1,17 +1,21 @@
-ВАЖНО!!! Для работы распознования аудио вам понадобится:
+Для работы распознования аудио понадобится:
 1. ``pip install pyaudio``
-2. ``pip install pocketsphinx``
-3. ``pip install speechrecognition``
-4. Скачать архив и распаковать в папку ``python/`` с проектом
-https://goo-gl.ru/4P3j
-ПРИМЕЧАНИЕ НЕ РАБОТАЕТ ДЛЯ PYTHON 3.7!!
-Не стоит добавлять model в git (Содержит файлы слишком большого размера)
+1. ``pip install speechrecognition``
 
 
 Для работы с Serial используется библиотека pySerial<br>
 https://github.com/pyserial/pyserial
 https://pythonhosted.org/pyserial/
 Для установки ``pip install pyserial`` 
+
+Эталонные версии пакетов, с которыми проверена работа:
+1. Python 3.7.2
+1. PyAudion 0.2.11
+1. PyQt5 5.12
+1. PyQt5-sip 4.19.14
+1. pyserial 3.4
+1. SpeechRecognition 3.8.1
+
 **alphabet.py** - приложение - азбука<br>
 **audio.py** отвечает за проигрывание буквы в .wav из папки 
 "audio" и вывод остальных фраз; только для Windows<br>

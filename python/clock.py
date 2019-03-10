@@ -1,4 +1,3 @@
-from curr_time import curr_time
 from audio import playSoundByFilename
 from serial_hex import printLine
 import serial
@@ -7,6 +6,9 @@ from serial_get_name import *
 
 
 def curr_time():
+    """
+    Returns the current time string.
+    """
     dt = datetime.now()
     hour = dt.hour
     minute = dt.minute
@@ -17,6 +19,13 @@ def curr_time():
 
 
 def startApp(ser):
+    """
+    This is the Clock app for braille trainer.
+    Designed to display current time.
+
+    "ser" is an open Serial connection with Braille trainer
+    (with Arduino board having '../arduino/printText/printText.ino' sketch loaded).
+    """
     playSoundByFilename('audio/std_msg/cur_time.wav')
     printLine(curr_time(), ser)
     print(curr_time())

@@ -1,16 +1,22 @@
 import edu_app
 import notes
 import alphabet
-import clocks
+import clock
 import serial
 from audio import playSoundByFilename
 from listen_serial import listen_serial
 import time
 from serial_get_name import get_port_arduino
 
+
 def _app_menu(ser, apps):
     """
-    Applications menu for Braille trainer
+    Applications menu for Braille trainer.
+
+    "ser" is an open Serial connection with Braille trainer
+    (with Arduino board having '../arduino/printText/printText.ino' sketch loaded).
+
+    "apps" is a list of apps (such as alphabet app) for braille trainer.
 
     First, sets the app to the first in the 'apps' list.
     Plays its title aloud.
@@ -57,7 +63,7 @@ if __name__ == "__main__":
         ['audio/apps/eduApp.wav', edu_app.startApp],
         ['audio/apps/notesApp.wav', notes.startApp],
         ['audio/apps/alphabetApp.wav', alphabet.startApp],
-        ['audio/apps/clocksApp.wav', clocks.startApp]
+        ['audio/apps/clocksApp.wav', clock.startApp]
     ]
     i = 0
     ser = serial.Serial(get_port_arduino(), '9600')
