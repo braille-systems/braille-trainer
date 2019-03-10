@@ -16,7 +16,7 @@ def charToBraille(char):
     "char" is a digit sign, digit or Russian letter.
 
     """
-    print(char)
+    # print(char)
 
     is_letter = 0
 
@@ -112,6 +112,23 @@ def charToBraille(char):
     return data
 
 
+def braille_to_char(data):
+    """
+    Converts Braille string to digit sign, digit or Russian letter.
+
+    "data" is Braille string.
+
+    """
+    for letter in range(ord('а'), ord('я') + 1):
+        if data == charToBraille(chr(letter)):
+            return chr(letter)
+    for number in range(ord('0'), ord('9') + 1):
+        if data == charToBraille(chr(number)):
+            return chr(number)
+    if data == '001111':
+        return '#'
+
+
 def printLine(line, ser):
     """
     Display string on Braille trainer.
@@ -139,4 +156,5 @@ def serTest():
     printLine('ввод', ser)
     ser.close()
 
+#print(braille_to_char('110000'))
 #serTest()
