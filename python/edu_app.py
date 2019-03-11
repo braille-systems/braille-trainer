@@ -8,7 +8,7 @@ from PyQt5.QtCore import QThread
 from edu import TestStep, LessonStep, Unit
 from audio import playSoundByFilename, pronounce
 from serial_hex import printLine
-from joystick import listen_joystick
+from listen_serial import listen_serial
 from serial_get_name import get_port_arduino
 import speech_recognition as sr
 
@@ -18,7 +18,7 @@ class UnitProcessor(QThread):
     Logic for Braille trainer's application - education
     _unit_menu(self, ser): processes the units menu 
     """
-
+    
     def __init__(self, units, ser):
         QThread.__init__(self)
         self.lu = LetterWidget()
@@ -26,15 +26,15 @@ class UnitProcessor(QThread):
         self.lu.show()
         self.units = units
         self.ser = ser
-        
+    
     def __del__(self):
         self.wait()
-
+    
     def run(self):
         self._open_unit_menu(self.ser)
         print('closing')
         self.lu.close()
-
+    
     def _unit_menu(self, ser):
         """
         Logic for units menu in educational app for Braille trainer.
@@ -51,10 +51,9 @@ class UnitProcessor(QThread):
         - Pronounces the app's title aloud
         
         "ser" is an open Serial connection with Braille trainer
-        (with Arduino board having '../arduino/printText/printText.ino' sketch loaded)
+        (with Arduino board having '../arduino/printText/printText.ino' sketch loaded).
 
-        Every unit is either lesson or test (see app.py for more information)
-        
+        Every unit is either lesson or test (see edu.py for more information).
 
         """
         
@@ -63,7 +62,7 @@ class UnitProcessor(QThread):
         unit = units[0]
         playSoundByFilename(unit.title)
         print(unit.title)
-        joystick_ans = listen_joystick(ser)
+        joystick_ans = listen_serial(ser)
         print(joystick_ans, i)
         while joystick_ans:
             print(joystick_ans)
@@ -83,15 +82,17 @@ class UnitProcessor(QThread):
                 unit = units[i]
                 playSoundByFilename(unit.title)
                 print(i)
-            joystick_ans = listen_joystick(ser)
+            joystick_ans = listen_serial(ser)
             if joystick_ans == 'r':
                 break
             if joystick_ans == 'l':
                 return None
         return unit
-
+    
     def _open_unit_menu(self, ser):
-        """Opens unit menu and gives an opportunity to choose a lesson"""
+        """
+        Opens unit menu and gives an opportunity to choose a lesson.
+        """
         unit = self._unit_menu(ser)
         j = 0
         while unit != None:
@@ -122,7 +123,7 @@ class UnitProcessor(QThread):
                         else:
                             playSoundByFilename('audio/std_msg/ans_incorrect.wav')
                         playSoundByFilename('audio/std_msg/signal.wav')
-                        answ = listen_symbol(rec,mic)
+                        answ = listen_symbol(rec, mic)
                         print(answ)
                         i = i + 1
                     if answ == stp.bLine:
@@ -136,7 +137,7 @@ class UnitProcessor(QThread):
                     print(stp.bLine)
                     self.lu.setLetter(stp.bLine)
                 print('joystick')
-                joystick_ans = listen_joystick(ser)
+                joystick_ans = listen_serial(ser)
                 print(joystick_ans)
                 while joystick_ans:
                     if joystick_ans == 'r':
@@ -149,7 +150,7 @@ class UnitProcessor(QThread):
                         break
                     if joystick_ans == 'd':
                         j = -1
-                    joystick_ans = listen_joystick(ser)
+                    joystick_ans = listen_serial(ser)
                     print(joystick_ans)
                 printLine(' ', ser)
                 self.lu.setLetter(' ')
@@ -177,7 +178,7 @@ class UnitProcessor(QThread):
 
 def initMenu():
     """
-    Creating lessons, tests; filling them with proper steps
+    Creating lessons, tests; filling them with proper steps.
     """
     U1 = Unit(utype='lesson')
     U1.title = 'audio/lesson1v2/title.wav'
@@ -201,7 +202,7 @@ def initMenu():
     U1.append(less8)
     U1.append(less9)
     U1.append(less10)
-
+    
     Test1 = Unit(utype='test')
     Test1.title = 'audio/test1/title.wav'
     less1 = TestStep('audio/test1/1.wav', 'а',
@@ -216,7 +217,7 @@ def initMenu():
     Test1.append(less2)
     Test1.append(less3)
     Test1.append(less4)
-
+    
     return [U1, Test1]
 
 
@@ -225,7 +226,6 @@ def startApp(ser):
     thread1 = UnitProcessor(initMenu(), ser)
     thread1.start()
     return app.exec_()
-
 
 
 if __name__ == "__main__":

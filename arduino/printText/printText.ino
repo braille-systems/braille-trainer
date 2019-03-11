@@ -4,8 +4,23 @@
 #define NOTE_A4  440
 #define NOTE_E4  330
 
+#define NOTE_C3  131
+#define NOTE_D3  148
+#define NOTE_E3  165
+#define NOTE_F3  175
+#define NOTE_G3  196
+#define NOTE_A3  207
+
+/*
+#define NOTE_C3_1  231
+#define NOTE_D3_1  248
+#define NOTE_E3_1  265
+#define NOTE_F3_1  275
+#define NOTE_G3_1  296
+#define NOTE_A3_1  307
+ */
+
 const int n = 6; // servos
-const int m = 4; // buttons
 const int srvPins[n] = {3/*1*/, 10/*2*/, 7/*3*/, 12/*4*/, 5/*5*/, 8/*6*/};  // servo pins
 int posInside[n] = {85, 81, 138, 81, 126, 72};  // "inside" positions
 int steps[n] = {33, 60, -39, -28, -55, 48};  // movement from "inside" positions
@@ -21,8 +36,14 @@ const int critD = 250; //от 0 до 400
 const int critU = 750; //от 600 до 1000
 
 const int muteButton = 2; //порт к которому подключена кнопка джойстика (выведена отдельно)
-const int btns[m] = {4, 6, 9, 11}; //нужно инициализировать кнопки
-boolean btns_states[m];
+const int m = 6; //число кнопок
+const int btns[m] = {A3, A2, A4, A5, 9, 11};
+boolean btns_states[m]; //структура данных, описывающая состояние клавиш клавиатуры в ДАННЫЙ момент времени.
+
+boolean inputStates[m]; //структура данных, описывающая состояние клавиш клавиатуры.
+//Интерпретация: символ, введенный с клавиатуры и предназначенный для отправки в сериал.
+
+boolean isConnected = 0;
 
 Servo srv[n];
 
@@ -97,6 +118,24 @@ void alert(int type) {      //сигнал
     case 'u':
       note = NOTE_E4;
       break;
+//    case 1:
+//      note = NOTE_C3;
+//      break;
+//    case '2':
+//      note = NOTE_D3;
+//      break;
+//    case '3':
+//      note = NOTE_E3;
+//      break;
+//    case '4':
+//      note = NOTE_F3;
+//      break;
+//    case '5':
+//      note = NOTE_G3;
+//      break;
+//    case '6':
+//      note = NOTE_A3;
+//      break;
   }
   tone(speaker, note, 100);
   timingSpeak = millis();
@@ -165,7 +204,7 @@ void joystick() {
 
 void buttons() {
   //MUTE BUTTON
-  //сообщение о изменении состояния кнопки, если была отжата, то s - sound, если нажата, то m - mute
+  //сообщение об изменении состояния кнопки, если была отжата, то s - sound, если нажата, то m - mute
   muteButtonState = digitalRead(muteButton);
   if(muteButtonState == HIGH && prevBut != 'm') {
     Serial.println('m');
@@ -178,40 +217,97 @@ void buttons() {
 
   //BUTTONS
   for (int i = 0; i < m; i++) {
-    if (digitalRead(btns[i]) == HIGH && btns_states[i] == false) {
-      btns_states[i] = true;
-      Serial.print(btns_states[i]);
-    }
-    else if (digitalRead(btns[i]) == LOW && btns_states[i] == true) {
+    if (digitalRead(btns[i]) == HIGH && btns_states[i] == true) {
+      //что кнопка отжата
       btns_states[i] = false;
-      Serial.print(btns_states[i]);
+      if (prevBut == 's')
+        alert('d');
+      //Serial.println('s' + String(i) + '-'); // + или - зависит от того, как подключены кнопки
+      keyboard(i, false);
     }
+    else if (digitalRead(btns[i]) == LOW && btns_states[i] == false) {
+      //кнопка нажата
+      btns_states[i] = true;
+      if (prevBut == 's')
+        alert('u');
+      //Serial.println('s' + String(i) + '+');
+      keyboard(i, true);
+    }
+  }
+}
+
+void keyboard(int i, boolean b) {
+  //Проверяет, пустой ли массив, и выводит в сериал строку вида 110000, если до этого буква (т.е. строка вида 110000) была введена, но не была выведена.
+
+  //Каждое нажатие кнопки изменяет i-й элемент inputStates на true.
+  //Если btns_states стал пустым - нужно вывести в сериал строку вида 110000, полученную из inputStates вида [true, true, false, false, false, false].
+  //После этого inputStates нужно вернуть в исходное положение.
+  
+  if (b == true) {
+    inputStates[i] = true;
+  }
+  
+  for (int k = 0; k < m; k++) {
+    if (btns_states[k] == true) return;
+  }
+
+  String s = "";
+  for (int k = 0; k < m; k++) {
+    s = s + String(inputStates[k]);
+  }
+  if (reqState) {
+    Serial.println(s);
+    reqState = 0;
+  }
+  if (!isConnected) printText(s);
+  
+  for (int k = 0; k < m; k++) {
+    inputStates[k] = false;
   }
 }
 
 void setup() {
   setAllInside();
   Serial.begin(9600); 
+  
   pinMode(muteButton, INPUT);
   if(digitalRead(muteButton) == HIGH)
     prevBut = 'm';
   else
     prevBut = 's';
+    
   pinMode(speaker, OUTPUT); 
+
+  //клавиатура
   for (int i = 0; i < m; i++) {
     pinMode(btns[i], INPUT);
-    btns_states[i] = false;
+    btns_states[i] = true;
+  }
+
+  for (int i = 0; i < m; i++) {
+    inputStates[i] = false;
   }
 }
 
 void loop() {
   buttons();
   joystick();
-  if(Serial.available()) {
+  if (Serial.available()) {
     String request = Serial.readString();
-    if(request[0] != '?')
+  
+    if (request[0] != '?' && request[0] != '!')
       printText(request);
+    else if(request[0] != '!'){
+       isConnected = 1;
+       reqState = 1;
+    }
     else
       reqState = 1;
+
+//    if (request[0] != '!') printText(request);
+      
+    /*else
+      isConnected = 1;*/
+      
   }
 }

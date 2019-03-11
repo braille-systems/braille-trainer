@@ -10,7 +10,13 @@ from serial_get_name import get_port_arduino
 
 
 def charToBraille(char):
-    print(char)
+    """
+    Converts digit sign, digits or Russian letters to Braille string.
+
+    "char" is a digit sign, digit or Russian letter.
+
+    """
+    # print(char)
 
     is_letter = 0
 
@@ -106,7 +112,33 @@ def charToBraille(char):
     return data
 
 
+def braille_to_char(data):
+    """
+    Converts Braille string to digit sign, digit or Russian letter.
+
+    "data" is Braille string.
+
+    """
+    for letter in range(ord('а'), ord('я') + 1):
+        if data == charToBraille(chr(letter)):
+            return chr(letter)
+    for number in range(ord('0'), ord('9') + 1):
+        if data == charToBraille(chr(number)):
+            return chr(number)
+    if data == '001111':
+        return '#'
+
+
 def printLine(line, ser):
+    """
+    Display string on Braille trainer.
+
+    "line" is a string to display.
+
+    "ser" is an open Serial connection with Braille trainer
+    (with Arduino board having '../arduino/printText/printText.ino' sketch loaded).
+
+    """
     for i in range(len(line)):
         if i > 0 and line[i] == line[i - 1]:
             ser.write(bytes('000000', 'UTF-8'))
@@ -124,4 +156,5 @@ def serTest():
     printLine('ввод', ser)
     ser.close()
 
+#print(braille_to_char('110000'))
 #serTest()
