@@ -6,6 +6,7 @@ import serial_get_name as sg
 def listen_serial(ser):
     # Returns l, r, d, u or char in format 110000 (means 'б')
     print('listen joystick or keyboard:')
+    
     ser.flushInput()
     ser.write(bytes('?', 'UTF-8'))
     line = ser.readline()
@@ -15,6 +16,8 @@ def listen_serial(ser):
     if s[2] in '01':
         return s[2:8]
     return True
+    
+    #return input()
 
 
 if __name__ == "__main__":

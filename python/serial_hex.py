@@ -5,6 +5,7 @@
 """
 import serial
 import time
+import threading
 from serial_get_name import get_port_arduino
 # from audio import pronounce
 
@@ -128,6 +129,17 @@ def braille_to_char(data):
     if data == '001111':
         return '#'
 
+def printLineThread(line, ser):
+    for i in range(len(line)):
+        if i > 0 and line[i] == line[i - 1]:
+            ser.write(bytes('000000', 'UTF-8'))
+            time.sleep(2)
+        data = charToBraille(line[i])
+        print(data)
+        ser.write(bytes(data, 'UTF-8'))
+        # pronounce(line[i])
+        time.sleep(2)
+
 
 def printLine(line, ser):
     """
@@ -139,15 +151,11 @@ def printLine(line, ser):
     (with Arduino board having '../arduino/printText/printText.ino' sketch loaded).
 
     """
-    for i in range(len(line)):
-        if i > 0 and line[i] == line[i - 1]:
-            ser.write(bytes('000000', 'UTF-8'))
-            time.sleep(2)
-        data = charToBraille(line[i])
-        print(data)
-        ser.write(bytes(data, 'UTF-8'))
-        # pronounce(line[i])
-        time.sleep(2)
+    t = threading.Thread(target=printLineThread, args=(line, ser))
+    t.start()
+    
+    
+    
 
 
 def serTest():
