@@ -128,6 +128,7 @@ def braille_to_char(data):
             return chr(number)
     if data == '001111':
         return '#'
+    return ''
 
 def printLineThread(line, ser):
     for i in range(len(line)):
