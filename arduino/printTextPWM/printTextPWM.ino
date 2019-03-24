@@ -30,8 +30,6 @@ void setup() {
   }
   */
 }
-
-
 void loop() {
   //printString("111111");
   //printString("000000");
@@ -39,15 +37,13 @@ void loop() {
   joystick();
   if (Serial.available()) {
     String request = Serial.readString();
-    
-    if (request[0] == '!') {
-      isConnected = 1;
-    }
-    else if(request[0] == '?'){
-      reqState = 1;
+    if (request[0] != '?' && request[0] != '!')
+      printText(request);
+    else if(request[0] != '!'){
+       isConnected = 1;
+       reqState = 1;
     }
     else
-      printText(request);
+      reqState = 1;
   }
- 
 }
