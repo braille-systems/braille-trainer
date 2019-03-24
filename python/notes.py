@@ -22,6 +22,7 @@ class Note(object):
         with open('saved_notes.txt', "a", encoding="utf-8") as file:
             file.write("\n" + title + "\\" + body)
             playSoundByFilename('')  # Заметка сохранена
+            print('Заметка сохранена')
             return Note(title, body)
 
     def delete_note(title, body):
@@ -29,7 +30,7 @@ class Note(object):
 
 
 def startApp(ser):
-    notes = ["New note"]
+    notes = ["новая заметка"]
     with open('saved_notes.txt', encoding='utf-8') as file:
         for line in file:
             temp = line.split("\\")  # title and body
@@ -44,11 +45,14 @@ def startApp(ser):
         if joystick_ans == 'd':
             if i == len(notes) - 1:
                 i = 0
+                print('Новая заметка')
                 playSoundByFilename('')  # Новая заметка
             else:
                 i = i + 1
-                printLine(notes[i + 1].title if i != len(notes)-1 else notes[0], ser)
+                print('Заметка ' + str(i))
+                printLine(notes[i - 1].title if i != 1 else notes[0], ser)  # На ячейку имя предыдущей заметки
                 playSoundByFilename('')  # Заметка номер [i]
+                printLine(notes[i].title, ser)  # На ячейку имя текущей заметки
 
         if joystick_ans == 'u':
             if i == 0:
@@ -56,11 +60,13 @@ def startApp(ser):
             else:
                 i = i - 1
             if i == 0:
+                print('Новая заметка')
                 playSoundByFilename('')  # Новая заметка
             else:
-                printLine(notes[i-1].title if i != 1 else notes[i-1], ser)
+                print('Заметка ' + str(i))
+                printLine(notes[i+1].title if i != len(notes)-1 else notes[0], ser)  # На ячейку имя предыдущей заметки
                 playSoundByFilename('')  # Заметка номер [i]
-                printLine(notes[i].title())
+                printLine(notes[i].title, ser)  # На ячейку имя текущей заметки
 
         if joystick_ans == 'r':
             if i == 0:
@@ -72,12 +78,14 @@ def startApp(ser):
                     joy_keyboard_ans = listen_serial(ser)
                     if len(joy_keyboard_ans) == 6:
                         title = title + braille_to_char(joy_keyboard_ans)
+                print('Название создаваемой заметки' + title)
                 joy_keyboard_ans = ""
                 while joy_keyboard_ans != "r":
                     joy_keyboard_ans = listen_serial(ser)
                     if len(joy_keyboard_ans) == 6:
                         body = body + braille_to_char(joy_keyboard_ans)
-                i = i + 1
+                print('Тело создаваемой заметки: ' + body)
+                i = len(notes)
                 notes.append(Note.new_note(title, body))
             else:
                 playSoundByFilename('')  # Название заметки
@@ -86,7 +94,7 @@ def startApp(ser):
                 printLine(notes[i].body, ser)
                 playSoundByFilename('')  # Чтобы удалить заметку, нажмите вверх; чтобы выйти в меню заметок, нажмите влево
 
-
+        time.sleep(30)
         joystick_ans = listen_serial(ser)
         # joystick_ans = (str(input())+' ')[0]
     pass
