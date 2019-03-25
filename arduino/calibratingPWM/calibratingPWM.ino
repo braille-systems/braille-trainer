@@ -18,9 +18,9 @@
 unsigned long timingSer; //тайминг сервоприводов
 const int n = 6; //число сервоприводов
 //String lastBuf = "000000"; //последняя выведенная брайль-строка
-const int stp = 20;
-int posInside[n] = {0, 0, 0, 0, 0, 0};  // "inside" positions
-int steps[n] = {stp, stp, stp, stp, stp, stp};  // movement from "inside" positions
+//const int stp = 20;
+int posInside[n] = {90, 90, 90, 95, 66, 46};  // "inside" positions
+int steps[n] = {20, 29, 31, 46, 45, 25};  // movement from "inside" positions
 
 // called this way, it uses the default address 0x40
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
@@ -42,17 +42,18 @@ int angleToPulse(int ang){
 
 void setInside(int srvNum) {
   pwm.setPWM(srvNum, 0, angleToPulse(posInside[srvNum]));
-  timingSer = millis();
-  while(millis() - timingSer < 150)
-    continue; //joystick();
+  delay(150);
+  //timingSer = millis();
+  //while(millis() - timingSer < 150)
+  //  continue; //joystick();
 }
 
 void setOutside(int srvNum) {
-  pwm.setPWM(srvNum, 0, angleToPulse(posInside[srvNum]+steps[srvNum]));
-  timingSer = millis();
+  pwm.setPWM(srvNum, 0, angleToPulse(posInside[srvNum]-steps[srvNum]));
+  //timingSer = millis();
   delay(150);
-  while(millis() - timingSer < 150)
-    continue; //joystick();
+  //while(millis() - timingSer < 150)
+  //  continue; //joystick();
 }
 
 void setAllInside() {
@@ -81,8 +82,10 @@ String printArray(int arr[], int arrLength) {
 }
 
 void setup() {
-  setAllInside();
+  //setAllInside();
   Serial.begin(9600);
+  pwm.begin();
+  pwm.setPWMFreq(60);  // Analog servos run at ~60 Hz updates
   Serial.println("Arduino is ready to work.");
 }
 

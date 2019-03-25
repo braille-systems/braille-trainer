@@ -33,16 +33,16 @@ void alert(int type) {      //сигнал
   int note = 0;
   switch(type) {
     case 'l':
-      note = NOTE_B4;
-      break;
-    case 'r':
       note = NOTE_C4;
       break;
-    case 'd':
+    case 'r':
       note = NOTE_A4;
       break;
-    case 'u':
+    case 'd':
       note = NOTE_E4;
+      break;
+    case 'u':
+      note = NOTE_B4;
       break;
 //    case 1:
 //      note = NOTE_C3;

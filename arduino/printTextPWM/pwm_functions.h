@@ -8,11 +8,13 @@
 #define SERVOMIN  125 // this is the 'minimum' pulse length count (out of 4096)
 #define SERVOMAX  575 // this is the 'maximum' pulse length count (out of 4096)
 
-const int angleInside = 0;
-const int angleOutside = 20;
+const int angleInside = 25;
+const int angleOutside = 10;
 unsigned long timingSer; //тайминг сервоприводов
 const int n = 6; //число сервоприводов
 String lastBuf = "000000"; //последняя выведенная брайль-строка
+int posInside[n] = {90, 90, 90, 95, 66, 46};  // "inside" positions
+int steps[n] = {20, 29, 31, 46, 45, 25};  // movement from "inside" positions
 
 // called this way, it uses the default address 0x40
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
@@ -33,14 +35,14 @@ int angleToPulse(int ang){
 }
 
 void setInside(int srvNum) {
-  pwm.setPWM(srvNum, 0, angleToPulse(angleInside));
+  pwm.setPWM(srvNum, 0, angleToPulse(posInside[srvNum]));
   timingSer = millis();
   while(millis() - timingSer < 150)
     joystick();
 }
 
 void setOutside(int srvNum) {
-  pwm.setPWM(srvNum, 0, angleToPulse(angleOutside));
+  pwm.setPWM(srvNum, 0, angleToPulse(posInside[srvNum]-steps[srvNum]));
   timingSer = millis();
   delay(150);
   while(millis() - timingSer < 150)
