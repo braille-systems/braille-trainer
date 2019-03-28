@@ -1,9 +1,10 @@
 import serial
 import time
 import serial_get_name as sg
+import help as hp
 
 
-def listen_serial(ser):
+def listen_serial(ser, menuID):
     # Returns l, r, d, u or char in format 110000 (means 'б')
     print('listen joystick or keyboard:')
     
@@ -15,6 +16,8 @@ def listen_serial(ser):
         return s[2]
     if s[2] in '01':
         return s[2:8]
+    if s[2] in 'c':
+        hp.instantHelp(menuID)
     return True
     
     #return input()
