@@ -2,7 +2,7 @@ from collections import defaultdict
 
 
 def get_mapped(filename):  # filename in the script's directory
-    file = open(filename, "r")
+    file = open(filename, "r", encoding="utf8")
     mapped = defaultdict(list)
     for s in file:
         words = s.split()
@@ -40,6 +40,12 @@ def smart_find(mapped, charset, freq_char=""):
 
 # usage:
 #
-# d =  get_mapped("dict.txt")
+# d =  get_mapped("audio/dict.txt")
 # answer = smart_find(d, ...)
 # do something with answer...
+#
+# example:
+#
+#d = get_mapped("audio/dict.txt")
+#list = smart_find(d, "аб")
+#print(list)
