@@ -3,8 +3,8 @@
 
 #include"common_declarations.h"
 
-const int xIn = A1; //порт к которому подключен VRx
-const int yIn = A0; //порт к которому подключен VR
+const int xIn = A1; //порт, к которому подключен VRx
+const int yIn = A0; //порт, к которому подключен VRy
 
 int prevJoy = '0'; //предыдущее состояние джойстика
 

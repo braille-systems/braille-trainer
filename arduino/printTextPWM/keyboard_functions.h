@@ -3,6 +3,9 @@
 
 #include"common_declarations.h"
 
+const int joystickButton = 9; //порт, к которому подключена кнопка джойстика
+boolean joystickState = false;
+
 const boolean buttonsConWay = true; //если не работают кнопки - попробовать поменять эту переменную
 //number of dot = index in array + 1
 const int m = 6; //число кнопок
@@ -11,6 +14,7 @@ boolean btns_states[m]; //структура данных, описывающа�
 boolean inputStates[m]; //структура данных, описывающая состояние клавиш клавиатуры.
 //Интерпретация: символ, введенный с клавиатуры и предназначенный для отправки в сериал.
 
+const char lettersForAlert[m] = {'a', 'b', 'e', 'f', 'g', 'h'};
 
 void keyboard(int i, boolean b) {
   //Проверяет, пустой ли массив, и выводит в сериал строку вида 110000, если до этого буква (т.е. строка вида 110000) была введена, но не была выведена.
@@ -47,6 +51,16 @@ void keyboard(int i, boolean b) {
 }
 
 void buttons() {
+  //JOYSTICK BUTTON
+  //настроить в зависимости от подключения кнопки джойстика
+  if (digitalRead(joystickButton) == LOW && joystickState) {
+    joystickState = false;
+  }
+  else if (digitalRead(joystickButton) == HIGH && !joystickState) {
+    Serial.println('c');
+    joystickState = true;
+  }
+  
   //MUTE BUTTON
   //сообщение об изменении состояния кнопки, если была отжата, то s - sound, если нажата, то m - mute
   muteButtonState = digitalRead(muteButton);
@@ -65,7 +79,7 @@ void buttons() {
       //кнопка отжата
       btns_states[i] = buttonsConWay;
       if (prevBut == 's')
-        alert('d');
+        alert(lettersForAlert[i]);
       // Serial.println('s' + String(i) + '+'); // + или - зависит от того, как подключены кнопки
       keyboard(i, buttonsConWay);
     }
@@ -73,7 +87,7 @@ void buttons() {
       //кнопка нажата
       btns_states[i] = !buttonsConWay;
       if (prevBut == 's')
-        alert('u');
+        alert(lettersForAlert[i]);
       // Serial.println('s' + String(i) + '-');
       keyboard(i, !buttonsConWay);
     }

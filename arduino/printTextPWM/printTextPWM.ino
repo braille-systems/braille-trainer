@@ -10,6 +10,8 @@ void setup() {
   pwm.begin();
   pwm.setPWMFreq(60);  // Analog servos run at ~60 Hz updates
   setAllInside();
+
+  pinMode(joystickButton, INPUT);
   
   pinMode(muteButton, INPUT);
   if(digitalRead(muteButton) == HIGH)
