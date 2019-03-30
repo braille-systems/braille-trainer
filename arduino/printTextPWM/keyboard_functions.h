@@ -9,7 +9,7 @@ boolean joystickState = false;
 const boolean buttonsConWay = true; //если не работают кнопки - попробовать поменять эту переменную
 //number of dot = index in array + 1
 const int m = 6; //число кнопок
-const int btns[m] = {2, 3, 4, 5, 6, 7};
+const int btns[m] = {4, 2, 3, 5, 6, 7};
 boolean btns_states[m]; //структура данных, описывающая состояние клавиш клавиатуры в ДАННЫЙ момент времени.
 boolean inputStates[m]; //структура данных, описывающая состояние клавиш клавиатуры.
 //Интерпретация: символ, введенный с клавиатуры и предназначенный для отправки в сериал.
