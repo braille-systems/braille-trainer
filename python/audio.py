@@ -25,6 +25,7 @@ def pronounce(letter):
     elif n > 6:
         n += 1
     no = str(n)
+    #playSoundByFilename('audio/{}.wav'.format(no))
     playSoundByFilename('audio/{}.wav'.format(no))
 
 #pronounce('а')
