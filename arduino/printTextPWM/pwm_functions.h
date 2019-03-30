@@ -37,15 +37,14 @@ int angleToPulse(int ang){
 void setInside(int srvNum) {
   pwm.setPWM(srvNum, 0, angleToPulse(posInside[srvNum]));
   timingSer = millis();
-  while(millis() - timingSer < 150)
+  while(millis() - timingSer < 10)
     joystick();
 }
 
 void setOutside(int srvNum) {
   pwm.setPWM(srvNum, 0, angleToPulse(posInside[srvNum]-steps[srvNum]));
   timingSer = millis();
-  delay(150);
-  while(millis() - timingSer < 150)
+  while(millis() - timingSer < 10)
     joystick();
 }
 
