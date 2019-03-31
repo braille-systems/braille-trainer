@@ -72,7 +72,7 @@ def startApp(ser):
             if i == 0:
                 title = ""
                 body = ""
-                playSoundByFilename('')  # Введите название
+                playSoundByFilename('audio/live/notes/notesEnterTitle.wav')  # Введите название
                 joy_keyboard_ans = ""
                 while joy_keyboard_ans != "r":
                     joy_keyboard_ans = listen_serial(ser)
@@ -88,13 +88,13 @@ def startApp(ser):
                 i = len(notes)
                 notes.append(Note.new_note(title, body))
             else:
-                playSoundByFilename('')  # Название заметки
+                playSoundByFilename('audio/live/notes/notesTitle.wav')  # Название заметки
                 printLine(notes[i].title, ser)
-                playSoundByFilename('')  # Тело заметки
+                playSoundByFilename('audio/live/notes/notesBody.wav')  # Тело заметки
                 printLine(notes[i].body, ser)
-                playSoundByFilename('')  # Чтобы удалить заметку, нажмите вверх; чтобы выйти в меню заметок, нажмите влево
+                playSoundByFilename('audio/live/notes/notesAfter.wav')
+                # Чтобы удалить заметку, нажмите вверх; чтобы выйти в меню заметок, нажмите влево
 
-        time.sleep(30)
         joystick_ans = listen_serial(ser)
         # joystick_ans = (str(input())+' ')[0]
     pass
