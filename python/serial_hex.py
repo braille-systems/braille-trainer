@@ -141,7 +141,13 @@ def printLineThread(line, ser):
         # pronounce(line[i])
         time.sleep(2)
 
+def printBraille (brArray, ser):
+    """prints string in format: '000000', '010101', etc"""
+    print(brArray)
+    ser.write(bytes(brArray, 'UTF-8'))
+    time.sleep(2)
 
+    
 def printLine(line, ser):
     """
     Display string on Braille trainer.
@@ -159,6 +165,7 @@ def printLine(line, ser):
     """
     #-----EXPERIMENTAL UNSTABLE CODE: END-----
     #------SUBSTITUTION - OLD STABLE CODE-----------
+        
     for i in range(len(line)):
         if i > 0 and line[i] == line[i - 1]:
             ser.write(bytes('000000', 'UTF-8'))

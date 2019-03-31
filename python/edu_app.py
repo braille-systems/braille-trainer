@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import QApplication
 from PyQt5.QtCore import QThread
 from edu import TestStep, LessonStep, Unit
 from audio import playSoundByFilename, pronounce
-from serial_hex import printLine
+from serial_hex import printLine, printBraille
 from listen_serial import listen_serial
 from serial_get_name import get_port_arduino
 import speech_recognition as sr
@@ -99,11 +99,15 @@ class UnitProcessor(QThread):
             while 0 <= j < len(unit):  # для каждого шага юнита
                 stp = unit[j]
                 if isinstance(stp, LessonStep):
-                    for chr in stp.bLine:
-                        self.lu.setLetter(chr)
-                        printLine(chr, ser)
                     playSoundByFilename(stp.audio)
                     print(stp.audio)
+                    if(len(stp.bLine) == 7):
+                        if(stp.bLine[0] == '%'):
+                            printBraille(stp.bLine[1:7], ser)
+                    elif (len(stp.bLine) != 0):
+                        for chr in stp.bLine:
+                            self.lu.setLetter(chr)
+                            printLine(chr, ser)
                 elif isinstance(stp, TestStep):
                     playSoundByFilename(stp.audio)
                     print(stp.audio)
@@ -181,17 +185,18 @@ def initMenu():
     Creating lessons, tests; filling them with proper steps.
     """
     U1 = Unit(utype='lesson')
-    U1.title = 'audio/lesson1v2/title.wav'
-    less1 = LessonStep('audio/lesson1v2/l1s1.wav', 'а', comment='Потрогайте точку на поверхности тренажёра')
-    less2 = LessonStep('audio/lesson1v2/l1s2.wav', 'б', comment='Буква б, две точки')
-    less3 = LessonStep('audio/lesson1v2/l1s3.wav', ' ', comment='Прочитайте про себя слоги.')
-    less4 = LessonStep('audio/lesson1v2/l1s4.wav', 'аб', comment='АБ')
-    less5 = LessonStep('audio/lesson1v2/l1s5.wav', 'ба', comment='БА')
-    less6 = LessonStep('audio/lesson1v2/l1s6.wav', 'о', comment='Буква О - три точки: номер 1, 3, 5')
-    less7 = LessonStep('audio/lesson1v2/l1s7.wav', ' ', comment='Прочитайте про себя слоги и слова.')
-    less8 = LessonStep('audio/lesson1v2/l1s8.wav', 'бо', comment='БО')
-    less9 = LessonStep('audio/lesson1v2/l1s9.wav', 'об', comment='ОБ')
-    less10 = LessonStep('audio/lesson1v2/l1s10.wav', 'боб', comment='БОБ')
+    U1.title = 'audio/live/lessons/1/lesson1Dots.wav'
+    less1 = LessonStep('audio/live/lessons/1/2Encodes.wav', '', comment='Шрифт Брайля кодирует кажду букву алфавита комбинацией точек в ячейке Брайля')
+    less2 = LessonStep('audio/live/lessons/1/3Consists.wav', '', comment='')
+    less3 = LessonStep('audio/live/lessons/1/4Enum.wav', '', comment='')
+    less4 = LessonStep('audio/live/lessons/1/5nowTouch.wav', '', comment='')
+    less5 = LessonStep('audio/live/lessons/1/6touch1.wav', '%100000', comment='Потрогайте точку 1')
+    less6 = LessonStep('audio/live/lessons/1/7touch2.wav', '%010000', comment='Потрогайте точку 1')
+    less7 = LessonStep('audio/live/lessons/1/8touch3.wav', '%001000', comment='Потрогайте точку 1')
+    less8 = LessonStep('audio/live/lessons/1/9touch4.wav', '%000100', comment='Потрогайте точку 1')
+    less9 = LessonStep('audio/live/lessons/1/10touch5.wav', '%000010', comment='Потрогайте точку 1')
+    less10 = LessonStep('audio/live/lessons/1/11touch6.wav', '%000001', comment='Потрогайте точку 1')
+    
     U1.append(less1)
     U1.append(less2)
     U1.append(less3)
@@ -202,6 +207,31 @@ def initMenu():
     U1.append(less8)
     U1.append(less9)
     U1.append(less10)
+    
+    
+    U1a = Unit(utype='lesson')
+    U1a.title = 'audio/lesson1v2/title.wav'
+    less1 = LessonStep('audio/lesson1v2/l1s1.wav', 'а', comment='Потрогайте точку на поверхности тренажёра')
+    less2 = LessonStep('audio/lesson1v2/l1s2.wav', 'б', comment='Буква б, две точки')
+    less3 = LessonStep('audio/lesson1v2/l1s3.wav', ' ', comment='Прочитайте про себя слоги.')
+    less4 = LessonStep('audio/lesson1v2/l1s4.wav', 'аб', comment='АБ')
+    less5 = LessonStep('audio/lesson1v2/l1s5.wav', 'ба', comment='БА')
+    less6 = LessonStep('audio/lesson1v2/l1s6.wav', 'о', comment='Буква О - три точки: номер 1, 3, 5')
+    less7 = LessonStep('audio/lesson1v2/l1s7.wav', ' ', comment='Прочитайте про себя слоги и слова.')
+    less8 = LessonStep('audio/lesson1v2/l1s8.wav', 'бо', comment='БО')
+    less9 = LessonStep('audio/lesson1v2/l1s9.wav', 'об', comment='ОБ')
+    less10 = LessonStep('audio/lesson1v2/l1s10.wav', 'боб', comment='БОБ')
+    U1a.append(less1)
+    U1a.append(less2)
+    U1a.append(less3)
+    U1a.append(less4)
+    U1a.append(less5)
+    U1a.append(less6)
+    U1a.append(less7)
+    U1a.append(less8)
+    U1a.append(less9)
+    U1a.append(less10)
+    
     
     Test1 = Unit(utype='test')
     Test1.title = 'audio/test1/title.wav'
@@ -218,7 +248,7 @@ def initMenu():
     Test1.append(less3)
     Test1.append(less4)
     
-    return [U1, Test1]
+    return [U1, U1a, Test1]
 
 
 def startApp(ser):
