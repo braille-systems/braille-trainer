@@ -4,7 +4,7 @@
 #include"common_declarations.h"
 
 const int joystickButton = 9; //порт, к которому подключена кнопка джойстика
-boolean joystickState = false;
+boolean joystickState = true;
 
 const boolean buttonsConWay = true; //если не работают кнопки - попробовать поменять эту переменную
 //number of dot = index in array + 1
@@ -55,12 +55,21 @@ void buttons() {
   //JOYSTICK BUTTON
   //настроить в зависимости от подключения кнопки джойстика
   /*
-  if (digitalRead(joystickButton) == LOW && joystickState) {
-    joystickState = false;
-  }
-  else if (digitalRead(joystickButton) == HIGH && !joystickState) {
+  if ((digitalRead(joystickButton) == HIGH) && joystickState) {
+    Serial.println("if");
     Serial.println('c');
+    Serial.println(joystickState);
+    Serial.println(digitalRead(joystickButton));
+    joystickState = false;
+    Serial.println(joystickState);
+    return;
+  }
+  else if ((digitalRead(joystickButton) == LOW) && !joystickState) {
+    Serial.println("else if");
+    Serial.println(digitalRead(joystickButton));
+    Serial.println(joystickState);
     joystickState = true;
+    Serial.println(joystickState);
   }*/
   //-------EXPERIMENTAL UNSTABLE CODE: END--------
   

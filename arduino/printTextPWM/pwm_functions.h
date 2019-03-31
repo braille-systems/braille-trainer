@@ -14,7 +14,7 @@ unsigned long timingSer; //тайминг сервоприводов
 const int n = 6; //число сервоприводов
 String lastBuf = "000000"; //последняя выведенная брайль-строка
 int posInside[n] = {90, 90, 90, 95, 66, 46};  // "inside" positions
-int steps[n] = {20, 29, 31, 46, 45, 25};  // movement from "inside" positions
+int steps[n] = {20, 31, 31, 43, 42, 32};  // movement from "inside" positions
 
 // called this way, it uses the default address 0x40
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
