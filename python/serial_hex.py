@@ -152,8 +152,22 @@ def printLine(line, ser):
     (with Arduino board having '../arduino/printText/printText.ino' sketch loaded).
 
     """
+    #-----EXPERIMENTAL UNSTABLE CODE: START-----
+    """
     t = threading.Thread(target=printLineThread, args=(line, ser))
     t.start()
+    """
+    #-----EXPERIMENTAL UNSTABLE CODE: END-----
+    #------SUBSTITUTION - OLD STABLE CODE-----------
+    for i in range(len(line)):
+        if i > 0 and line[i] == line[i - 1]:
+            ser.write(bytes('000000', 'UTF-8'))
+            time.sleep(2)
+        data = charToBraille(line[i])
+        print(data)
+        ser.write(bytes(data, 'UTF-8'))
+        # pronounce(line[i])
+        time.sleep(2)
     
     
     
