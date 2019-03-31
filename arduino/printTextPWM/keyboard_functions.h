@@ -51,15 +51,18 @@ void keyboard(int i, boolean b) {
 }
 
 void buttons() {
+  //-------EXPERIMENTAL UNSTABLE CODE: START--------
   //JOYSTICK BUTTON
   //настроить в зависимости от подключения кнопки джойстика
+  /*
   if (digitalRead(joystickButton) == LOW && joystickState) {
     joystickState = false;
   }
   else if (digitalRead(joystickButton) == HIGH && !joystickState) {
     Serial.println('c');
     joystickState = true;
-  }
+  }*/
+  //-------EXPERIMENTAL UNSTABLE CODE: END--------
   
   //MUTE BUTTON
   //сообщение об изменении состояния кнопки, если была отжата, то s - sound, если нажата, то m - mute
