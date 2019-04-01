@@ -37,12 +37,13 @@ def listen_sphinx():
 
     speech = LiveSpeech(
         verbose=False,
-        sampling_rate=8000,
+        sampling_rate=16000,
         buffer_size=2048,
         no_search=False,
         full_utt=False,
         hmm=os.path.join(model_path, 'zero_ru.cd_cont_4000'),
-        lm=os.path.join(model_path, 'ru.lm'),
+        lm=False,
+        jsgf=os.path.join(model_path, 'calc.jsgf'),
         dic=os.path.join(model_path, 'my_dict_out.dic')
     )
 

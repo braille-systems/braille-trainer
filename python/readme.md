@@ -13,8 +13,8 @@ https://pythonhosted.org/pyserial/
 
 Для работы listen необходимо добавить в папку python'a:
 ~\Lib\site-packages\pocketsphinx\model
-файлы: (содержимое папки "everything to working pocketsphinx")
-ru.Im
+файлы: (содержимое папки "for_ps")
+calc.jsgf
 my_dicy_out.dic
 всю папку zero_ru.cd_cont_4000
 
