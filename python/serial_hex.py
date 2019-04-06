@@ -8,7 +8,7 @@ import time
 import threading
 from serial_get_name import get_port_arduino
 # from audio import pronounce
-
+from listen_serial import listen_serial
 
 def charToBraille(char):
     """
@@ -130,16 +130,6 @@ def braille_to_char(data):
         return '#'
     return ''
 
-def printLineThread(line, ser):
-    for i in range(len(line)):
-        if i > 0 and line[i] == line[i - 1]:
-            ser.write(bytes('000000', 'UTF-8'))
-            time.sleep(2)
-        data = charToBraille(line[i])
-        print(data)
-        ser.write(bytes(data, 'UTF-8'))
-        # pronounce(line[i])
-        time.sleep(2)
 
 def printBraille (brArray, ser):
     """prints string in format: '000000', '010101', etc"""
@@ -158,27 +148,21 @@ def printLine(line, ser):
     (with Arduino board having '../arduino/printText/printText.ino' sketch loaded).
 
     """
-    #-----EXPERIMENTAL UNSTABLE CODE: START-----
-    """
-    t = threading.Thread(target=printLineThread, args=(line, ser))
-    t.start()
-    """
-    #-----EXPERIMENTAL UNSTABLE CODE: END-----
-    #------SUBSTITUTION - OLD STABLE CODE-----------
-        
     for i in range(len(line)):
         if i > 0 and line[i] == line[i - 1]:
             ser.write(bytes('000000', 'UTF-8'))
-            time.sleep(2)
+            time.sleep(1.7)
         data = charToBraille(line[i])
         print(data)
         ser.write(bytes(data, 'UTF-8'))
         # pronounce(line[i])
         time.sleep(2)
-    
-    
-    
-
+        if len(line) < 2: #if line is not long so break unnecessary
+            return
+        ans = listen_serial(ser, requiresReturn=True)
+        if ans in 'ldru':
+            print('breaking printLine due to joystick signal:' + ans)
+            return ans
 
 def serTest():
     ser = serial.Serial(get_port_arduino(), '9600')

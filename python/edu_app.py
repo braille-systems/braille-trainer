@@ -207,7 +207,21 @@ def initMenu():
     U1.append(less8)
     U1.append(less9)
     U1.append(less10)
+
+    U2 = Unit(utype='lesson')
+    U2.title = 'audio/live/lessons/2/lesson2amu.wav'
+    less1 = LessonStep('audio/live/lessons/2/2order.wav', '', comment='')
+    less2 = LessonStep('audio/live/lessons/2/3remember.wav', '', comment='')
+    less3 = LessonStep('audio/live/lessons/2/4whatAboutWords.wav', '', comment='')
+    less4 = LessonStep('audio/live/lessons/2/5goToLetters.wav', '', comment='')
+    less5 = LessonStep('audio/live/lessons/2/6a.wav', 'а', comment='')
     
+    U2.append(less1)
+    U2.append(less2)
+    U2.append(less3)
+    U2.append(less4)
+    U2.append(less5)
+    #U2.append(less2)
     
     U1a = Unit(utype='lesson')
     U1a.title = 'audio/lesson1v2/title.wav'
@@ -248,7 +262,7 @@ def initMenu():
     Test1.append(less3)
     Test1.append(less4)
     
-    return [U1, U1a, Test1]
+    return [U1, U2, U1a, Test1]
 
 
 def startApp(ser):

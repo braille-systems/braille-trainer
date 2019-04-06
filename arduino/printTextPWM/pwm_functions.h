@@ -29,8 +29,8 @@ Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
  */
 int angleToPulse(int ang){
    int pulse = map(ang,0, 180, SERVOMIN,SERVOMAX);// map angle of 0 to 180 to Servo min and Servo max 
-   Serial.print("Angle: ");Serial.print(ang);
-   Serial.print(" pulse: ");Serial.println(pulse);
+   //Serial.print("Angle: ");Serial.print(ang);
+   //Serial.print(" pulse: ");Serial.println(pulse);
    return pulse;
 }
 

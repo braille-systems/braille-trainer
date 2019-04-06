@@ -21,7 +21,7 @@ class Note(object):
     def new_note(title, body):
         with open('saved_notes.txt', "a", encoding="utf-8") as file:
             file.write("\n" + title + "\\" + body)
-            playSoundByFilename('')  # Заметка сохранена
+            playSoundByFilename('audio/live/notes/noteSaved.wav')  # Заметка сохранена
             print('Заметка сохранена')
             return Note(title, body)
 
@@ -46,12 +46,12 @@ def startApp(ser):
             if i == len(notes) - 1:
                 i = 0
                 print('Новая заметка')
-                playSoundByFilename('')  # Новая заметка
+                playSoundByFilename('audio/live/notes/noteNew.wav')  # Новая заметка
             else:
                 i = i + 1
                 print('Заметка ' + str(i))
-                printLine(notes[i - 1].title if i != 1 else notes[0], ser)  # На ячейку имя предыдущей заметки
-                playSoundByFilename('')  # Заметка номер [i]
+                printLine(notes[i - 1].title if i != 1 else notes[0], ser) # На ячейку имя предыдущей заметки
+                playSoundByFilename('audio/live/notes/noteNo.wav')  # Заметка номер [i]
                 printLine(notes[i].title, ser)  # На ячейку имя текущей заметки
 
         if joystick_ans == 'u':
@@ -61,11 +61,11 @@ def startApp(ser):
                 i = i - 1
             if i == 0:
                 print('Новая заметка')
-                playSoundByFilename('')  # Новая заметка
+                playSoundByFilename('audio/live/notes/noteNew.wav')  # Новая заметка
             else:
                 print('Заметка ' + str(i))
                 printLine(notes[i+1].title if i != len(notes)-1 else notes[0], ser)  # На ячейку имя предыдущей заметки
-                playSoundByFilename('')  # Заметка номер [i]
+                playSoundByFilename('audio/live/notes/noteNo.wav')  # Заметка номер [i]
                 printLine(notes[i].title, ser)  # На ячейку имя текущей заметки
 
         if joystick_ans == 'r':
