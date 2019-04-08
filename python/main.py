@@ -60,10 +60,10 @@ def _app_menu(ser, apps):
 
 if __name__ == "__main__":
     apps = [
-        ['audio/live/apps/eduApp.wav', edu_app.startApp],
-        ['audio/live/apps/notesApp.wav', notes.startApp],
-        ['audio/live/apps/alphabetApp.wav', alphabet.startApp],
-        ['audio/live/apps/clocksApp.wav', clock.startApp]
+        ['audio/apps/eduApp.wav', edu_app.startApp],
+        ['audio/apps/notesApp.wav', notes.startApp],
+        ['audio/apps/alphabetApp.wav', alphabet.startApp],
+        ['audio/apps/clocksApp.wav', clock.startApp]
     ]
     i = 0
     ser = serial.Serial(get_port_arduino(), '9600')

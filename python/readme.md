@@ -3,8 +3,9 @@
 1. ``pip install speechrecognition``
 1. ``pip install pocketsphinx``
 
-Для установки pocketsphinx потребуется установленный swig:
+Для установки pocketsphinx может потребоваться установленный swig:
 инструкция: http://www.swig.org/download.html
+(если установка pocketsphinx проходит нормально через pip, Swig не нужен)
 
 Для работы с Serial используется библиотека pySerial<br>
 https://github.com/pyserial/pyserial
@@ -31,7 +32,7 @@ my_dicy_out.dic
 **alphabet.py** - приложение - азбука<br>
 **audio.py** отвечает за проигрывание буквы в .wav из папки 
 "audio" и вывод остальных фраз; только для Windows<br>
-**clock.py** - приложение - часы<br>**
+**clock.py** - приложение - часы<br>
 **edu.py, edu_app.py** - обучающее приложение<br>
 **joystick.py** - обработка нажатий джойстика, 
 пришедших по Serial<br>
