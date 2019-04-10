@@ -116,8 +116,9 @@ class UnitProcessor(QThread):
                     playSoundByFilename('audio/std_msg/signal.wav')
                     try:
                         answ = listen_symbol()
-                    except BaseError:
-                        print('ERROR!!!')
+                    except BaseException:
+                        print('ERROR caught in edu_app in open_unit_menu during listenSymbol')
+                        answ = ''
                     i = 0
                     print('answ')
                     while answ != stp.bLine and i < 3:
@@ -127,7 +128,7 @@ class UnitProcessor(QThread):
                         else:
                             playSoundByFilename('audio/std_msg/ans_incorrect.wav')
                         playSoundByFilename('audio/std_msg/signal.wav')
-                        answ = listen_symbol(rec, mic)
+                        answ = listen_symbol()
                         print(answ)
                         i = i + 1
                     if answ == stp.bLine:
