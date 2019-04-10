@@ -20,12 +20,19 @@ class Note(object):
     def new_note(text):
         with open('saved_notes.txt', "a", encoding="utf-8") as file:
             file.write(text + "\\" + "\n")
-            playSoundByFilename('audio/live/notes/noteSaved.wav')  # Заметка сохранена
+            playSoundByFilename('audio/notes/notesSaved.wav')  # Заметка сохранена
             print('Заметка сохранена')
             return Note(text)
 
     def delete_note(text):
-        pass
+        lines = []
+        with open('saved_notes.txt', "r", encoding="utf-8") as file:
+            for line in file:
+                lines.append(line[:-2])
+        with open('saved_notes.txt', "w", encoding="utf-8") as file:
+            for line in lines:
+                if line != text:
+                    file.write(line + "\\" + "\n")
 
 
 def startApp(ser):
@@ -52,12 +59,11 @@ def startApp(ser):
             if i == len(notes) - 1:
                 i = 0
                 print('Новая заметка')
-                playSoundByFilename('audio/live/notes/noteNew.wav')  # Новая заметка
+                playSoundByFilename('audio/notes/notesNew.wav')  # Новая заметка
             else:
                 i = i + 1
                 print(notes[i])
                 print('Заметка ' + str(i))
-                playSoundByFilename('audio/live/notes/noteNo.wav')  # Заметка номер [i]
                 printLine(notes[i].text, ser)  # На ячейку текст текущей заметки
 
         if joystick_ans == 'u':
@@ -67,16 +73,15 @@ def startApp(ser):
                 i = i - 1
             if i == 0:
                 print('Новая заметка')
-                playSoundByFilename('audio/live/notes/noteNew.wav')  # Новая заметка
+                playSoundByFilename('audio/notes/notesNew.wav')  # Новая заметка
             else:
                 print('Заметка ' + str(i))
-                playSoundByFilename('audio/live/notes/noteNo.wav')  # Заметка номер [i]
                 printLine(notes[i].text, ser)  # На ячейку текст текущей заметки
 
         if joystick_ans == 'r':
             if i == 0:
                 text = ""
-                playSoundByFilename('audio/live/notes/notesEnterTitle.wav')  # Введите текст
+                playSoundByFilename('audio/notes/notesEnterTitle.wav')  # Введите текст
                 joy_keyboard_ans = ""
                 while joy_keyboard_ans != "r":
                     joy_keyboard_ans = listen_serial(ser)
@@ -94,12 +99,17 @@ def startApp(ser):
                 joy_keyboard_ans = listen_serial(ser)
                 while joy_keyboard_ans != 'l':
                     if joy_keyboard_ans == 'd':
+                        Note.delete_note(notes[i].text)
+                        print(notes[i].text)
+                        del notes[i]
+                        i = i - 1
                         print("Заметка удалена")
+                        playSoundByFilename('audio/notes/notesDeleted.wav')
+                        break
                     if joy_keyboard_ans == 'r':
                         print("Заметка дополнена")
+                        break
                     joy_keyboard_ans = listen_serial(ser)
-
-                printLine(notes[i].text, ser)
 
         joystick_ans = listen_serial(ser)
         # joystick_ans = (str(input())+' ')[0]
