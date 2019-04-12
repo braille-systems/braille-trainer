@@ -2,6 +2,7 @@ import edu_app
 import notes
 import alphabet
 import clock
+import calculator
 import serial
 from audio import playSoundByFilename
 from listen_serial import listen_serial
@@ -63,7 +64,8 @@ if __name__ == "__main__":
         ['audio/apps/eduApp.wav', edu_app.startApp],
         ['audio/apps/notesApp.wav', notes.startApp],
         ['audio/apps/alphabetApp.wav', alphabet.startApp],
-        ['audio/apps/clocksApp.wav', clock.startApp]
+        ['audio/apps/clocksApp.wav', clock.startApp],
+        ['audio/apps/calculatorApp.wav', calculator.startApp]
     ]
     i = 0
     ser = serial.Serial(get_port_arduino(), '9600')
