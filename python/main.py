@@ -84,4 +84,4 @@ try:
 
 except BaseException:
     print("Отсутствует соединение с прибором")
-    playSoundByFilename('ErrorConnection.wav')
+    playSoundByFilename('audio/std_msg/ErrorConnection.wav')
