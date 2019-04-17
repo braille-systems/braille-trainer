@@ -46,7 +46,7 @@ class Note(object):
         with open('saved_notes.txt', "w", encoding="utf-8") as file:
             for i in range(len(lines)):
                 if i != note_number - 1:
-                    file.write(line + "\\" + "\n")
+                    file.write(lines[i] + "\\" + "\n")
             print("Заметка удалена")
             playSoundByFilename('audio/notes/notesDeleted.wav')
 
@@ -67,7 +67,7 @@ def startApp(ser):
             letter = braille_to_char(joystick_ans)
             if letter in 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя' and len(letter) != 0:
                 pronounce(letter)
-                printLine(letter, ser)
+            printLine(letter, ser)
             text = text + letter
             print(text)
 
@@ -112,7 +112,7 @@ def startApp(ser):
                             text = text + letter
                             if letter in 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя' and len(letter) != 0:
                                 pronounce(letter)
-                                printLine(letter, ser)
+                            printLine(letter, ser)
                     print('Текст созданной заметки: ' + text)
                     i = len(notes)
                     notes.append(Note.new_note(text))
@@ -135,7 +135,7 @@ def startApp(ser):
                                     letter = braille_to_char(joy_ans)
                                     if letter in 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя' and len(letter) != 0:
                                         pronounce(letter)
-                                        printLine(letter, ser)
+                                    printLine(letter, ser)
                                     new_text = new_text + letter
                                 joy_ans = listen_serial(ser)
                             print(new_text)
