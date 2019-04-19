@@ -23,10 +23,11 @@
 const boolean buttonsConWay = true; //если не работают кнопки - попробовать поменять эту переменную
 
 /* ======= */
-const int n = 1; // servos
-const int srvPins[n] = {9};  // servo pins
-int posInside[n] = {85};  // "inside" positions
-int steps[n] = {33};  // movement from "inside" positions
+const int n = 6; // servos
+const int srvPins[n] = {12/*1*/, 10/*2*/, 7/*3*/, 3/*4*/, 5/*5*/, 8/*6*/};  // servo pins
+const int stp = 30;
+int posInside[n] = {85, 91, 116, 82, 33, 67};  // "inside" positions
+int steps[n] = {-stp, 2*stp, -stp, stp, 2*stp, stp};  // movement from "inside" positions
 /* ======= */
 
 String lastBuf = "000000";

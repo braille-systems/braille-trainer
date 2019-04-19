@@ -38,6 +38,7 @@ def _app_menu(ser, apps):
     print(app[0])
     joystick_ans = listen_serial(ser)
     print(joystick_ans, i)
+    text = ''
     while joystick_ans:
         print(joystick_ans)
         if len(joystick_ans) == 6:
@@ -102,7 +103,8 @@ if __name__ == "__main__":
     try:
         while True:
             res = _app_menu(ser, apps)[1](ser)
-    except BaseException:
+    except BaseException as error:
             print("Отсутствует соединение с прибором")
+            print(error)
             playSoundByFilename('audio/std_msg/ErrorConnection.wav')
-    # ser.close()
+    ser.close()
