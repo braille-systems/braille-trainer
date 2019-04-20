@@ -7,8 +7,12 @@ Braille Trainer: a  device and a set of programs in Python made for visually imp
 **Contacts:** valera.zuev.zva@gmail.com - Валерий Зуев <br>
 **YouTube:** [https://www.youtube.com/channel/UC_SwOSaCvuRJdq-IEFu5GWw](https://www.youtube.com/channel/UC_SwOSaCvuRJdq-IEFu5GWw)
 <br>
-**An application for a contest "Reactor 2019:"** [reactor.su/project/12096](https://reactor.su/project/12096)
+**An application for a contest "Reactor 2019:"** [reactor.su/project/12096](https://reactor.su/project/12096)<br>
 <br>
+<img src="https://github.com/zuevval/braille/blob/experimental/doc/pictures/render5.JPG" width="400">
+<img src="https://github.com/zuevval/braille/blob/experimental/doc/pictures/DSC01655.JPG" width="400">
+<img src="https://github.com/zuevval/braille/blob/experimental/doc/pictures/DSC01656.JPG" width="400">
+<img src="https://github.com/zuevval/braille/blob/experimental/doc/pictures/DSC01657.JPG" width="400"><br>
 <br>
 **RUS:**<br>
 **Основная информация:** [вики](https://github.com/zuevval/braille/wiki) <br>
