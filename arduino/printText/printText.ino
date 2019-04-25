@@ -20,30 +20,26 @@
 #define NOTE_A3_1  307
  */
 
-const boolean buttonsConWay = true; //если не работают кнопки - попробовать поменять эту переменную
-
-/* ======= */
 const int n = 6; // servos
-const int srvPins[n] = {12/*1*/, 10/*2*/, 7/*3*/, 3/*4*/, 5/*5*/, 8/*6*/};  // servo pins
+const int srvPins[n] = {12/*1*/, 10/*2*/, 7/*3*/, 3/*4*/, 5/*5*/, 8/*6*/}; // servo pins
 const int stp = 30;
 int posInside[n] = {85, 91, 116, 82, 33, 67};  // "inside" positions
-int steps[n] = {-stp, 2*stp, -stp, stp, 2*stp, stp};  // movement from "inside" positions
-/* ======= */
-
+int steps[n] = {-stp, 2*stp, -stp, stp, 2*stp, stp}; // movement from "inside" positions
 String lastBuf = "000000";
 //number of dot = index in array + 1
 
-const int xIn = A0; //порт к которому подключен VRx
-const int yIn = A1; //порт к которому подключен VR
-const int speaker = 8; //порт к которому подключен динамик
+const int xIn = A1; //порт к которому подключен VRx
+const int yIn = A0; //порт к которому подключен VR
+const int speaker = 4; //порт к которому подключен динамик
 const int critL = 700; //от 600 до 1000
 const int critR = 300; //от 0 до 400
 const int critD = 250; //от 0 до 400
 const int critU = 750; //от 600 до 1000
 
-const int muteButton = 10; //порт к которому подключена кнопка джойстика (выведена отдельно)
+const int muteButton = 2; //порт к которому подключена кнопка джойстика (выведена отдельно)
 const int m = 6; //число кнопок
-const int btns[m] = {2, 3, 4, 5, 6, 7};
+//const int btns[m] = {A3, A2, A4, A5, 9, 11};
+const int btns[m] = {A2, A3, A4, 11, A5, 9};
 boolean btns_states[m]; //структура данных, описывающая состояние клавиш клавиатуры в ДАННЫЙ момент времени.
 
 boolean inputStates[m]; //структура данных, описывающая состояние клавиш клавиатуры.
@@ -223,21 +219,21 @@ void buttons() {
 
   //BUTTONS
   for (int i = 0; i < m; i++) {
-    if (digitalRead(btns[i]) == HIGH && btns_states[i] == !buttonsConWay) {
-      //кнопка отжата
-      btns_states[i] = buttonsConWay;
+    if (digitalRead(btns[i]) == HIGH && btns_states[i] == true) {
+      //что кнопка отжата
+      btns_states[i] = false;
       if (prevBut == 's')
         alert('d');
-      // Serial.println('s' + String(i) + '+'); // + или - зависит от того, как подключены кнопки
-      keyboard(i, buttonsConWay);
+      //Serial.println('s' + String(i) + '-'); // + или - зависит от того, как подключены кнопки
+      keyboard(i, false);
     }
-    else if (digitalRead(btns[i]) == LOW && btns_states[i] == buttonsConWay) {
+    else if (digitalRead(btns[i]) == LOW && btns_states[i] == false) {
       //кнопка нажата
-      btns_states[i] = !buttonsConWay;
+      btns_states[i] = true;
       if (prevBut == 's')
         alert('u');
-      // Serial.println('s' + String(i) + '-');
-      keyboard(i, !buttonsConWay);
+      //Serial.println('s' + String(i) + '+');
+      keyboard(i, true);
     }
   }
 }
@@ -265,11 +261,7 @@ void keyboard(int i, boolean b) {
     Serial.println(s);
     reqState = 0;
   }
-  
-  if (!isConnected) {
-    // Serial.println(s); //раскомм., если нужно печатать в сериал то, что ввел пользователь с помощью клавиатуры
-    printText(s);
-  }
+  if (!isConnected) printText(s);
   
   for (int k = 0; k < m; k++) {
     inputStates[k] = false;
@@ -304,6 +296,7 @@ void loop() {
   joystick();
   if (Serial.available()) {
     String request = Serial.readString();
+  
     if (request[0] != '?' && request[0] != '!')
       printText(request);
     else if(request[0] != '!'){
@@ -312,5 +305,11 @@ void loop() {
     }
     else
       reqState = 1;
+
+//    if (request[0] != '!') printText(request);
+      
+    /*else
+      isConnected = 1;*/
+      
   }
 }
