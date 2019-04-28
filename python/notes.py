@@ -5,7 +5,7 @@ from serial_get_name import get_port_arduino
 from listen_serial import listen_serial
 from serial_hex import braille_to_char
 from serial_hex import printLine
-
+from speech_synthesizer import text_to_speech
 
 class Note(object):
     def __init__(self, text):
@@ -60,7 +60,8 @@ def startApp(ser):
     # joystick_ans = (str(input())+' ')[0] #technical substitution for testing
     i = 0
     text = ''
-    playSoundByFilename('audio/notes/notesStart.wav')
+    text_to_speech('Если Вы хотите создать новую заметку, нажмите вправо. Чтобы пролистать список заметок, нажмите вниз или вверх')
+    # playSoundByFilename('audio/notes/notesStart.wav')
     joystick_ans = listen_serial(ser)
     while joystick_ans != 'l':
         if len(joystick_ans) == 6:
