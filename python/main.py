@@ -11,7 +11,7 @@ from serial_get_name import get_port_arduino
 from serial_hex import braille_to_char
 from serial_hex import printLine
 from audio import playSoundByFilename, pronounce
-
+from speech_synthesizer import text_to_speech
 
 def _app_menu(ser, apps):
     """
@@ -43,8 +43,9 @@ def _app_menu(ser, apps):
         print(joystick_ans)
         if len(joystick_ans) == 6:
             letter = braille_to_char(joystick_ans)
-            if letter in 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя' and len(letter) != 0:
-                pronounce(letter)
+            if len(letter) != 0:
+                text_to_speech(letter)
+                # pronounce(letter)
             printLine(letter, ser)
             text += letter
             print(text)
@@ -73,7 +74,8 @@ def _app_menu(ser, apps):
             if text != '':
                 with open('saved_notes.txt', "a", encoding="utf-8") as file:
                     file.write(text + "\\" + "\n")
-                    playSoundByFilename('audio/notes/notesSaved.wav')  # Заметка сохранена
+                    text_to_speech('Заметка сохранена')
+                    # playSoundByFilename('audio/notes/notesSaved.wav')  # Заметка сохранена
                     print('Заметка сохранена')
             else:
                 break
