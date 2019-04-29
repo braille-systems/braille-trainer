@@ -34,7 +34,8 @@ def _app_menu(ser, apps):
     """
     i = 0
     app = apps[0]
-    playSoundByFilename(app[0])
+    text_to_speech(app[2])
+    #playSoundByFilename(app[0])
     print(app[0])
     joystick_ans = listen_serial(ser)
     print(joystick_ans, i)
@@ -58,7 +59,8 @@ def _app_menu(ser, apps):
             else:
                 i = i + 1
             app = apps[i]
-            playSoundByFilename(app[0])
+            text_to_speech(app[2])
+            #playSoundByFilename(app[0])
             print(i)
         if joystick_ans == 'u':
             text = ''
@@ -67,7 +69,9 @@ def _app_menu(ser, apps):
             else:
                 i = i - 1
             app = apps[i]
-            playSoundByFilename(app[0])
+            text_to_speech(app[2])
+            #playSoundByFilename(app[0])
+            
             print(i)
         joystick_ans = listen_serial(ser)
         if joystick_ans == 'r':
@@ -84,11 +88,11 @@ def _app_menu(ser, apps):
 
 if __name__ == "__main__":
     apps = [
-        ['audio/apps/eduApp.wav', edu_app.startApp],
-        ['audio/apps/notesApp.wav', notes.startApp],
-        ['audio/apps/alphabetApp.wav', alphabet.startApp],
-        ['audio/apps/clocksApp.wav', clock.startApp],
-        ['audio/apps/calculatorApp.wav', calculator.startApp]
+        ['audio/apps/eduApp.wav', edu_app.startApp, 'уроки'],
+        ['audio/apps/notesApp.wav', notes.startApp, 'заметки'],
+        ['audio/apps/alphabetApp.wav', alphabet.startApp, 'азбука'],
+        ['audio/apps/clocksApp.wav', clock.startApp, 'часы'],
+        ['audio/apps/calculatorApp.wav', calculator.startApp, 'калькулятор']
         ]
     i = 0
 
