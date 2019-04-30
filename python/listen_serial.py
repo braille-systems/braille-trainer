@@ -42,7 +42,7 @@ def listen_serial(ser, menuID=-1, requiresReturn =False):
             # so we ignore it and listen next
             return listen_serial(ser)
     if(requiresReturn):
-        return ''
+        return '.'
 
 
 if __name__ == "__main__":
