@@ -1,4 +1,14 @@
-﻿Для работы распознования аудио понадобится:
+﻿Для работы синтеза речи в Windows:
+1. [download RHVoice (Google Drive)](https://nvda.ru/links/rhvoice-0.7.1-sapi5.php)
+Если не устраивает конкретно этот дистрибутив: [RHVoice - все версии, в т. ч. портативная](https://nvda.ru/sintezator-rhvoice#komplekt-rhvoice-v071-sapi5-razdelnye-komponenty)
+1. Запустить инсталлер RHVoice (`General/RHVoice-v0.7.1-setup.exe`)
+1. После успешной установки запустить инсталлер голоса, сейчас это Ирина (`Voice/RHVoice-voice-Russian-Irina-v4.0-setup.exe`)
+1. `pip3 install pyttsx3` - набрать в терминале
+
+После этих действий должны проигрываться названия приложений в меню и прочее (заметки, ...)
+
+
+Для работы распознования аудио понадобится:
 1. ``pip install pyaudio``
 1. ``pip install speechrecognition``
 1. ``pip install pocketsphinx``
@@ -10,7 +20,7 @@
 Для работы с Serial используется библиотека pySerial<br>
 https://github.com/pyserial/pyserial
 https://pythonhosted.org/pyserial/
-Для установки ``pip install pyserial``
+Для установки `pip install pyserial`
 
 Для работы listen необходимо добавить в папку python'a:
 ~\Lib\site-packages\pocketsphinx\model
