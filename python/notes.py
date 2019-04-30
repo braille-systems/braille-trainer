@@ -65,7 +65,7 @@ def startApp(ser):
     text = ''
     text_to_speech('Если Вы хотите создать новую заметку, нажмите вправо. Чтобы пролистать список заметок, нажмите вниз или вверх')
     # playSoundByFilename('audio/notes/notesStart.wav')
-    joystick_ans = listen_serial(ser)
+    joystick_ans = listen_serial(ser, "notes")
     while joystick_ans != 'l':
         if len(joystick_ans) == 6:
             letter = braille_to_char(joystick_ans)
@@ -116,7 +116,7 @@ def startApp(ser):
                     # playSoundByFilename('audio/notes/notesEnterTitle.wav')  # Введите текст
                     joy_keyboard_ans = ""
                     while joy_keyboard_ans != "r":
-                        joy_keyboard_ans = listen_serial(ser)
+                        joy_keyboard_ans = listen_serial(ser, 'notes')
                         if len(joy_keyboard_ans) == 6:
                             letter = braille_to_char(joy_keyboard_ans)
                             text = text + letter
@@ -140,7 +140,7 @@ def startApp(ser):
                             i = i - 1
                             break
                         if joy_keyboard_ans == 'r':
-                            joy_ans = listen_serial(ser)
+                            joy_ans = listen_serial(ser, 'notes')
                             new_text = ""
                             while joy_ans != 'r':
                                 if len(joy_ans) == 6:
@@ -155,9 +155,9 @@ def startApp(ser):
                             notes[i].text = notes[i].text + new_text
                             Note.add_to_note(i, new_text)
                             break
-                        joy_keyboard_ans = listen_serial(ser)
+                        joy_keyboard_ans = listen_serial(ser, 'notes')
 
-        joystick_ans = listen_serial(ser)
+        joystick_ans = listen_serial(ser, 'notes')
         # joystick_ans = (str(input())+' ')[0]
     pass
 

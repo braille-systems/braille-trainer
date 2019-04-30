@@ -73,7 +73,7 @@ def _app_menu(ser, apps):
             #playSoundByFilename(app[0])
             
             print(i)
-        joystick_ans = listen_serial(ser)
+        joystick_ans = listen_serial(ser, 'main')
         if joystick_ans == 'r':
             if text != '':
                 with open('saved_notes.txt', "a", encoding="utf-8") as file:
