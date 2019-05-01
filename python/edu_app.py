@@ -11,6 +11,7 @@ from serial_hex import printLine, printBraille
 from listen_serial import listen_serial
 from serial_get_name import get_port_arduino
 import speech_recognition as sr
+from speech_synthesizer import text_to_speech as tts
 
 
 class UnitProcessor(QThread):
@@ -60,7 +61,8 @@ class UnitProcessor(QThread):
         i = 0
         units = self.units
         unit = units[0]
-        playSoundByFilename(unit.title)
+        # playSoundByFilename(unit.title)
+        tts(unit.title)
         print(unit.title)
         joystick_ans = listen_serial(ser)
         print(joystick_ans, i)
@@ -72,7 +74,8 @@ class UnitProcessor(QThread):
                 else:
                     i = i + 1
                 unit = units[i]
-                playSoundByFilename(unit.title)
+                # playSoundByFilename(unit.title)
+                tts(unit.title)
                 print(i)
             if joystick_ans == 'u':
                 if i == 0:
@@ -80,7 +83,8 @@ class UnitProcessor(QThread):
                 else:
                     i = i - 1
                 unit = units[i]
-                playSoundByFilename(unit.title)
+                #playSoundByFilename(unit.title)
+                tts(unit.title)
                 print(i)
             joystick_ans = listen_serial(ser)
             if joystick_ans == 'r':
@@ -99,7 +103,8 @@ class UnitProcessor(QThread):
             while 0 <= j < len(unit):  # для каждого шага юнита
                 stp = unit[j]
                 if isinstance(stp, LessonStep):
-                    playSoundByFilename(stp.audio)
+                    #playSoundByFilename(stp.audio)
+                    tts(stp.comment)
                     print(stp.audio)
                     if(len(stp.bLine) == 7):
                         if(stp.bLine[0] == '%'):
@@ -109,8 +114,9 @@ class UnitProcessor(QThread):
                             self.lu.setLetter(chr)
                             printLine(chr, ser)
                 elif isinstance(stp, TestStep):
-                    playSoundByFilename(stp.audio)
-                    print(stp.audio)
+                    #playSoundByFilename(stp.audio)
+                    tts(stp.comment)
+                    print(stp.comment)
                     printLine(stp.bLine, ser)
                     self.sleep(3)
                     playSoundByFilename('audio/std_msg/signal.wav')
@@ -185,6 +191,24 @@ def initMenu():
     """
     Creating lessons, tests; filling them with proper steps.
     """
+
+    U3 = Unit(utype='lesson')
+    U3.title = 'Урок 3 - буквы А., Эм., У.'
+    U3.append(LessonStep('','',comment='Буквы изучаются не по алфавиту. Сначала мы изучим более простые буквы - А., ЭМ., У. .'))
+    U3.append(LessonStep('','а',comment='Потрогайте точку 1. Буква .А. обозначается точкой номер один'))
+    U3.append(LessonStep('','м',comment='Буква .Эм. - это комбинация точек 1, 3 и 4'))
+    U3.append(LessonStep('','ам',comment='а.м.'))
+    U3.append(LessonStep('','ма',comment='м.а.'))
+    U3.append(LessonStep('','мама',comment='мама'))
+    U3.append(LessonStep('','у',comment='Последняя буква в этом уроке - буква .у. Попробуйте самостоятельно определить на ощупь номера точек, образующих букву у'))
+    U3.append(LessonStep('','у',comment='Правильный ответ: буква .у. - это точки 1, 3 и 6'))
+    U3.append(LessonStep('','ау',comment='а.у.'))
+    U3.append(LessonStep('','му',comment='м.у.'))
+    U3.append(LessonStep('','ум',comment='у.м.'))
+    U3.append(LessonStep('','ума',comment='у.м.а.'))
+    U3.append(LessonStep('','маму',comment='маму'))
+    U3.append(LessonStep('','',comment='конец урока. Спасибо за терпение'))
+
     U1 = Unit(utype='lesson')
     U1.title = 'audio/live/lessons/1/lesson1Dots.wav'
     less1 = LessonStep('audio/live/lessons/1/2Encodes.wav', '', comment='Шрифт Брайля кодирует кажду букву алфавита комбинацией точек в ячейке Брайля')
@@ -192,11 +216,11 @@ def initMenu():
     less3 = LessonStep('audio/live/lessons/1/4Enum.wav', '', comment='')
     less4 = LessonStep('audio/live/lessons/1/5nowTouch.wav', '', comment='')
     less5 = LessonStep('audio/live/lessons/1/6touch1.wav', '%100000', comment='Потрогайте точку 1')
-    less6 = LessonStep('audio/live/lessons/1/7touch2.wav', '%010000', comment='Потрогайте точку 1')
-    less7 = LessonStep('audio/live/lessons/1/8touch3.wav', '%001000', comment='Потрогайте точку 1')
-    less8 = LessonStep('audio/live/lessons/1/9touch4.wav', '%000100', comment='Потрогайте точку 1')
-    less9 = LessonStep('audio/live/lessons/1/10touch5.wav', '%000010', comment='Потрогайте точку 1')
-    less10 = LessonStep('audio/live/lessons/1/11touch6.wav', '%000001', comment='Потрогайте точку 1')
+    less6 = LessonStep('audio/live/lessons/1/7touch2.wav', '%010000', comment='Потрогайте точку 2')
+    less7 = LessonStep('audio/live/lessons/1/8touch3.wav', '%001000', comment='Потрогайте точку 3')
+    less8 = LessonStep('audio/live/lessons/1/9touch4.wav', '%000100', comment='Потрогайте точку 4')
+    less9 = LessonStep('audio/live/lessons/1/10touch5.wav', '%000010', comment='Потрогайте точку 5')
+    less10 = LessonStep('audio/live/lessons/1/11touch6.wav', '%000001', comment='Потрогайте точку 6')
     
     U1.append(less1)
     U1.append(less2)
@@ -263,7 +287,7 @@ def initMenu():
     Test1.append(less3)
     Test1.append(less4)
     
-    return [U1, U2, U1a, Test1]
+    return [U3, U1, U2, U1a, Test1]
 
 
 def startApp(ser):
