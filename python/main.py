@@ -113,4 +113,5 @@ if __name__ == "__main__":
             print("Отсутствует соединение с прибором")
             print(error)
             playSoundByFilename('audio/std_msg/ErrorConnection.wav')
+            time.sleep(5)
     ser.close()
