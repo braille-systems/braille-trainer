@@ -11,15 +11,16 @@ def listen_serial(ser, menuID=-1, requiresReturn =False):
     ser.write(bytes('?', 'UTF-8'))
     line = ser.readline()
     s = str(line)
-    while not (s[2] in 'ldru01c+'):
-        print('not in ldru01c+')
+    print(s[2])
+    while not (s[2] in 'ldru01h+'):
+        print('not in ldru01h+')
         line = ser.readline()
         s = str(line)
     if s[2] in 'ldru':
         return s[2]
     if s[2] in '01':
         return s[2:8]
-    if (s[2] in 'c') & (menuID != -1):
+    if (s[2] in 'h') & (menuID != -1):
         hp.instantHelp(menuID)
         #TODO: return something
         return s[2]
@@ -41,7 +42,7 @@ def listen_serial(ser, menuID=-1, requiresReturn =False):
             # so we ignore it and listen next
             return listen_serial(ser)
     if(requiresReturn):
-        return '0'
+        return '.'
 
 
 if __name__ == "__main__":

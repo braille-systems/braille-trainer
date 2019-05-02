@@ -29,8 +29,6 @@
 #define NOTE_A3_1  307
  */
  
-const int speaker = 8; //порт к которому подключен динамик
-const int muteButton = 10; //кнопка звука
 int muteButtonState;
 unsigned long timingSpeak; //тайминг динамика
 

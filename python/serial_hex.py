@@ -26,6 +26,10 @@ def charToBraille(char):
         data = '001111'
         return data
 
+    if char == ' ':
+        data = '000000'
+        return data
+
     # is digit?
     if char in {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'}:
         # dot 1
@@ -128,6 +132,8 @@ def braille_to_char(data):
             return chr(number)
     if data == '001111':
         return '#'
+    if data == '000000':
+        return ' '
     return ''
 
 

@@ -5,7 +5,7 @@ from serial_get_name import get_port_arduino
 from listen_serial import listen_serial
 from serial_hex import braille_to_char
 from serial_hex import printLine
-
+from speech_synthesizer import text_to_speech
 
 class Note(object):
     def __init__(self, text):
@@ -28,13 +28,15 @@ class Note(object):
                     file.write(lines[i] + "\\" + "\n")
                 else:
                     file.write(lines[i] + new_text + "\\" + "\n")
-        playSoundByFilename('audio/notes/notesAdded.wav')
+        text_to_speech('Заметка дополнена')
+        # playSoundByFilename('audio/notes/notesAdded.wav')
         print("Заметка дополнена")
 
     def new_note(text):
         with open('saved_notes.txt', "a", encoding="utf-8") as file:
             file.write(text + "\\" + "\n")
-            playSoundByFilename('audio/notes/notesSaved.wav')  # Заметка сохранена
+            text_to_speech('Заметка сохранена')
+            # playSoundByFilename('audio/notes/notesSaved.wav')  # Заметка сохранена
             print('Заметка сохранена')
             return Note(text)
 
@@ -46,9 +48,10 @@ class Note(object):
         with open('saved_notes.txt', "w", encoding="utf-8") as file:
             for i in range(len(lines)):
                 if i != note_number - 1:
-                    file.write(line + "\\" + "\n")
+                    file.write(lines[i] + "\\" + "\n")
             print("Заметка удалена")
-            playSoundByFilename('audio/notes/notesDeleted.wav')
+            text_to_speech('Заметка удалена')
+            # playSoundByFilename('audio/notes/notesDeleted.wav')
 
 
 def startApp(ser):
@@ -60,14 +63,16 @@ def startApp(ser):
     # joystick_ans = (str(input())+' ')[0] #technical substitution for testing
     i = 0
     text = ''
-    playSoundByFilename('audio/notes/notesStart.wav')
-    joystick_ans = listen_serial(ser)
+    text_to_speech('Если Вы хотите создать новую заметку, нажмите вправо. Чтобы пролистать список заметок, нажмите вниз или вверх')
+    # playSoundByFilename('audio/notes/notesStart.wav')
+    joystick_ans = listen_serial(ser, "notes")
     while joystick_ans != 'l':
         if len(joystick_ans) == 6:
             letter = braille_to_char(joystick_ans)
-            if letter in 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя' and len(letter) != 0:
-                pronounce(letter)
-                printLine(letter, ser)
+            if len(letter) != 0:
+                text_to_speech(letter)
+                # pronounce(letter)
+            printLine(letter, ser)
             text = text + letter
             print(text)
 
@@ -75,11 +80,13 @@ def startApp(ser):
             if i == len(notes) - 1:
                 i = 0
                 print('Новая заметка')
-                playSoundByFilename('audio/notes/notesNew.wav')  # Новая заметка
+                text_to_speech('Новая заметка')
+                # playSoundByFilename('audio/notes/notesNew.wav')  # Новая заметка
             else:
                 i = i + 1
                 print(notes[i])
                 print('Заметка ' + str(i))
+                text_to_speech(notes[i])
                 printLine(notes[i].text, ser)  # На ячейку текст текущей заметки
 
         if joystick_ans == 'u':
@@ -89,9 +96,11 @@ def startApp(ser):
                 i = i - 1
             if i == 0:
                 print('Новая заметка')
-                playSoundByFilename('audio/notes/notesNew.wav')  # Новая заметка
+                text_to_speech('Новая заметка')
+                # playSoundByFilename('audio/notes/notesNew.wav')  # Новая заметка
             else:
                 print('Заметка ' + str(i))
+                text_to_speech(notes[i])
                 printLine(notes[i].text, ser)  # На ячейку текст текущей заметки
 
         if joystick_ans == 'r':
@@ -103,22 +112,25 @@ def startApp(ser):
             else:
                 if i == 0:
                     text = ""
-                    playSoundByFilename('audio/notes/notesEnterTitle.wav')  # Введите текст
+                    text_to_speech('Введите текст заметки')
+                    # playSoundByFilename('audio/notes/notesEnterTitle.wav')  # Введите текст
                     joy_keyboard_ans = ""
                     while joy_keyboard_ans != "r":
-                        joy_keyboard_ans = listen_serial(ser)
+                        joy_keyboard_ans = listen_serial(ser, 'notes')
                         if len(joy_keyboard_ans) == 6:
                             letter = braille_to_char(joy_keyboard_ans)
                             text = text + letter
-                            if letter in 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя' and len(letter) != 0:
-                                pronounce(letter)
-                                printLine(letter, ser)
+                            if len(letter) != 0:
+                                text_to_speech(letter)
+                                # pronounce(letter)
+                            printLine(letter, ser)
                     print('Текст созданной заметки: ' + text)
                     i = len(notes)
                     notes.append(Note.new_note(text))
                     text = ""
                 else:
-                    playSoundByFilename('audio/notes/notesActions.wav')
+                    text_to_speech('Выберите, что нужно сделать с заметкой. Чтобы удалить, нажмите вниз, (чтобы дополнить, вправо) чтобы ничего не сделать и вернуться в главное меню - нажмите влево')
+                    # playSoundByFilename('audio/notes/notesActions.wav')
                     joy_keyboard_ans = listen_serial(ser)
                     while joy_keyboard_ans != 'l':
                         if joy_keyboard_ans == 'd':
@@ -128,23 +140,24 @@ def startApp(ser):
                             i = i - 1
                             break
                         if joy_keyboard_ans == 'r':
-                            joy_ans = listen_serial(ser)
+                            joy_ans = listen_serial(ser, 'notes')
                             new_text = ""
                             while joy_ans != 'r':
                                 if len(joy_ans) == 6:
                                     letter = braille_to_char(joy_ans)
-                                    if letter in 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя' and len(letter) != 0:
-                                        pronounce(letter)
-                                        printLine(letter, ser)
+                                    if len(letter) != 0:
+                                        text_to_speech(letter)
+                                        # pronounce(letter)
+                                    printLine(letter, ser)
                                     new_text = new_text + letter
                                 joy_ans = listen_serial(ser)
                             print(new_text)
                             notes[i].text = notes[i].text + new_text
                             Note.add_to_note(i, new_text)
                             break
-                        joy_keyboard_ans = listen_serial(ser)
+                        joy_keyboard_ans = listen_serial(ser, 'notes')
 
-        joystick_ans = listen_serial(ser)
+        joystick_ans = listen_serial(ser, 'notes')
         # joystick_ans = (str(input())+' ')[0]
     pass
 
