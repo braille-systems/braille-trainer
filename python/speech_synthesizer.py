@@ -20,11 +20,15 @@ class Threader(Thread):
     def run(self):
         global engine
         if engine == None:
+            f = open('settings.ini', 'r')
+            audiospeed = int(f.read(1))
+            f.close()
             tts_engine = pyttsx3.init()
             # Elena's voice
             ru_voice_id = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\TokenEnums\RHVoice\Elena"
             ru_voice_id = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\TokenEnums\RHVoice\Irina"
             tts_engine.setProperty('voice', ru_voice_id)
+            tts_engine.setProperty('rate', audiospeed*20+100)
             tts_engine.say(self._args)
             engine = tts_engine
             tts_engine.runAndWait()

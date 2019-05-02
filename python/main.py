@@ -3,6 +3,7 @@ import notes
 import alphabet
 import clock
 import calculator
+import settings
 import serial
 from audio import playSoundByFilename
 from listen_serial import listen_serial
@@ -92,7 +93,8 @@ if __name__ == "__main__":
         ['audio/apps/notesApp.wav', notes.startApp, 'заметки'],
         ['audio/apps/alphabetApp.wav', alphabet.startApp, 'азбука'],
         ['audio/apps/clocksApp.wav', clock.startApp, 'часы'],
-        ['audio/apps/calculatorApp.wav', calculator.startApp, 'калькулятор']
+        ['audio/apps/calculatorApp.wav', calculator.startApp, 'калькулятор'],
+        ['', settings.startApp, 'настройки']
         ]
     i = 0
 
