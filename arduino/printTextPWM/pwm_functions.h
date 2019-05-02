@@ -11,12 +11,7 @@
 const int angleInside = 25;
 const int angleOutside = 10;
 unsigned long timingSer; //тайминг сервоприводов
-const int n = 6; //число сервоприводов
 String lastBuf = "000000"; //последняя выведенная брайль-строка
-//int posInside[n] = {90, 90, 90, 95, 66, 46};  // "inside" positions //for v2.0
-//int steps[n] = {20, 31, 31, 43, 42, 32};  // movement from "inside" positions //for v2.0
-int posInside[n] = {99, 63, 90, 81, 57, 37};  // for V2.1
-int steps[n] = {-28, -31, -26, -24, -33, -22};  // for V2.1
 
 
 // called this way, it uses the default address 0x40

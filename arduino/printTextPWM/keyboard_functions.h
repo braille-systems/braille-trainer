@@ -7,12 +7,7 @@ const int joystickButton = 9; //порт, к которому подключен
 boolean joystickState = true;
 
 const boolean buttonsConWay = true; //если не работают кнопки - попробовать поменять эту переменную
-//number of dot = index in array + 1
-const int m = 6; //число кнопок
-//const int btns[m] = {4, 2, 3, 7, 6, 5}; for v2.0
-const int btns[m] = {2, 3, 4, 7, 6, 5}; //pins for v2.1
-const int spaceButton = 10;
-const int helpButton = 12;
+
 boolean btns_states[m]; //структура данных, описывающая состояние клавиш клавиатуры в ДАННЫЙ момент времени.
 boolean inputStates[m]; //структура данных, описывающая состояние клавиш клавиатуры.
 //Интерпретация: символ, введенный с клавиатуры и предназначенный для отправки в сериал.
@@ -110,6 +105,7 @@ void buttons() {
     }
   }
 
+  if(VERSION == 2.0) return;
   //Space BUTTON
   if (digitalRead(spaceButton) == HIGH && !spaceButtonState) {
     //кнопка отжата
