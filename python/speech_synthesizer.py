@@ -40,7 +40,7 @@ def text_to_speech(text):
     global thread
     if thread != None:
         thread.terminate()
-        time.sleep(0.2)
+        time.sleep(0.15)
     my_thread = Threader(args=text)
     thread = my_thread
     
