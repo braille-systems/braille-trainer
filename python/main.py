@@ -3,6 +3,7 @@ import notes
 import alphabet
 import clock
 import calculator
+import settings
 import serial
 import blitz
 from audio import playSoundByFilename
@@ -94,7 +95,8 @@ if __name__ == "__main__":
         ['audio/apps/alphabetApp.wav', alphabet.startApp, 'азбука'],
         ['audio/apps/clocksApp.wav', clock.startApp, 'часы'],
         ['audio/apps/calculatorApp.wav', calculator.startApp, 'калькулятор'],
-        ['~', blitz.startApp, 'блитц']
+        ['~', blitz.startApp, 'блитц'],
+        ['', settings.startApp, 'настройки'],
         ]
     i = 0
 
@@ -115,4 +117,5 @@ if __name__ == "__main__":
             print("Отсутствует соединение с прибором")
             print(error)
             playSoundByFilename('audio/std_msg/ErrorConnection.wav')
+            time.sleep(5)
     ser.close()

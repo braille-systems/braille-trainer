@@ -148,7 +148,7 @@ class UnitProcessor(QThread):
                     print(stp.bLine)
                     self.lu.setLetter(stp.bLine)
                 print('joystick')
-                joystick_ans = listen_serial(ser)
+                joystick_ans = listen_serial(ser, 'units_tests')
                 print(joystick_ans)
                 while joystick_ans:
                     if joystick_ans == 'r':
@@ -161,7 +161,7 @@ class UnitProcessor(QThread):
                         break
                     if joystick_ans == 'd':
                         j = -1
-                    joystick_ans = listen_serial(ser)
+                    joystick_ans = listen_serial(ser, 'units_tests')
                     print(joystick_ans)
                 printLine(' ', ser)
                 self.lu.setLetter(' ')

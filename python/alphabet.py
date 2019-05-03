@@ -30,24 +30,26 @@ def startApp(ser):
     printLine(ALF[i], ser)
     
     # joystick_ans = (str(input())+' ')[0] #technical substitution for testing
-    joystick_ans = listen_serial(ser)
+    joystick_ans = listen_serial(ser, 'alphabet')
     while joystick_ans != 'l':
-        print(joystick_ans)
-        if joystick_ans == 'd':
-            if i == len(ALF) - 1:
-                i = 0
-            else:
-                i = i + 1
-        if joystick_ans == 'u':
-            if i == 0:
-                i = len(ALF) - 1
-            else:
-                i = i - 1
+        if joystick_ans != 'h' and joystick_ans is not None:
+            print(joystick_ans)
+            if joystick_ans == 'd':
+                if i == len(ALF) - 1:
+                    i = 0
+                else:
+                    i = i + 1
+            if joystick_ans == 'u':
+                if i == 0:
+                    i = len(ALF) - 1
+                else:
+                    i = i - 1
         
-        pronounce(ALF[i])
-        printLine(ALF[i], ser)
-        print('JOYSTICK ANS:')
-        joystick_ans = listen_serial(ser)
+            pronounce(ALF[i])
+            printLine(ALF[i], ser)
+            print('JOYSTICK ANS:')
+        joystick_ans = listen_serial(ser, 'alphabet')
+        print(joystick_ans)
         # joystick_ans = (str(input())+' ')[0]
 
 

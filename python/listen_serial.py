@@ -22,8 +22,7 @@ def listen_serial(ser, menuID=-1, requiresReturn =False):
         return s[2:8]
     if (s[2] in 'h') & (menuID != -1):
         hp.instantHelp(menuID)
-        #TODO: return something
-        return s[2]
+        return 'h'
     if (s[2] == '+'):
         if requiresReturn:
             t = time.time()
