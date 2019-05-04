@@ -62,7 +62,7 @@ def reading_mode(ser, path):                                          # режи
         i = random.randint(0, 32)
         printLine(ALF[i], ser)                                  # вывод буквы на ячейку
 
-        ans = listen(ser)
+        ans = listen_symbol()
         if ans == ALF[i]:                                       # счёт очков
             correct_num += 1
         else:
@@ -70,7 +70,10 @@ def reading_mode(ser, path):                                          # режи
     [upd_flag, hs] = update_hs(path, correct_num, "reading")
     if upd_flag:
         text_to_speech("поздравляю, вы установили новый рекорд")
-    final_line = "Текущий максимальный счёт" + str(hs) + "очков"
+    else:
+        result_line = "Вы набрали " + str(correct_num) + " очков"
+        text_to_speech(result_line)
+    final_line = "Текущий максимальный счёт " + str(hs) + " очков"
     text_to_speech(final_line)
     return
 
@@ -89,10 +92,13 @@ def writing_mode(ser, path):               # режим самостоятель
             correct_num += 1
         else:
             wrong_num += 1
-    upd_flag = update_hs(path, correct_num, "writing")
+    [upd_flag, hs] = update_hs(path, correct_num, "writing")
     if upd_flag:
         text_to_speech("поздравляю, вы установили новый рекорд")
-    final_line = "Текущий максимальный счёт" + str(hs) + "очков"
+    else:
+        result_line = "Вы набрали " + str(correct_num) + " очков"
+        text_to_speech(result_line)
+    final_line = "Текущий максимальный счёт " + str(hs) + " очков"
     text_to_speech(final_line)
     return
 
@@ -104,14 +110,17 @@ def update_hs(path, new_result, mode):
     old_result = int(config.get("Highscores", mode))
     if new_result > old_result:
         config.set("Highscores", mode, str(new_result))
+        with open(path, "w") as config_file:
+            config.write(config_file)
         upd_flag = True
         old_result = new_result
     return [upd_flag, old_result]
 
 
 if __name__ == "__main__":
-    ser = serial.Serial(get_port_arduino(), '9600')
-    time.sleep(5)  # если мало "поспать", не работает
+    #ser = serial.Serial(get_port_arduino(), '9600')
+    #time.sleep(5)  # если мало "поспать", не работает
+    ser = 1
 
     def listen_serial(ser):
         return input()
@@ -119,8 +128,11 @@ if __name__ == "__main__":
     def printLine(stri, ser):
         return print(stri)
 
-    def listen(ser):
+    def listen_symbol():
         return input()
 
-    blitzgame(ser)
-    ser.close()
+    def text_to_speech(stri):
+        return print(stri)
+
+    startApp(ser)
+    #ser.close()
