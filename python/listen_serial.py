@@ -20,8 +20,8 @@ def listen_serial(ser, menuID=-1, requiresReturn =False):
         return s[2]
     if s[2] in '01':
         return s[2:8]
-    if (s[2] in 'h') & (menuID != -1):
-        hp.instantHelp(menuID)
+    if s[2] == 'h':
+        hp.instantHelp(menuID)    
         return 'h'
     if (s[2] == '+'):
         if requiresReturn:

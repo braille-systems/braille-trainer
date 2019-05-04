@@ -39,7 +39,7 @@ def _app_menu(ser, apps):
     text_to_speech(app[2])
     #playSoundByFilename(app[0])
     print(app[0])
-    joystick_ans = listen_serial(ser)
+    joystick_ans = listen_serial(ser, 'main')
     print(joystick_ans, i)
     text = ''
     while joystick_ans:
@@ -48,12 +48,14 @@ def _app_menu(ser, apps):
             letter = braille_to_char(joystick_ans)
             if len(letter) != 0:
                 text_to_speech(letter)
-                # pronounce(letter)
+            else:
+                text_to_speech("неизвестный символ")
             printLine(letter, ser)
             text += letter
             print(text)
         if joystick_ans == 'l':
             text = text[:-1]
+            text_to_speech(text)
         if joystick_ans == 'd':
             text = ''
             if i == len(apps) - 1:
@@ -95,7 +97,7 @@ if __name__ == "__main__":
         ['audio/apps/alphabetApp.wav', alphabet.startApp, 'азбука'],
         ['audio/apps/clocksApp.wav', clock.startApp, 'часы'],
         ['audio/apps/calculatorApp.wav', calculator.startApp, 'калькулятор'],
-        ['~', blitz.startApp, 'блитц'],
+        ['~', blitz.startApp, 'блиц-опрос'],
         ['', settings.startApp, 'настройки'],
         ]
     i = 0

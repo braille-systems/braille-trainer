@@ -21,17 +21,18 @@ def startApp(ser):
         with open(path, "w") as config_file:
             config.write(config_file)
     modes_of_blitz = [reading_mode, writing_mode]                                         # массив функций режимов игры
-    text_to_speech("для перехода в меню выбора режима дёрните джойстик вправо")           # произносит описания блица, просит дёрнуть стик вправо, нужен ли тут принт
-    print("для перехода в меню выбора режима дёрните джойстик вправо")
-    joystick_ans = listen_serial(ser)
-    lines_for_modes = ["Режим чтения", "Режим письма"]
+    #text_to_speech("для перехода в меню выбора режима дёрните джойстик вправо")           # произносит описания блица, просит дёрнуть стик вправо, нужен ли тут принт
+    #print("для перехода в меню выбора режима дёрните джойстик вправо")
+    #joystick_ans = listen_serial(ser)
+    lines_for_modes = ["Режим чтения", "Режим ввода с помощью клавиатуры"]
+    joystick_ans = 'r'
     while joystick_ans:
         if joystick_ans == 'r':                                 # переходим к выбору режима блица
             i = 0
             text_to_speech(lines_for_modes[i])
             print(lines_for_modes[i])
             while joystick_ans:                                 # сдвиг стика влево, кажется интуитивным способом выхода из приложения
-                joystick_ans = listen_serial(ser)
+                joystick_ans = listen_serial(ser, "blitzModes")
                 if joystick_ans == 'd':
                     i += 1
                     i %= num_of_modes
@@ -44,13 +45,13 @@ def startApp(ser):
                     print(lines_for_modes[i])
                 elif joystick_ans == 'r':
                     modes_of_blitz[i](ser, path)  # тут вызывавет функцию из массива режимов
-                    text_to_speech("Вы вернулись в меню выбора режима блитца")
-                    print("Вы вернулись в меню выбора режима блитца")
+                    text_to_speech("Вы вернулись в меню выбора режима блиц-опроса")
+                    print("Вы вернулись в меню выбора режима блиц-опроса")
                 elif joystick_ans == 'l':
                     return
         elif joystick_ans == 'l':
             return
-        joystick_ans = listen_serial(ser)
+        joystick_ans = listen_serial(ser, "blitzModes")
 
 
 def reading_mode(ser, path):                                          # режим распознавания выведенных букв
@@ -65,8 +66,10 @@ def reading_mode(ser, path):                                          # режи
         ans = listen_symbol()
         if ans == ALF[i]:                                       # счёт очков
             correct_num += 1
+            text_to_speech("верно")
         else:
             wrong_num += 1
+            text_to_speech("неверно")
     [upd_flag, hs] = update_hs(path, correct_num, "reading")
     if upd_flag:
         text_to_speech("поздравляю, вы установили новый рекорд")
@@ -88,10 +91,12 @@ def writing_mode(ser, path):               # режим самостоятель
         text_to_speech(ALF[i])                                       #озвучивание буквы
         
         ans = listen_serial(ser)
-        if ans == ALF[i]:
+        if ans == ALF[i]:                                       # счёт очков
             correct_num += 1
+            text_to_speech("верно")
         else:
             wrong_num += 1
+            text_to_speech("неверно")
     [upd_flag, hs] = update_hs(path, correct_num, "writing")
     if upd_flag:
         text_to_speech("поздравляю, вы установили новый рекорд")

@@ -71,7 +71,8 @@ def startApp(ser):
             letter = braille_to_char(joystick_ans)
             if len(letter) != 0:
                 text_to_speech(letter)
-                # pronounce(letter)
+            else:
+                text_to_speech("неизвестный символ")
             printLine(letter, ser)
             text = text + letter
             print(text)
