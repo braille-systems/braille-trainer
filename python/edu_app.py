@@ -187,70 +187,69 @@ def initMenu():
     """
     Creating lessons, tests; filling them with proper steps.
     """
-    U0 = Unit(utype='lesson')
-    U0.title = 'Урок ноль - историческая справка.'
-    # U0.append(LessonStep('', '',comment='До определённого времени уделом слепого было нищенство - считалось, что недуг дан от Бога и ему нужно покориться.'))
-    U0.append(LessonStep('', '',
+    U = []
+    for i in range(5):
+        U.append(0)
+    U[0] = Unit(utype='lesson')
+    U[0].title = 'Урок ноль - историческая справка.'
+    # U[0].append(LessonStep('', '',comment='До определённого времени уделом слепого было нищенство - считалось, что недуг дан от Бога и ему нужно покориться.'))
+    U[0].append(LessonStep('', '',
                          comment='В эпоху Просвещения идеи гуманизма привели к осознанию в Европе необходимости образования слепых.'))
-    U0.append(LessonStep('', '',
+    U[0].append(LessonStep('', '',
                          comment='Первую единую азбуку для незрячих разработал Валентин Гаюи на рубеже восемнадцатого-девятнадцатого веков.'))
-    U0.append(LessonStep('', '',
+    U[0].append(LessonStep('', '',
                          comment='Валентин Гаюи родился в 1745 году в семье бедного ткача, но получил хорошее образование и стал чиновноком. Гаюи, увлекшись идеями просветителей, разработал линейный рельефный шрифт, которому стал обучать слепых. Скоро школа Гаюи приобрела известность, он обучил более шестидесяти человек, разработал специальный прибор для линейного письма - деревянный станок с горизонтально натянутыми струнами. Гаюи разработал первые карты и глобус для слепых.'))
-    U0.append(LessonStep('', '',
+    U[0].append(LessonStep('', '',
                          comment='Более ста лет на станках, созданных Гаюи, печаталась литература для незрячих. Были и аналоги, в том числе точечный шрифт Барбье, но они не пользовались такой популярностью.'))
-    U0.append(LessonStep('', '',
+    U[0].append(LessonStep('', '',
                          comment='Заслуга создания самой совершенной точечной системы для письма принадлежит Луи Брайлю.'))
-    U0.append(LessonStep('', '',
+    U[0].append(LessonStep('', '',
                          comment='Луи Брайль родился в 1809 году близ Парижа в семье шорника. В три года потерял зрение в результате несчастного случая. Окончил Парижский институт слепых, затем стал там преподавать.'))
-    U0.append(LessonStep('', '',
+    U[0].append(LessonStep('', '',
                          comment='Десять лет Луи Брайль разрабатывал свою систему, которая сначала не получила широкого признания. Лишь после смерти создателя систему оценили.'))
-    U0.append(LessonStep('', '',
+    U[0].append(LessonStep('', '',
                          comment='Шеститочие, положенное в основу системы, хорошо приспособлено для осязания. Шести точек как раз достаточно для изображения букв и знаков препинания, а больше не поместилось бы под подушечкой пальца.'))
-    U0.append(LessonStep('', '',
+    U[0].append(LessonStep('', '',
                          comment='По сей день шрифтом Брайля печатаются книги, ему учат во всех странах. Появились печатные машинки и дисплеи Брайля. Есть брайлевские таблицы и графики, ноты по Брайлю. Мы желаем Вам успешно освоить азбуку Брайля.'))
-    U2 = Unit(utype='lesson')
-    U2.title = 'Урок 2 - буквы А., Эм., У.'
-    U2.append(LessonStep('', '',
+
+    U[1] = Unit(utype='lesson')
+    U[1].title = 'Урок 1 - знакомство с шеститочием Брайля.'
+    U[1].append(LessonStep('', '%111111', comment='Шрифт Брайля кодирует кажду букву комбинацией точек в ячейке Брайля. Точки расположены в два столбца, по три точки в столбце'))
+    U[1].append(LessonStep('', '%100000', comment='Для удобства точки пронумерованы от одного до шести. Точка 1 в левом верхнем углу, ознакомьтесь с ней'))
+    U[1].append(LessonStep('', '%010000', comment='Дальше вниз идут точки 2 и 3. Потрогайте точку 2 - среднюю в левом столбце'))
+    U[1].append(LessonStep('', '%001000', comment='Точка 3 - нижняя в левом столбце'))
+    U[1].append(LessonStep('', '%000100', comment='В правом столбце сверху вниз идут точки 4, 5, 6. Сейчас выведена точка 4.'))
+    U[1].append(LessonStep('', '%000010', comment='Точка 5.'))
+    U[1].append(LessonStep('', '%000001', comment='Точка 6.'))
+    U[1].append(LessonStep('', '%100000', comment='Повторим точки заново: точка номер 1.'))
+    U[1].append(LessonStep('', '%010000', comment='Точка 2'))
+    U[1].append(LessonStep('', '%001000', comment='а это какая точка? Ответ на следующем шаге.'))
+    U[1].append(LessonStep('', '%001000', comment='Конечно же, это точка 3.'))
+    U[1].append(LessonStep('', '%000001', comment='Точка 6'))
+    U[1].append(LessonStep('', '%000010', comment='Точка 5'))
+    U[1].append(LessonStep('', '%000100', comment='Точка 4'))
+
+    #U[2] = Unit(utype='test')
+    #U[2].title = 'Тест 1 - номера точек'
+
+    U[2] = Unit(utype='lesson')
+    U[2].title = 'Урок 2 - буквы А., Эм., У.'
+    U[2].append(LessonStep('', '',
                          comment='Буквы изучаются не по алфавиту. Сначала мы изучим более простые буквы - А., ЭМ., У. .'))
-    U2.append(LessonStep('', 'а', comment='Потрогайте точку 1. Буква .А. обозначается точкой номер один'))
-    U2.append(LessonStep('', 'м', comment='Буква .Эм. - это комбинация точек 1, 3 и 4'))
-    U2.append(LessonStep('', 'ам', comment='а.м.'))
-    U2.append(LessonStep('', 'ма', comment='м.а.'))
-    U2.append(LessonStep('', 'мама', comment='мама'))
-    U2.append(LessonStep('', 'у',
+    U[2].append(LessonStep('', 'а', comment='Потрогайте точку 1. Буква .А. обозначается точкой номер один'))
+    U[2].append(LessonStep('', 'м', comment='Буква .Эм. - это комбинация точек 1, 3 и 4'))
+    U[2].append(LessonStep('', 'ам', comment='а.м.'))
+    U[2].append(LessonStep('', 'ма', comment='м.а.'))
+    U[2].append(LessonStep('', 'мама', comment='мама'))
+    U[2].append(LessonStep('', 'у',
                          comment='Последняя буква в этом уроке - буква .у. Попробуйте самостоятельно определить на ощупь номера точек, образующих букву у'))
-    U2.append(LessonStep('', 'у', comment='Правильный ответ: буква .у. - это точки 1, 3 и 6'))
-    U2.append(LessonStep('', 'ау', comment='а.у.'))
-    U2.append(LessonStep('', 'му', comment='м.у.'))
-    U2.append(LessonStep('', 'ум', comment='у.м.'))
-    U2.append(LessonStep('', 'ума', comment='у.м.а.'))
-    U2.append(LessonStep('', 'маму', comment='маму'))
-    U2.append(LessonStep('', '', comment='конец урока. Спасибо за терпение'))
-
-    U1 = Unit(utype='lesson')
-    U1.title = 'audio/live/lessons/1/lesson1Dots.wav'
-    less1 = LessonStep('audio/live/lessons/1/2Encodes.wav', '',
-                       comment='Шрифт Брайля кодирует кажду букву алфавита комбинацией точек в ячейке Брайля')
-    less2 = LessonStep('audio/live/lessons/1/3Consists.wav', '', comment='')
-    less3 = LessonStep('audio/live/lessons/1/4Enum.wav', '', comment='')
-    less4 = LessonStep('audio/live/lessons/1/5nowTouch.wav', '', comment='')
-    less5 = LessonStep('audio/live/lessons/1/6touch1.wav', '%100000', comment='Потрогайте точку 1')
-    less6 = LessonStep('audio/live/lessons/1/7touch2.wav', '%010000', comment='Потрогайте точку 2')
-    less7 = LessonStep('audio/live/lessons/1/8touch3.wav', '%001000', comment='Потрогайте точку 3')
-    less8 = LessonStep('audio/live/lessons/1/9touch4.wav', '%000100', comment='Потрогайте точку 4')
-    less9 = LessonStep('audio/live/lessons/1/10touch5.wav', '%000010', comment='Потрогайте точку 5')
-    less10 = LessonStep('audio/live/lessons/1/11touch6.wav', '%000001', comment='Потрогайте точку 6')
-
-    U1.append(less1)
-    U1.append(less2)
-    U1.append(less3)
-    U1.append(less4)
-    U1.append(less5)
-    U1.append(less6)
-    U1.append(less7)
-    U1.append(less8)
-    U1.append(less9)
-    U1.append(less10)
+    U[2].append(LessonStep('', 'у', comment='Правильный ответ: буква .у. - это точки 1, 3 и 6'))
+    U[2].append(LessonStep('', 'ау', comment='а.у.'))
+    U[2].append(LessonStep('', 'му', comment='м.у.'))
+    U[2].append(LessonStep('', 'ум', comment='у.м.'))
+    U[2].append(LessonStep('', 'ума', comment='у.м.а.'))
+    U[2].append(LessonStep('', 'маму', comment='маму'))
+    U[2].append(LessonStep('', '', comment='конец урока. Спасибо за терпение'))
 
     U1a = Unit(utype='lesson')
     U1a.title = 'audio/lesson1v2/title.wav'
@@ -290,7 +289,7 @@ def initMenu():
     Test1.append(less3)
     Test1.append(less4)
 
-    return [U0, U2, U1, U1a, Test1]
+    return [U[0], U[1], U[2], U1a, Test1]
 
 
 def startApp(ser):
