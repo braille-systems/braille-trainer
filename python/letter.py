@@ -15,5 +15,5 @@ class LetterWidget(QtWidgets.QWidget, Ui_LetterWidget):
 
         self.letter.setText(letter.upper())
         data = serial_hex.charToBraille(letter).replace('0', '.').replace('1', 'O')
-        data = data[0] + data[5] + '\n' + data[1] + data[4] + '\n' + data[2] + data[3]
+        data = data[0] + data[3] + '\n' + data[1] + data[4] + '\n' + data[2] + data[5]
         self.braille.setText(data)

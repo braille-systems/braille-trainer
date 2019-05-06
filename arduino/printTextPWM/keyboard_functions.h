@@ -36,6 +36,11 @@ void keyboard(int i, boolean b) {
     s = s + String(inputStates[k]);
   }
   if (reqState) {
+    //three lines above inserted when mess with dots numeration was detected
+    char t = s[3];
+    s[3] = s[5];
+    s[5] = t;
+    //--------------------------------------------------
     Serial.println(s);
     reqState = 0;
   }

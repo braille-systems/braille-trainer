@@ -52,7 +52,12 @@ void setAllInside() {
   }
 }
 
-void printString(String buf) {                     
+void printString(String buf) { 
+  //three lines above inserted when mess with dots numeration was detected
+    char t = buf[3];
+    buf[3] = buf[5];
+    buf[5] = t;
+    //--------------------------------------------------                    
   int i;
   for(i=0; i<6; i++) {
       if(buf.substring(i, i+1) == "1" && lastBuf.substring(i, i+1) == "0")

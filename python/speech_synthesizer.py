@@ -37,6 +37,18 @@ class Threader(Thread):
 #text_to_speech("а б в г д е ё ж з и й к л м н о п р с т у ф х ц ч")
   
 def text_to_speech(text):
+    if text == '.':
+        text = 'точка'
+    if text in '()':
+        text = 'скобка'
+    if text == '-':
+        text = 'тире'
+    if text == '!':
+        text = 'восклицательный знак'
+    if text == '?':
+        text = 'вопросительный знак'
+    if text == ':':
+        text = 'двоеточие'
     global thread
     if thread != None:
         thread.terminate()
