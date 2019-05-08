@@ -8,6 +8,7 @@ from listen import listen_symbol
 from listen_serial import listen_serial
 from serial_get_name import get_port_arduino
 from speech_synthesizer import text_to_speech
+from audio import playSoundByFilename
 
 
 def startApp(ser):
@@ -62,7 +63,7 @@ def reading_mode(ser, path):                                          # режи
     while wrong_num < 3:
         i = random.randint(0, 32)
         printLine(ALF[i], ser)                                  # вывод буквы на ячейку
-
+        playSoundByFilename('audio/std_msg/signal.wav')
         ans = listen_symbol()
         if ans == ALF[i]:                                       # счёт очков
             correct_num += 1
