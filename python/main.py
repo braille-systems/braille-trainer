@@ -6,6 +6,7 @@ import calculator
 import settings
 import serial
 import blitz
+import pushkin
 from audio import playSoundByFilename
 from listen_serial import listen_serial
 import time
@@ -92,6 +93,7 @@ def _app_menu(ser, apps):
 
 if __name__ == "__main__":
     apps = [
+        ['', pushkin.startApp, 'Пушкин. Маленькие Трагедии. Отрывки'],
         ['audio/apps/eduApp.wav', edu_app.startApp, 'уроки'],
         ['audio/apps/notesApp.wav', notes.startApp, 'заметки'],
         ['audio/apps/alphabetApp.wav', alphabet.startApp, 'азбука'],

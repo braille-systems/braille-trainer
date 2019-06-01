@@ -5,6 +5,7 @@
 """
 import serial
 import time
+import help
 import threading
 from serial_get_name import get_port_arduino
 # from audio import pronounce
@@ -215,7 +216,7 @@ def printBraille (brArray, ser):
     time.sleep(2)
 
     
-def printLine(line, ser):
+def printLine(line, ser, menuID = -1, letterWidget = -1):
     """
     Display string on Braille trainer.
 
@@ -232,11 +233,16 @@ def printLine(line, ser):
         data = charToBraille(line[i])
         print(data)
         ser.write(bytes(data, 'UTF-8'))
+        if letterWidget != -1:
+            letterWidge.setLetter(line[i]);
         # pronounce(line[i])
         time.sleep(2)
         if len(line) < 2: #if line is not long so break unnecessary
-            return
-        ans = listen_serial(ser, requiresReturn=True)
+            return ''
+        ans = listen_serial(ser, menuID, requiresReturn=True)
+        if ans == 'h':
+            help.instantHelp(menuID)
+            return ''
         if ans in 'ldru':
             print('breaking printLine due to joystick signal:' + ans)
             return ans
