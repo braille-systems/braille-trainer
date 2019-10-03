@@ -1,0 +1,59 @@
+%XeLaTeX+makeIndex+BibTeX
+
+\documentclass[a4paper,12pt]{article} %14pt - extarticle
+\usepackage[utf8]{inputenc} %русский язык, не менять
+\usepackage[T2A, T1]{fontenc} %русский язык, не менять
+\usepackage[english, russian]{babel} %русский язык, не менять
+\usepackage{fontspec} %различные шрифты
+\setmainfont{Times New Roman}
+\defaultfontfeatures{Ligatures={TeX},Renderer=Basic}
+\usepackage{hyperref} %гиперссылки
+\hypersetup{pdfstartview=FitH,  linkcolor=blue, urlcolor=blue, colorlinks=true} %гиперссылки
+\usepackage{subfiles}%включение тех-текста
+\usepackage{graphicx} %изображения
+\usepackage{float}%картинки где угодно
+\usepackage{textcomp}
+\usepackage{fancyvrb} %fancy verbatim for \VerbatimInput
+\usepackage{dsfont}%мат. символы
+\newcommand{\ovr}[1]{\overrightarrow{#1}} %своя команда для векторов: \ovr{a} вместо \overrightarrow{w}
+\usepackage{listings} %code formatting
+\lstset{language=python,
+	%keywordstyle=\color{blue},
+	%commentstyle=\color{},
+	%stringstyle=\color{red},
+	tabsize=1,
+	breaklines=true,
+	columns=fullflexible,
+	%numbers=left,
+	escapechar=@,
+	morekeywords={numpy, np}
+}
+
+
+
+\begin{document}
+	
+\section{Устройство вывода тактильной информации для реабилитации незрячих <<Тренажёр Брайля>>}
+
+\textit{Актуальность}.
+[Всё больше незрячих, всё меньше грамотных по Брайлю (цифры!)]. 
+[Тезисы из аудио из реабилитац. центра].
+[Есть дисплеи, но они дороги (ссылки по ГОСТу!). Причины дороговизны: точная электромеханика, мелкосерийное производство].
+Предприняты многочисленные попытки создания механических аналогов дисплея Брайля, не получившие развития (ссылки). В данной работе предлагаются конструкции, оптимизированные для изготовления на 3Д-принтере, что упрощает и удешевляет мелкосерийное производство. Исследованы факторы, ограничивающие применение аддитивных технологий в изготовлении миниатюрной механики.
+
+См. прошлые материалы: doc/, wiki, папка на гугл-диске. Особенно см. тезисы к школе ФабЛаб.
+
+\textit{Ход работы}.
+
+a. Первая конструкция. Размеры деталей велики.
+
+б. Вторая конструкция. Размеры уменьшены.
+
+в. Третья конструкция. Появляются всё более мелкие детали.
+Проблемы: непостоянный размер, слоистые (отсюда трение, необходимость зазоров).
+Пример: напечатанные штыри разных размеров.
+
+\textit{Выводы}.
+Будем повышать качество 3Д-печати; возможно, пост-обрабатывать. Применим фотополимерную печать.
+
+\end{document}
